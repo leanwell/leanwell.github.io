@@ -80,15 +80,13 @@ section {
   background-size: cover;
   background-position: center center;
   z-index: -1;
-  -webkit-transition: scale(1);
-  transition: scale(1);
 }
 
 .left-col h1 {
   font-size: 2.5em;
   font-weight: 600;
   line-height: 1.3em;
-  margin-top: 20%;
+  margin-top: 50%;
 }
 
 .left-col p {
