@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | QR Link</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,600;0,700;1,200;1,400&display=swap" rel="stylesheet">
+
+
+
+
+
+
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hi, I'm Linwel Colmo!</h1>
+        <p>You probably see this because you scanned the QR code at the back of the phone.</p>
+        <div class="links">
+            <ul>
+                <li id="phoneLink"><a href="#"><i class="fa-solid fa-phone"></i> Phone Number</a></li>
+                <li id="emailLink"><a href="#"><i class="fa-solid fa-envelope"></i> Email</a></li>
+                <li id="facebookLink"><a href="#"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+                <li id="instagramLink"><a href="#"><i class="fa-brands fa-square-instagram"></i> Instagram</a></li>
+                <li id="emergencyLink"><a href="#"><i class="fa-solid fa-circle-exclamation"></i> Emergency Contact</a></li>
+            </ul>
+        </div>
+        <p>Quick phone specs: Samsung Galaxy J7 Prime 2 Color Black with Black case</p>
+    </div>
+
+
+    <div class="popup" id="phone">
+        Phone Number: +639 517 488 997 (Linwel Colmo) <br>
+        <a href="#" class="closePopup">Close</a>
+      </div>
+    
+      <div class="popup" id="email">
+        Email: linwel.colmo87@gmail.com <br>
+        <a href="#" class="closePopup">Close</a>
+      </div>
+    
+      <div class="popup" id="facebook">
+        Facebook: facebook.com/leanwell2 <br>
+        <a href="#" class="closePopup">Close</a>
+      </div>
+    
+      <div class="popup" id="instagram">
+        Instagram: @leanwell_ <br>
+        <a href="#" class="closePopup">Close</a>
+      </div>
+    
+      <div class="popup" id="emergency">
+        Emergency Contact: +639 291 842 364 (Alexander Colmo) <br>
+        <a href="#" class="closePopup">Close</a>
+      </div>
+
+</body>
+
+
+<script src="https://kit.fontawesome.com/68bf1deb17.js" crossorigin="anonymous"></script>
+
+
+<script>
+    function togglePopup(popupId) {
+      var popup = document.getElementById(popupId);
+      if (popup.style.display === 'block') {
+        popup.style.display = 'none';
+      } else {
+        var popups = document.querySelectorAll('.popup');
+        popups.forEach(function(item) {
+          item.style.display = 'none';
+        });
+        popup.style.display = 'block';
+      }
+    }
+
+    document.getElementById('phoneLink').addEventListener('click', function(event) {
+      event.preventDefault();
+      togglePopup('phone');
+    });
+
+    document.getElementById('emailLink').addEventListener('click', function(event) {
+      event.preventDefault();
+      togglePopup('email');
+    });
+
+    document.getElementById('facebookLink').addEventListener('click', function(event) {
+      event.preventDefault();
+      togglePopup('facebook');
+    });
+
+    document.getElementById('instagramLink').addEventListener('click', function(event) {
+      event.preventDefault();
+      togglePopup('instagram');
+    });
+
+    document.getElementById('emergencyLink').addEventListener('click', function(event) {
+      event.preventDefault();
+      togglePopup('emergency');
+    });
+
+    var closeButtons = document.querySelectorAll('.closePopup');
+    closeButtons.forEach(function(button) {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var popup = button.parentNode;
+        popup.style.display = 'none';
+      });
+    });
+  </script>
+</html>
