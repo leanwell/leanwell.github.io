@@ -1,2 +1,10 @@
 
-hehehe
+// hehehe
+
+* {
+  font-family: sans-serif, arial;
+}
+
+.h2 {
+  text-align: center;
+}
