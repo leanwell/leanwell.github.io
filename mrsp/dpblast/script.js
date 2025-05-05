@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Event listeners for existing features
     document.getElementById('upload').addEventListener('change', handleImageUpload);
     document.getElementById('zoom').addEventListener('input', handleZoom);
     document.getElementById('download').addEventListener('click', downloadImage);
-    
-    // Event listeners for the new text input and copy-to-clipboard feature
     document.getElementById('generate').addEventListener('click', generateParagraph);
     document.getElementById('copy').addEventListener('click', copyToClipboard);
 
@@ -14,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let frame = new Image();
     let zoomLevel = 1;
 
-    // Load the main frame
+    //frame
     frame.src = 'mainframe.png';
     frame.onload = () => drawImage();
 
