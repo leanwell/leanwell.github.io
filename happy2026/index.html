@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Fireworks 2026 (Smooth Tour)</title>
+    
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #02040a; font-family: 'Segoe UI', sans-serif; }
+        #canvas-container { width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1; }
+        
+        #hud-container {
+            position: absolute; bottom: 20px; left: 20px; z-index: 100;
+            display: flex; align-items: flex-end; gap: 15px;
+        }
+
+        #camera-feed {
+            width: 200px; height: 150px; border-radius: 12px; overflow: hidden;
+            border: 3px solid #333; background: #000; position: relative;
+            transform: scaleX(-1);
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        
+        video { width: 100%; height: 100%; object-fit: cover; }
+
+        #gesture-info {
+            background: rgba(0, 0, 0, 0.85); padding: 15px 25px; border-radius: 12px;
+            text-align: left; border-left: 4px solid #555; 
+            min-width: 140px; transition: border-color 0.3s;
+        }
+
+        #gesture-label { color: #888; font-size: 12px; text-transform: uppercase; margin-bottom: 2px; }
+        #current-gesture { color: white; font-size: 24px; font-weight: bold; margin: 0; white-space: nowrap; }
+        #sub-gesture { color: #aaa; font-size: 14px; margin-top: 4px; }
+
+        #loading-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #02040a; color: #ffd700; z-index: 200;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            transition: opacity 1s;
+        }
+        .loader {
+            width: 40px; height: 40px; border: 4px solid #333; border-top: 4px solid #ffd700;
+            border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/FontLoader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/geometries/TextGeometry.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <div id="loading-overlay">
+        <div class="loader"></div>
+        <div id="loading-text">Initializing AI & Graphics...</div>
+    </div>
+
+    <div id="hud-container">
+        <div id="camera-feed">
+            <video id="video" playsinline muted autoplay></video>
+        </div>
+        <div id="gesture-info">
+            <div id="gesture-label">Detected Action</div>
+            <div id="current-gesture">Loading...</div>
+            <div id="sub-gesture">-</div>
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script>
+        const PROJECT_URL = 'https://amnnnlxcezdfhogqvhfg.supabase.co';
+        const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtbm5ubHhjZXpkZmhvZ3F2aGZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzODY3NTAsImV4cCI6MjA3OTk2Mjc1MH0.Z6TfpTfDbnF6I58ggwnWO_HVA_FDm3tKY_f2RGppdsc';
+        const supabaseClient = window.supabase.createClient(PROJECT_URL, ANON_KEY);
+
+        // --- STATE ---
+        const STATE = {
+            hand: 'CLOSED', 
+            targetZoom: 280, 
+            velY: 0, targetVelY: 0, 
+            velX: 0, targetVelX: 0,
+            
+            // Tour
+            tourMode: false,
+            tourIndex: 0,
+            lastTourSwitch: 0
+        };
+
+        const video = document.getElementById('video');
+        const gestureText = document.getElementById('current-gesture');
+        const subText = document.getElementById('sub-gesture');
+        const hudBox = document.getElementById('gesture-info');
+        let detector;
+
+        async function initAI() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { width: 640, height: 480 }, audio: false 
+                });
+                video.srcObject = stream;
+                await new Promise(r => video.onloadedmetadata = r);
+                video.play();
+
+                const model = handPoseDetection.SupportedModels.MediaPipeHands;
+                const config = {
+                    runtime: 'mediapipe', 
+                    solutionPath: 'https://cdn.jsdelivr.net/npm/@mediapipe/hands',
+                    modelType: 'full', 
+                    maxHands: 1
+                };
+                detector = await handPoseDetection.createDetector(model, config);
+                detectLoop();
+            } catch (e) {
+                console.error("AI Error:", e);
+            }
+        }
+
+        async function detectLoop() {
+            if (!detector) return;
+            try {
+                const hands = await detector.estimateHands(video);
+                
+                if (hands.length > 0) {
+                    const hand = hands[0];
+                    const logic = analyzeHand(hand.keypoints);
+                    
+                    gestureText.innerText = logic.label;
+                    subText.innerText = logic.sub;
+                    hudBox.style.borderColor = logic.color;
+
+                    if (logic.action === 'AUTO_PILOT') {
+                        if (!STATE.tourMode) {
+                            STATE.tourMode = true;
+                            STATE.tourIndex = 0;
+                            STATE.hand = 'OPEN'; 
+                        }
+                    } else if (logic.action !== 'IDLE') {
+                        STATE.tourMode = false;
+                    }
+
+                    if (!STATE.tourMode) {
+                        // Manual Controls
+                        const tiltY = logic.angle - (-Math.PI/2);
+                        if (Math.abs(tiltY) < 0.3) STATE.targetVelY = 0;
+                        else STATE.targetVelY = -tiltY * 0.03; 
+
+                        if (logic.action === 'TILT_UP') STATE.targetVelX = -0.015; 
+                        else if (logic.action === 'TILT_DOWN') STATE.targetVelX = 0.015;
+                        else STATE.targetVelX = 0;
+
+                        const zoomSpeed = 3; 
+                        if (logic.action === 'ZOOM_IN') STATE.targetZoom -= zoomSpeed; 
+                        else if (logic.action === 'ZOOM_OUT') STATE.targetZoom += zoomSpeed;
+                        STATE.targetZoom = Math.max(50, Math.min(600, STATE.targetZoom));
+
+                        if (logic.action === 'OPEN') STATE.hand = 'OPEN';
+                        else if (logic.action === 'CLOSED') STATE.hand = 'CLOSED';
+                    }
+
+                } else {
+                    gestureText.innerText = "NO HAND";
+                    subText.innerText = STATE.tourMode ? "Auto Tour Active" : "Holding State";
+                    hudBox.style.borderColor = "#333";
+                    
+                    if (!STATE.tourMode) {
+                        STATE.targetVelY = 0;
+                        STATE.targetVelX = 0;
+                        STATE.hand = 'CLOSED';
+                    }
+                }
+            } catch (e) {}
+            requestAnimationFrame(detectLoop);
+        }
+
+        function analyzeHand(kp) {
+            const dist = (i, j) => Math.hypot(kp[i].x - kp[j].x, kp[i].y - kp[j].y);
+            const isExtended = (tip, pip) => dist(0, tip) > dist(0, pip) * 1.2;
+
+            const dx = kp[9].x - kp[0].x;
+            const dy = kp[9].y - kp[0].y;
+            const angle = Math.atan2(dy, dx); 
+
+            const fingers = [
+                dist(0, 4) > dist(0, 3) * 1.1, 
+                isExtended(8, 6),   
+                isExtended(12, 10), 
+                isExtended(16, 14), 
+                isExtended(20, 18)  
+            ];
+            
+            const count = fingers.filter(f => f).length;
+
+            if (fingers[0] && !fingers[1] && !fingers[2] && !fingers[3] && !fingers[4]) {
+                return { label: "THUMB UP 👍", sub: "Start Auto Tour", color: "#00ff00", action: "AUTO_PILOT", angle };
+            }
+
+            if (count === 5) return { label: "OPEN 🖐", sub: "Explode", color: "#00ff00", action: "OPEN", angle };
+            if (count === 0) return { label: "CLOSED ✊", sub: "Reset", color: "#ff0000", action: "CLOSED", angle };
+
+            if (count === 3 && fingers[1] && fingers[2] && fingers[3]) {
+                return { label: "THREE 🤟", sub: "Rotate Up", color: "#ffa500", action: "TILT_UP", angle };
+            }
+            if (count === 4 && !fingers[0]) {
+                return { label: "FOUR 🖖", sub: "Rotate Down", color: "#ff00ff", action: "TILT_DOWN", angle };
+            }
+
+            if (fingers[1] && fingers[2] && count === 2) {
+                return { label: "PEACE ✌️", sub: "Zoom In", color: "#00ffff", action: "ZOOM_IN", angle };
+            }
+            if (fingers[1] && count === 1) {
+                return { label: "ONE ☝️", sub: "Zoom Out", color: "#ffff00", action: "ZOOM_OUT", angle };
+            }
+            
+            return { label: "...", sub: "Rotate Hand to Spin", color: "#555", action: "IDLE", angle };
+        }
+
+        const CONFIG = {
+            particleCount: 4000, 
+            boxSize: 10,
+            explosionRadius: 100,
+            radiusMin: 60, radiusMax: 150,
+            imageSquareSize: 22 
+        };
+
+        let scene, camera, renderer, textGroup, magicBox, particleSystem, profilesGroup;
+        let positions = { initial: [], target: [] };
+
+        async function initThree() {
+            const container = document.getElementById('canvas-container');
+            
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x02040a, 0.002);
+
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1500);
+            camera.position.z = 280;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            container.appendChild(renderer.domElement);
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            const pLight = new THREE.PointLight(0xffd700, 1.5, 600);
+            pLight.position.set(50, 50, 100);
+            scene.add(pLight);
+            const fLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            fLight.position.set(0, 0, 1);
+            scene.add(fLight);
+
+            const boxGeo = new THREE.BoxGeometry(CONFIG.boxSize, CONFIG.boxSize, CONFIG.boxSize);
+            const boxMat = new THREE.MeshStandardMaterial({ color: 0x880000, metalness: 0.8, roughness: 0.3 });
+            magicBox = new THREE.Mesh(boxGeo, boxMat);
+            scene.add(magicBox);
+
+            const loader = new THREE.FontLoader();
+            const fontPromise = new Promise(resolve => loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/fonts/droid/droid_serif_bold.typeface.json', resolve));
+            const dataPromise = fetchProfiles();
+
+            const [font, profiles] = await Promise.all([fontPromise, dataPromise]);
+            createSceneObjects(font, profiles || []);
+            
+            document.getElementById('loading-overlay').style.opacity = '0';
+            setTimeout(() => document.getElementById('loading-overlay').style.display = 'none', 1000);
+            
+            initAI(); 
+            animate();
+        }
+
+        async function fetchProfiles() {
+            const { data, error } = await supabaseClient.from('profiles').select('name, image_url').limit(50);
+            if (error) { console.error(error); return []; }
+            return data;
+        }
+
+        function createSceneObjects(font, profiles) {
+            textGroup = new THREE.Group();
+            const tMat = new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 1, roughness: 0.2, emissive: 0x443300, emissiveIntensity: 0.3 });
+            const addLine = (str, y) => {
+                const geo = new THREE.TextGeometry(str, { font: font, size: 18.75, height: 4, curveSegments: 12, bevelEnabled: true, bevelThickness: 1, bevelSize: 0.5 });
+                geo.center();
+                const m = new THREE.Mesh(geo, tMat);
+                m.position.y = y;
+                textGroup.add(m);
+            };
+            addLine('HAPPY', 25); addLine('NEW YEAR', 0); addLine('2026', -25);
+            textGroup.scale.set(0,0,0);
+            scene.add(textGroup);
+
+            const pGeo = new THREE.BufferGeometry();
+            const pos = new Float32Array(CONFIG.particleCount*3);
+            const col = new Float32Array(CONFIG.particleCount*3);
+            const color = new THREE.Color();
+            for(let i=0; i<CONFIG.particleCount; i++) {
+                const ix = (Math.random()-0.5)*CONFIG.boxSize*0.8;
+                const iy = (Math.random()-0.5)*CONFIG.boxSize*0.8;
+                const iz = (Math.random()-0.5)*CONFIG.boxSize*0.8;
+                pos[i*3]=ix; pos[i*3+1]=iy; pos[i*3+2]=iz;
+                positions.initial.push(new THREE.Vector3(ix,iy,iz));
+                
+                const theta = Math.random()*Math.PI*2;
+                const phi = Math.acos((Math.random()*2)-1);
+                const r = 50 + Math.random()*CONFIG.explosionRadius;
+                positions.target.push(new THREE.Vector3(r*Math.sin(phi)*Math.cos(theta), r*Math.sin(phi)*Math.sin(theta), r*Math.cos(phi)));
+                
+                if(Math.random()>0.9) color.setHex(0xffffff); else if(Math.random()>0.6) color.setHex(0xffd700); else color.setHex(0xff8800);
+                col[i*3]=color.r; col[i*3+1]=color.g; col[i*3+2]=color.b;
+            }
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            pGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            
+            const sprite = generateSprite();
+            const pMat = new THREE.PointsMaterial({ size: 3, map: sprite, vertexColors: true, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0.8 });
+            particleSystem = new THREE.Points(pGeo, pMat);
+            scene.add(particleSystem);
+
+            profilesGroup = new THREE.Group();
+            const texLoader = new THREE.TextureLoader();
+            texLoader.crossOrigin = "Anonymous"; 
+            const squareGeo = new THREE.PlaneGeometry(CONFIG.imageSquareSize, CONFIG.imageSquareSize);
+
+            profiles.forEach(p => {
+                if(p.image_url) {
+                    const pos = getRandomPosition(CONFIG.radiusMin, CONFIG.radiusMax);
+                    const tex = texLoader.load(p.image_url);
+                    tex.encoding = THREE.sRGBEncoding;
+                    const m = new THREE.Mesh(squareGeo, new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide }));
+                    m.position.set(pos.x, pos.y, pos.z);
+                    profilesGroup.add(m);
+                }
+                if(p.name) {
+                    const pos = getRandomPosition(CONFIG.radiusMin, CONFIG.radiusMax);
+                    const g = new THREE.TextGeometry(p.name, { font: font, size: 3.5, height: 0.1 });
+                    g.center();
+                    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: 0xffffff }));
+                    m.position.set(pos.x, pos.y, pos.z);
+                    profilesGroup.add(m);
+                }
+            });
+            profilesGroup.scale.set(0,0,0);
+            scene.add(profilesGroup);
+        }
+
+        function generateSprite() {
+            const c = document.createElement('canvas'); c.width=32; c.height=32;
+            const ctx=c.getContext('2d');
+            const g=ctx.createRadialGradient(16,16,0,16,16,16);
+            g.addColorStop(0, 'rgba(255,255,255,1)');
+            g.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle=g; ctx.fillRect(0,0,32,32);
+            return new THREE.CanvasTexture(c);
+        }
+
+        function getRandomPosition(min, max) {
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            const r = min + Math.random() * (max - min);
+            return { x: r*Math.sin(phi)*Math.cos(theta), y: r*Math.sin(phi)*Math.sin(theta), z: r*Math.cos(phi) };
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if(!particleSystem) return;
+
+            // --- AUTO TOUR LOGIC ---
+            // Only run if we actually have profiles to look at
+            if (STATE.tourMode && profilesGroup && profilesGroup.children.length > 0) {
+                // Slower Switch (2.5s) to allow smoothing to settle
+                const now = Date.now();
+                if (now - STATE.lastTourSwitch > 2500) { 
+                    STATE.tourIndex = (STATE.tourIndex + 1) % profilesGroup.children.length;
+                    STATE.lastTourSwitch = now;
+                }
+
+                const targetObj = profilesGroup.children[STATE.tourIndex];
+                const pos = targetObj.position;
+
+                // 1. Dynamic Zoom: Stop 50 units in front of the specific image
+                const dist = Math.sqrt(pos.x*pos.x + pos.y*pos.y + pos.z*pos.z);
+                STATE.targetZoom = dist + 50; 
+
+                // 2. Rotate to Front
+                const rotY = -Math.atan2(pos.x, pos.z); 
+                const rotX = Math.atan2(pos.y, Math.sqrt(pos.x*pos.x + pos.z*pos.z));
+
+                // 3. Very Smooth Transition (0.05 factor)
+                particleSystem.rotation.y += (rotY - particleSystem.rotation.y) * 0.05;
+                particleSystem.rotation.x += (rotX - particleSystem.rotation.x) * 0.05;
+
+            } else {
+                // --- MANUAL PHYSICS ---
+                STATE.velY += (STATE.targetVelY - STATE.velY) * 0.02;
+                particleSystem.rotation.y += STATE.velY;
+
+                STATE.velX += (STATE.targetVelX - STATE.velX) * 0.02;
+                particleSystem.rotation.x += STATE.velX;
+            }
+
+            // Sync Scene Rotation
+            const ry = particleSystem.rotation.y;
+            const rx = particleSystem.rotation.x;
+
+            textGroup.rotation.y = ry; textGroup.rotation.x = rx;
+            if(profilesGroup) {
+                profilesGroup.rotation.y = ry;
+                profilesGroup.rotation.x = rx;
+            }
+            magicBox.rotation.y = ry; magicBox.rotation.x = rx;
+            magicBox.rotation.z += 0.01;
+
+            // Camera Zoom
+            // Lower Lerp (0.03) for smoother auto-zoom arrival
+            const zoomLerp = STATE.tourMode ? 0.03 : 0.05; 
+            camera.position.z += (STATE.targetZoom - camera.position.z) * zoomLerp;
+
+            // Open/Close
+            const open = (STATE.hand === 'OPEN');
+            const lerp = 0.05;
+            textGroup.scale.lerp(new THREE.Vector3(open?1:0, open?1:0, open?1:0), lerp);
+            magicBox.scale.lerp(new THREE.Vector3(open?0:1, open?0:1, open?0:1), lerp);
+            
+            // --- 360 FACE LOCKING ---
+            // This ensures images always face the camera, even during X/Y rotations
+            if(profilesGroup) {
+                profilesGroup.scale.lerp(new THREE.Vector3(open?1:0, open?1:0, open?1:0), lerp);
+                profilesGroup.children.forEach(c => {
+                    // Cancel out parent rotation
+                    c.rotation.x = -rx;
+                    c.rotation.y = -ry;
+                    c.rotation.z = 0;
+                });
+            }
+
+            const pos = particleSystem.geometry.attributes.position.array;
+            for(let i=0; i<CONFIG.particleCount; i++) {
+                let tx, ty, tz;
+                if(open) {
+                    tx = positions.target[i].x; ty = positions.target[i].y; tz = positions.target[i].z;
+                } else {
+                    tx = positions.initial[i].x; ty = positions.initial[i].y; tz = positions.initial[i].z;
+                }
+                const ix = i*3;
+                pos[ix] += (tx - pos[ix]) * lerp;
+                pos[ix+1] += (ty - pos[ix+1]) * lerp;
+                pos[ix+2] += (tz - pos[ix+2]) * lerp;
+            }
+            particleSystem.geometry.attributes.position.needsUpdate = true;
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth/window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        initThree();
+    </script>
+</body>
+</html>
