@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be part of Wel's 2025!</title>
+    <style>
+        :root {
+            --primary: #150050;
+            --secondary: #3ecf8e;
+            --bg: #29009b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+            z-index: 10;
+        }
+        h2 { margin-top: 0; color: #333; text-align: center; }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: #555; }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus { border-color: var(--bg); }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+        button:active { transform: scale(0.98); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        /* Loader Styles */
+        #loader-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(21, 0, 80, 0.9);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top: 5px solid var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #status { margin-top: 1rem; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div id="loader-overlay">
+    <div class="spinner"></div>
+    <div id="loader-text">Uploading to 2025...</div>
+</div>
+
+<div class="card">
+    <h2>Be Part of my 2025🫣</h2>
+    <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="userName" placeholder="What should I call you?">
+    </div>
+    <div class="form-group">
+        <label>Picture (Optional,2MB)💅🏻</label>
+        <input type="file" id="userImage" accept="image/*">
+    </div>
+    <button id="submitBtn">Submit Entry</button>
+    <div id="status"></div>
+</div>
+
+<script>
+    
+    const PROJECT_URL = 'https://amnnnlxcezdfhogqvhfg.supabase.co';
+
+    //GONNA DELETE THIS KEY IN SUPABASE AFTER A MONTH
+
+    const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtbm5ubHhjZXpkZmhvZ3F2aGZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzODY3NTAsImV4cCI6MjA3OTk2Mjc1MH0.Z6TfpTfDbnF6I58ggwnWO_HVA_FDm3tKY_f2RGppdsc';
+
+
+
+    const submitBtn = document.getElementById('submitBtn');
+    const status = document.getElementById('status');
+    const loader = document.getElementById('loader-overlay');
+
+    submitBtn.addEventListener('click', async () => {
+        const name = document.getElementById('userName').value;
+        const fileInput = document.getElementById('userImage');
+        const file = fileInput.files[0];
+
+        if (!name.trim()) return alert('Please enter your name!');
+
+        loader.style.display = 'flex';
+        submitBtn.disabled = true;
+        status.innerText = "";
+
+        try {
+            let imageUrl = null;
+
+            
+            if (file) {
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExt}`;
+                const uploadUrl = `${PROJECT_URL}/storage/v1/object/avatars/${fileName}`;
+
+                const uploadRes = await fetch(uploadUrl, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': ANON_KEY,
+                        'Authorization': `Bearer ${ANON_KEY}`,
+                        'Content-Type': file.type
+                    },
+                    body: file
+                });
+
+                if (!uploadRes.ok) throw new Error('Image upload failed. Check Storage RLS.');
+                
+                imageUrl = `${PROJECT_URL}/storage/v1/object/public/avatars/${fileName}`;
+            }
+
+            
+            const dbRes = await fetch(`${PROJECT_URL}/rest/v1/profiles`, {
+                method: 'POST',
+                headers: {
+                    'apikey': ANON_KEY,
+                    'Authorization': `Bearer ${ANON_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({ 
+                    name: name, 
+                    image_url: imageUrl 
+                })
+            });
+
+            if (dbRes.ok) {
+                status.style.color = "green";
+                status.innerText = "Yay! See you in 2025! ✨";
+                
+                document.getElementById('userName').value = "";
+                document.getElementById('userImage').value = "";
+            } else {
+                throw new Error('Database save failed. Check Table RLS.');
+            }
+
+        } catch (err) {
+            status.style.color = "red";
+            status.innerText = "Error: " + err.message;
+        } finally {
+            
+            loader.style.display = 'none';
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>
