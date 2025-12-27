@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Fireworks 2026 (Smooth Tour)</title>
+    <title>Thank You 2025 Pips! - Wel</title>
     
     <style>
         body { margin: 0; overflow: hidden; background-color: #02040a; font-family: 'Segoe UI', sans-serif; }
@@ -58,7 +58,7 @@
 
     <div id="loading-overlay">
         <div class="loader"></div>
-        <div id="loading-text">Initializing AI & Graphics...</div>
+        <div id="loading-text">Wait ka jan...</div>
     </div>
 
     <div id="hud-container">
@@ -82,14 +82,19 @@
         // --- STATE ---
         const STATE = {
             hand: 'CLOSED', 
-            targetZoom: 280, 
+            targetZoom: 280, // Default Z
+            
+            // Manual Physics
             velY: 0, targetVelY: 0, 
             velX: 0, targetVelX: 0,
             
             // Tour
             tourMode: false,
             tourIndex: 0,
-            lastTourSwitch: 0
+            lastTourSwitch: 0,
+            
+            // Camera Target Position (For Tour)
+            camTargetPos: new THREE.Vector3(0, 0, 280) 
         };
 
         const video = document.getElementById('video');
@@ -134,18 +139,23 @@
                     subText.innerText = logic.sub;
                     hudBox.style.borderColor = logic.color;
 
+                    // --- 1. TOUR MODE TRIGGER ---
                     if (logic.action === 'AUTO_PILOT') {
                         if (!STATE.tourMode) {
                             STATE.tourMode = true;
                             STATE.tourIndex = 0;
                             STATE.hand = 'OPEN'; 
+                            STATE.targetVelY = 0; // Stop spin
+                            STATE.targetVelX = 0;
                         }
                     } else if (logic.action !== 'IDLE') {
                         STATE.tourMode = false;
+                        // Reset camera target to center on manual exit
+                        STATE.camTargetPos.set(0, 0, STATE.targetZoom);
                     }
 
+                    // --- 2. MANUAL CONTROLS ---
                     if (!STATE.tourMode) {
-                        // Manual Controls
                         const tiltY = logic.angle - (-Math.PI/2);
                         if (Math.abs(tiltY) < 0.3) STATE.targetVelY = 0;
                         else STATE.targetVelY = -tiltY * 0.03; 
@@ -158,6 +168,9 @@
                         if (logic.action === 'ZOOM_IN') STATE.targetZoom -= zoomSpeed; 
                         else if (logic.action === 'ZOOM_OUT') STATE.targetZoom += zoomSpeed;
                         STATE.targetZoom = Math.max(50, Math.min(600, STATE.targetZoom));
+                        
+                        // Update Manual Camera Target (Center Z)
+                        STATE.camTargetPos.set(0, 0, STATE.targetZoom);
 
                         if (logic.action === 'OPEN') STATE.hand = 'OPEN';
                         else if (logic.action === 'CLOSED') STATE.hand = 'CLOSED';
@@ -203,19 +216,11 @@
             if (count === 5) return { label: "OPEN 🖐", sub: "Explode", color: "#00ff00", action: "OPEN", angle };
             if (count === 0) return { label: "CLOSED ✊", sub: "Reset", color: "#ff0000", action: "CLOSED", angle };
 
-            if (count === 3 && fingers[1] && fingers[2] && fingers[3]) {
-                return { label: "THREE 🤟", sub: "Rotate Up", color: "#ffa500", action: "TILT_UP", angle };
-            }
-            if (count === 4 && !fingers[0]) {
-                return { label: "FOUR 🖖", sub: "Rotate Down", color: "#ff00ff", action: "TILT_DOWN", angle };
-            }
+            if (count === 3 && fingers[1] && fingers[2] && fingers[3]) return { label: "THREE 🤟", sub: "Rotate Up", color: "#ffa500", action: "TILT_UP", angle };
+            if (count === 4 && !fingers[0]) return { label: "FOUR 🖖", sub: "Rotate Down", color: "#ff00ff", action: "TILT_DOWN", angle };
 
-            if (fingers[1] && fingers[2] && count === 2) {
-                return { label: "PEACE ✌️", sub: "Zoom In", color: "#00ffff", action: "ZOOM_IN", angle };
-            }
-            if (fingers[1] && count === 1) {
-                return { label: "ONE ☝️", sub: "Zoom Out", color: "#ffff00", action: "ZOOM_OUT", angle };
-            }
+            if (fingers[1] && fingers[2] && count === 2) return { label: "PEACE ✌️", sub: "Zoom In", color: "#00ffff", action: "ZOOM_IN", angle };
+            if (fingers[1] && count === 1) return { label: "ONE ☝️", sub: "Zoom Out", color: "#ffff00", action: "ZOOM_OUT", angle };
             
             return { label: "...", sub: "Rotate Hand to Spin", color: "#555", action: "IDLE", angle };
         }
@@ -368,10 +373,9 @@
             requestAnimationFrame(animate);
             if(!particleSystem) return;
 
-            // --- AUTO TOUR LOGIC ---
-            // Only run if we actually have profiles to look at
+            // --- AUTO TOUR LOGIC (Camera Move) ---
             if (STATE.tourMode && profilesGroup && profilesGroup.children.length > 0) {
-                // Slower Switch (2.5s) to allow smoothing to settle
+                // 1. Timer Switch
                 const now = Date.now();
                 if (now - STATE.lastTourSwitch > 2500) { 
                     STATE.tourIndex = (STATE.tourIndex + 1) % profilesGroup.children.length;
@@ -381,17 +385,19 @@
                 const targetObj = profilesGroup.children[STATE.tourIndex];
                 const pos = targetObj.position;
 
-                // 1. Dynamic Zoom: Stop 50 units in front of the specific image
-                const dist = Math.sqrt(pos.x*pos.x + pos.y*pos.y + pos.z*pos.z);
-                STATE.targetZoom = dist + 50; 
-
-                // 2. Rotate to Front
-                const rotY = -Math.atan2(pos.x, pos.z); 
-                const rotX = Math.atan2(pos.y, Math.sqrt(pos.x*pos.x + pos.z*pos.z));
-
-                // 3. Very Smooth Transition (0.05 factor)
-                particleSystem.rotation.y += (rotY - particleSystem.rotation.y) * 0.05;
-                particleSystem.rotation.x += (rotX - particleSystem.rotation.x) * 0.05;
+                // 2. Calculate Camera Position just in front of object
+                // We want to be 50 units away from the object, along the vector from center
+                const dist = pos.length();
+                const scalar = (dist + 60) / dist; // Position slightly outside
+                
+                STATE.camTargetPos.set(pos.x * scalar, pos.y * scalar, pos.z * scalar);
+                
+                // 3. Stop World Rotation (Freeze scene so camera can move around it)
+                STATE.targetVelY = 0; 
+                STATE.targetVelX = 0;
+                // Gently reset world rotation to 0 to align coordinate systems
+                particleSystem.rotation.x += (0 - particleSystem.rotation.x) * 0.05;
+                particleSystem.rotation.y += (0 - particleSystem.rotation.y) * 0.05;
 
             } else {
                 // --- MANUAL PHYSICS ---
@@ -414,10 +420,10 @@
             magicBox.rotation.y = ry; magicBox.rotation.x = rx;
             magicBox.rotation.z += 0.01;
 
-            // Camera Zoom
-            // Lower Lerp (0.03) for smoother auto-zoom arrival
-            const zoomLerp = STATE.tourMode ? 0.03 : 0.05; 
-            camera.position.z += (STATE.targetZoom - camera.position.z) * zoomLerp;
+            // --- CAMERA MOVEMENT ---
+            // Smoothly move camera to target position
+            camera.position.lerp(STATE.camTargetPos, 0.05);
+            camera.lookAt(0, 0, 0); // Always look at center of fireworks
 
             // Open/Close
             const open = (STATE.hand === 'OPEN');
@@ -426,14 +432,11 @@
             magicBox.scale.lerp(new THREE.Vector3(open?0:1, open?0:1, open?0:1), lerp);
             
             // --- 360 FACE LOCKING ---
-            // This ensures images always face the camera, even during X/Y rotations
+            // Force items to always face the camera
             if(profilesGroup) {
                 profilesGroup.scale.lerp(new THREE.Vector3(open?1:0, open?1:0, open?1:0), lerp);
                 profilesGroup.children.forEach(c => {
-                    // Cancel out parent rotation
-                    c.rotation.x = -rx;
-                    c.rotation.y = -ry;
-                    c.rotation.z = 0;
+                    c.quaternion.copy(camera.quaternion); 
                 });
             }
 
