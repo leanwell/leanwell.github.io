@@ -209,11 +209,19 @@
             if (count === 5) return { label: "OPEN 🖐", sub: "Explode", color: "#00ff00", action: "OPEN", angle };
             if (count === 0) return { label: "CLOSED ✊", sub: "Reset", color: "#ff0000", action: "CLOSED", angle };
 
-            if (count === 3 && fingers[1] && fingers[2] && fingers[3]) return { label: "THREE 🤟", sub: "Rotate Up", color: "#ffa500", action: "TILT_UP", angle };
-            if (count === 4 && !fingers[0]) return { label: "FOUR 🖖", sub: "Rotate Down", color: "#ff00ff", action: "TILT_DOWN", angle };
+            if (count === 3 && fingers[1] && fingers[2] && fingers[3]) {
+                return { label: "THREE 🤟", sub: "Rotate Up", color: "#ffa500", action: "TILT_UP", angle };
+            }
+            if (count === 4 && !fingers[0]) {
+                return { label: "FOUR 🖖", sub: "Rotate Down", color: "#ff00ff", action: "TILT_DOWN", angle };
+            }
 
-            if (fingers[1] && fingers[2] && count === 2) return { label: "PEACE ✌️", sub: "Zoom In", color: "#00ffff", action: "ZOOM_IN", angle };
-            if (fingers[1] && count === 1) return { label: "ONE ☝️", sub: "Zoom Out", color: "#ffff00", action: "ZOOM_OUT", angle };
+            if (fingers[1] && fingers[2] && count === 2) {
+                return { label: "PEACE ✌️", sub: "Zoom In", color: "#00ffff", action: "ZOOM_IN", angle };
+            }
+            if (fingers[1] && count === 1) {
+                return { label: "ONE ☝️", sub: "Zoom Out", color: "#ffff00", action: "ZOOM_OUT", angle };
+            }
             
             return { label: "...", sub: "Rotate Hand to Spin", color: "#555", action: "IDLE", angle };
         }
@@ -222,12 +230,14 @@
             particleCount: 4000, 
             boxSize: 10,
             explosionRadius: 100,
-            radiusMin: 60, radiusMax: 150,
+            radiusMin: 80, radiusMax: 200, 
             imageSquareSize: 22 
         };
 
         let scene, camera, renderer, textGroup, magicBox, particleSystem, profilesGroup;
         let positions = { initial: [], target: [] };
+        
+        let occupiedPositions = [];
 
         async function initThree() {
             const container = document.getElementById('canvas-container');
@@ -325,7 +335,7 @@
 
             profiles.forEach(p => {
                 if(p.image_url) {
-                    const pos = getRandomPosition(CONFIG.radiusMin, CONFIG.radiusMax);
+                    const pos = getNonOverlappingPosition(CONFIG.radiusMin, CONFIG.radiusMax);
                     const tex = texLoader.load(p.image_url);
                     tex.encoding = THREE.sRGBEncoding;
                     const m = new THREE.Mesh(squareGeo, new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide }));
@@ -333,7 +343,7 @@
                     profilesGroup.add(m);
                 }
                 if(p.name) {
-                    const pos = getRandomPosition(CONFIG.radiusMin, CONFIG.radiusMax);
+                    const pos = getNonOverlappingPosition(CONFIG.radiusMin, CONFIG.radiusMax);
                     const g = new THREE.TextGeometry(p.name, { font: font, size: 3.5, height: 0.1 });
                     g.center();
                     const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: 0xffffff }));
@@ -355,11 +365,36 @@
             return new THREE.CanvasTexture(c);
         }
 
-        function getRandomPosition(min, max) {
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.acos((Math.random() * 2) - 1);
-            const r = min + Math.random() * (max - min);
-            return { x: r*Math.sin(phi)*Math.cos(theta), y: r*Math.sin(phi)*Math.sin(theta), z: r*Math.cos(phi) };
+        function getNonOverlappingPosition(min, max) {
+            let pos, tooClose;
+            let attempts = 0;
+            do {
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos((Math.random() * 2) - 1);
+                const r = min + Math.random() * (max - min);
+                pos = { 
+                    x: r * Math.sin(phi) * Math.cos(theta), 
+                    y: r * Math.sin(phi) * Math.sin(theta), 
+                    z: r * Math.cos(phi) 
+                };
+                
+                tooClose = false;
+                for (let existing of occupiedPositions) {
+                    const dist = Math.sqrt(
+                        Math.pow(pos.x - existing.x, 2) + 
+                        Math.pow(pos.y - existing.y, 2) + 
+                        Math.pow(pos.z - existing.z, 2)
+                    );
+                    if (dist < 35) { 
+                        tooClose = true;
+                        break;
+                    }
+                }
+                attempts++;
+            } while(tooClose && attempts < 50);
+            
+            occupiedPositions.push(pos);
+            return pos;
         }
 
         function animate() {
@@ -416,7 +451,7 @@
             if(profilesGroup) {
                 profilesGroup.scale.lerp(new THREE.Vector3(open?1:0, open?1:0, open?1:0), lerp);
                 profilesGroup.children.forEach(c => {
-                    c.quaternion.copy(camera.quaternion); 
+                    c.lookAt(camera.position); 
                 });
             }
 
@@ -447,4 +482,3 @@
     </script>
 </body>
 </html>
-
