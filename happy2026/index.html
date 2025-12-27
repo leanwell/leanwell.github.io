@@ -58,7 +58,7 @@
 
     <div id="loading-overlay">
         <div class="loader"></div>
-        <div id="loading-text">Wait ka jan...</div>
+        <div id="loading-text">Wait ka jan...</br> mas better if open mo sa laptop/pc</div>
     </div>
 
     <div id="hud-container">
@@ -79,21 +79,17 @@
         const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtbm5ubHhjZXpkZmhvZ3F2aGZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzODY3NTAsImV4cCI6MjA3OTk2Mjc1MH0.Z6TfpTfDbnF6I58ggwnWO_HVA_FDm3tKY_f2RGppdsc';
         const supabaseClient = window.supabase.createClient(PROJECT_URL, ANON_KEY);
 
-        // --- STATE ---
         const STATE = {
             hand: 'CLOSED', 
-            targetZoom: 280, // Default Z
+            targetZoom: 280, 
             
-            // Manual Physics
             velY: 0, targetVelY: 0, 
             velX: 0, targetVelX: 0,
             
-            // Tour
             tourMode: false,
             tourIndex: 0,
             lastTourSwitch: 0,
             
-            // Camera Target Position (For Tour)
             camTargetPos: new THREE.Vector3(0, 0, 280) 
         };
 
@@ -139,22 +135,19 @@
                     subText.innerText = logic.sub;
                     hudBox.style.borderColor = logic.color;
 
-                    // --- 1. TOUR MODE TRIGGER ---
                     if (logic.action === 'AUTO_PILOT') {
                         if (!STATE.tourMode) {
                             STATE.tourMode = true;
                             STATE.tourIndex = 0;
                             STATE.hand = 'OPEN'; 
-                            STATE.targetVelY = 0; // Stop spin
+                            STATE.targetVelY = 0; 
                             STATE.targetVelX = 0;
                         }
                     } else if (logic.action !== 'IDLE') {
                         STATE.tourMode = false;
-                        // Reset camera target to center on manual exit
                         STATE.camTargetPos.set(0, 0, STATE.targetZoom);
                     }
 
-                    // --- 2. MANUAL CONTROLS ---
                     if (!STATE.tourMode) {
                         const tiltY = logic.angle - (-Math.PI/2);
                         if (Math.abs(tiltY) < 0.3) STATE.targetVelY = 0;
@@ -169,7 +162,6 @@
                         else if (logic.action === 'ZOOM_OUT') STATE.targetZoom += zoomSpeed;
                         STATE.targetZoom = Math.max(50, Math.min(600, STATE.targetZoom));
                         
-                        // Update Manual Camera Target (Center Z)
                         STATE.camTargetPos.set(0, 0, STATE.targetZoom);
 
                         if (logic.action === 'OPEN') STATE.hand = 'OPEN';
@@ -373,9 +365,7 @@
             requestAnimationFrame(animate);
             if(!particleSystem) return;
 
-            // --- AUTO TOUR LOGIC (Camera Move) ---
             if (STATE.tourMode && profilesGroup && profilesGroup.children.length > 0) {
-                // 1. Timer Switch
                 const now = Date.now();
                 if (now - STATE.lastTourSwitch > 2500) { 
                     STATE.tourIndex = (STATE.tourIndex + 1) % profilesGroup.children.length;
@@ -385,22 +375,17 @@
                 const targetObj = profilesGroup.children[STATE.tourIndex];
                 const pos = targetObj.position;
 
-                // 2. Calculate Camera Position just in front of object
-                // We want to be 50 units away from the object, along the vector from center
                 const dist = pos.length();
-                const scalar = (dist + 60) / dist; // Position slightly outside
+                const scalar = (dist + 60) / dist; 
                 
                 STATE.camTargetPos.set(pos.x * scalar, pos.y * scalar, pos.z * scalar);
                 
-                // 3. Stop World Rotation (Freeze scene so camera can move around it)
                 STATE.targetVelY = 0; 
                 STATE.targetVelX = 0;
-                // Gently reset world rotation to 0 to align coordinate systems
                 particleSystem.rotation.x += (0 - particleSystem.rotation.x) * 0.05;
                 particleSystem.rotation.y += (0 - particleSystem.rotation.y) * 0.05;
 
             } else {
-                // --- MANUAL PHYSICS ---
                 STATE.velY += (STATE.targetVelY - STATE.velY) * 0.02;
                 particleSystem.rotation.y += STATE.velY;
 
@@ -408,7 +393,6 @@
                 particleSystem.rotation.x += STATE.velX;
             }
 
-            // Sync Scene Rotation
             const ry = particleSystem.rotation.y;
             const rx = particleSystem.rotation.x;
 
@@ -420,19 +404,14 @@
             magicBox.rotation.y = ry; magicBox.rotation.x = rx;
             magicBox.rotation.z += 0.01;
 
-            // --- CAMERA MOVEMENT ---
-            // Smoothly move camera to target position
             camera.position.lerp(STATE.camTargetPos, 0.05);
-            camera.lookAt(0, 0, 0); // Always look at center of fireworks
+            camera.lookAt(0, 0, 0); 
 
-            // Open/Close
             const open = (STATE.hand === 'OPEN');
             const lerp = 0.05;
             textGroup.scale.lerp(new THREE.Vector3(open?1:0, open?1:0, open?1:0), lerp);
             magicBox.scale.lerp(new THREE.Vector3(open?0:1, open?0:1, open?0:1), lerp);
             
-            // --- 360 FACE LOCKING ---
-            // Force items to always face the camera
             if(profilesGroup) {
                 profilesGroup.scale.lerp(new THREE.Vector3(open?1:0, open?1:0, open?1:0), lerp);
                 profilesGroup.children.forEach(c => {
