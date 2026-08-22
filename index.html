@@ -2,13 +2,333 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="refresh" content="1; url=redirect.html">
-    <meta name="description" content="Explore wide variety of random articles for your Windows PC. All Rights Reserved leanwell 2017-2021">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>leanwell</title>
+    <title>Linwel Colmo | Portfolio</title>
+    <link rel="icon" type="image/jpeg" href="portfolio/assets/1x1.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="portfolio/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
-    please wait
+    <div class="dashboard-container">
+    <nav class="floating-nav">
+        <ul class="nav-links">
+            <div class="nav-slider"></div>
+            <li><a href="#overview" class="active"><i class="ph ph-user"></i> <span class="nav-text">About</span></a></li>
+            <li><a href="#projects"><i class="ph ph-folder-notch-open"></i> <span class="nav-text">Projects</span></a></li>
+            <li><a href="#experience"><i class="ph ph-briefcase"></i> <span class="nav-text">Experience</span></a></li>
+            <li><a href="#contact"><i class="ph ph-envelope-simple"></i> <span class="nav-text">Contact</span></a></li>
+        </ul>
+    </nav>
+        <main class="main-content">
+            <section id="overview" class="view-section">
+                <div class="hero-layout" style="position: relative;">
+                    <!-- Forcefield Gravity Canvas Layer -->
+                    <canvas id="hero-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%); mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);"></canvas>
+                    <div class="hero-content">
+                        <h2>Hello, I'm Linwel. <br><span class="typed-text"></span></h2>
+                        <p class="bio">I am a 4th-year Mechatronics Technology student at the Technological University of the Philippines - Taguig, passionate about designing intelligent systems that bridge the gap between industrial automation, the Internet of Things (IoT), and modern web development.</p>
+                        <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                            <a href="#projects" class="btn primary-btn" style="text-decoration: none;">View My Works</a>
+                            <a href="#contact" class="btn" style="text-decoration: none; background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary);">Hire Me</a>
+                        </div>
+                    </div>
+                    <div class="hero-image" data-tilt data-tilt-max="5" data-tilt-speed="400">
+                        <img src="portfolio/assets/1x1.jpg" alt="Linwel Colmo">
+                    </div>
+                </div>
+                  <div class="stats-grid">
+                      <div class="stat-card glass-panel">
+                          <div class="stat-icon"><i class="ph ph-graduation-cap"></i></div>
+                          <div class="stat-details">
+                              <h3>4th</h3>
+                              <p>Year Student</p>
+                          </div>
+                      </div>
+                      <div class="stat-card glass-panel">
+                          <div class="stat-icon"><i class="ph ph-rocket"></i></div>
+                          <div class="stat-details">
+                              <h3>15</h3>
+                              <p>Projects Completed</p>
+                          </div>
+                      </div>
+                      <div class="stat-card glass-panel">
+                          <div class="stat-icon"><i class="ph ph-cpu"></i></div>
+                          <div class="stat-details">
+                              <h3>20+</h3>
+                              <p>Technical Skills</p>
+                          </div>
+                      </div>
+                      <div class="stat-card glass-panel">
+                          <div class="stat-icon"><i class="ph ph-users"></i></div>
+                          <div class="stat-details">
+                              <h3>5</h3>
+                              <p>Clients</p>
+                          </div>
+                      </div>
+                  </div>
+
+                <div class="who-am-i-container" style="margin: 4rem 0;">
+                    <h3 style="text-align: center; font-size: 1.5rem; margin-bottom: 1.5rem;">Who Am I</h3>
+                    
+                    <div class="who-tabs-nav" style="display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                        <button class="tab-btn active" data-tab="about">About Me</button>
+                        <button class="tab-btn" data-tab="web">Web & Mobile</button>
+                        <button class="tab-btn" data-tab="systems">Systems Programming</button>
+                        <button class="tab-btn" data-tab="iot">IoT & Embedded</button>
+                        <button class="tab-btn" data-tab="industrial">Industrial Automation</button>
+                    </div>
+
+                    <div class="glass-panel" style="padding: 2.5rem; border-radius: var(--border-radius-lg); position: relative; min-height: 250px; display: flex; flex-direction: column; justify-content: space-between;">
+                        
+                        <div class="tab-contents-wrapper" style="flex-grow: 1;">
+                            <!-- Tab: About -->
+                            <div class="tab-content active" id="tab-about">
+                                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); text-align: center; max-width: 900px; margin: 0 auto;">
+                                    I am a dedicated 4th-year Mechatronics Technology student at TUP-Taguig, driven by a passion for integrating advanced hardware with modern software systems. My technical expertise spans across multiple disciplines, including <strong>Full-Stack Web & Mobile Development</strong> and <strong>Systems Programming</strong>. In the physical domain, I specialize in <strong>IoT & Embedded Systems</strong> alongside <strong>Industrial Automation & Design</strong>. By uniting these fields, I design and build comprehensive, end-to-end solutions that seamlessly bridge the gap between mechanical systems and digital interfaces.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Web -->
+                            <div class="tab-content" id="tab-web">
+                                <h4 style="text-align: center; margin-bottom: 1rem; font-size: 1.1rem;">Full-Stack Web & Mobile Development</h4>
+                                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); text-align: center; max-width: 900px; margin: 0 auto;">
+                                    I build responsive, high-performance applications from the ground up. My expertise in <strong>React, Node.js, and Supabase</strong> allows me to architect scalable web dashboards for data monitoring, while frameworks like <strong>Flutter and React Native</strong> empower me to bring those experiences natively to mobile devices. I focus on creating seamless user experiences that communicate flawlessly with backend services.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Systems -->
+                            <div class="tab-content" id="tab-systems">
+                                <h4 style="text-align: center; margin-bottom: 1rem; font-size: 1.1rem;">Systems Programming</h4>
+                                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); text-align: center; max-width: 900px; margin: 0 auto;">
+                                    Bridging software and hardware requires robust execution and logic. I leverage <strong>C++</strong> for high-performance algorithmic control and embedded processing, and <strong>VB.NET</strong> to develop dedicated Windows desktop interfaces for industrial monitoring. Furthermore, I utilize <strong>Python</strong> to build automation scripts, handle complex data pipelines, and train lightweight <strong>Machine Learning</strong> models to introduce predictive intelligence into mechatronic systems.
+                                </p>
+                            </div>
+
+                            <!-- Tab: IoT -->
+                            <div class="tab-content" id="tab-iot">
+                                <h4 style="text-align: center; margin-bottom: 1rem; font-size: 1.1rem;">IoT & Embedded Systems</h4>
+                                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); text-align: center; max-width: 900px; margin: 0 auto;">
+                                    The Internet of Things is where hardware comes alive. I design and program microcontroller-based systems using the <strong>Arduino ecosystem, ESP32, and STM32</strong>. From sensor data acquisition to deploying wireless communication protocols (Wi-Fi, Bluetooth, MQTT) and visual workflow programming via <strong>Node-RED</strong>, I build smart, connected edge devices that feed real-time telemetry back into cloud dashboards.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Industrial -->
+                            <div class="tab-content" id="tab-industrial">
+                                <h4 style="text-align: center; margin-bottom: 1rem; font-size: 1.1rem;">Industrial Automation & Design</h4>
+                                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); text-align: center; max-width: 900px; margin: 0 auto;">
+                                    My foundation lies in heavy-duty mechanical integration. I program robust Programmable Logic Controllers (PLCs) utilizing the <strong>Omron CX Suite</strong> to automate complex industrial machinery. Coupled with extensive CAD experience in <strong>AutoCAD and Fusion360</strong>, and rapid prototyping via <strong>3D Printing and Bambu Studio</strong>, I am capable of designing, simulating, and fabricating complete mechatronic systems.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: center; margin-top: 2.5rem;">
+                            <a href="portfolio/linwelcolmo-cv.pdf" download="Linwel_Colmo_CV.pdf" target="_blank" id="cv-download-btn" class="btn primary-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;"><iconify-icon icon="ph:download-simple" style="transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);"></iconify-icon> <span class="cv-text">Download CV</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-wrapper" style="position: relative; padding: 1rem 0;">
+                        <h3 style="text-align: center; font-size: 1.5rem; margin-bottom: 1.5rem;">Tech Stack & Tools</h3>
+                        
+                        <div class="view-toggle" style="display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem;">
+                            <button class="toggle-btn active" data-view="carousel"><iconify-icon icon="ph:arrows-left-right"></iconify-icon> Carousel</button>
+                            <button class="toggle-btn" data-view="grid"><iconify-icon icon="ph:squares-four"></iconify-icon> Grid View</button>
+                        </div>
+
+                        <div class="swiper swiper-container skills-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" data-category="Web Development"><div class="skill-card portrait"><iconify-icon icon="logos:html-5"></iconify-icon><br><span class="s-name">HTML</span></div></div>
+                                <div class="swiper-slide" data-category="Web Development"><div class="skill-card portrait"><iconify-icon icon="logos:css-3"></iconify-icon><br><span class="s-name">CSS</span></div></div>
+                                <div class="swiper-slide" data-category="Web Development"><div class="skill-card portrait"><iconify-icon icon="logos:javascript"></iconify-icon><br><span class="s-name">JavaScript</span></div></div>
+                                <div class="swiper-slide" data-category="Web Development"><div class="skill-card portrait"><iconify-icon icon="logos:typescript-icon"></iconify-icon><br><span class="s-name">TypeScript</span></div></div>
+                                <div class="swiper-slide" data-category="Web Development"><div class="skill-card portrait"><iconify-icon icon="logos:react"></iconify-icon><br><span class="s-name">React</span></div></div>
+                                <div class="swiper-slide" data-category="Web Development"><div class="skill-card portrait"><iconify-icon icon="logos:vitejs"></iconify-icon><br><span class="s-name">Vite</span></div></div>
+                                <div class="swiper-slide" data-category="Backend Architecture"><div class="skill-card portrait"><iconify-icon icon="logos:nodejs-icon"></iconify-icon><br><span class="s-name">Node.js</span></div></div>
+                                <div class="swiper-slide" data-category="Backend Architecture"><div class="skill-card portrait"><iconify-icon icon="logos:python"></iconify-icon><br><span class="s-name">Python</span></div></div>
+                                <div class="swiper-slide" data-category="Database Management"><div class="skill-card portrait"><iconify-icon icon="logos:mysql"></iconify-icon><br><span class="s-name">MySQL</span></div></div>
+                                <div class="swiper-slide" data-category="Database Management"><div class="skill-card portrait"><iconify-icon icon="logos:firebase-icon"></iconify-icon><br><span class="s-name">Firebase</span></div></div>
+                                <div class="swiper-slide" data-category="Database Management"><div class="skill-card portrait"><iconify-icon icon="logos:supabase-icon"></iconify-icon><br><span class="s-name">Supabase</span></div></div>
+                                <div class="swiper-slide" data-category="Mobile App Development"><div class="skill-card portrait"><iconify-icon icon="logos:react"></iconify-icon><br><span class="s-name">React Native</span></div></div>
+                                <div class="swiper-slide" data-category="Mobile App Development"><div class="skill-card portrait"><iconify-icon icon="logos:expo-icon"></iconify-icon><br><span class="s-name">Expo</span></div></div>
+                                <div class="swiper-slide" data-category="Mobile App Development"><div class="skill-card portrait"><iconify-icon icon="logos:flutter"></iconify-icon><br><span class="s-name">Flutter</span></div></div>
+                                <div class="swiper-slide" data-category="Mobile App Development"><div class="skill-card portrait"><iconify-icon icon="logos:dart"></iconify-icon><br><span class="s-name">Dart</span></div></div>
+                                <div class="swiper-slide" data-category="Software Engineering"><div class="skill-card portrait"><iconify-icon icon="logos:c-plusplus"></iconify-icon><br><span class="s-name">C++</span></div></div>
+                                <div class="swiper-slide" data-category="Software Engineering"><div class="skill-card portrait"><iconify-icon icon="vscode-icons:file-type-vb"></iconify-icon><br><span class="s-name">VB.NET</span></div></div>
+                                <div class="swiper-slide" data-category="UI/UX & Design"><div class="skill-card portrait"><iconify-icon icon="logos:adobe-icon"></iconify-icon><br><span class="s-name">Adobe</span></div></div>
+                                <div class="swiper-slide" data-category="UI/UX & Design"><div class="skill-card portrait"><iconify-icon icon="logos:figma"></iconify-icon><br><span class="s-name">Figma</span></div></div>
+                                <div class="swiper-slide" data-category="UI/UX & Design"><div class="skill-card portrait"><iconify-icon icon="thesvg-color:canva"></iconify-icon><br><span class="s-name">Canva</span></div></div>
+                                <div class="swiper-slide" data-category="Mechatronics Engineering"><div class="skill-card portrait"><iconify-icon icon="skill-icons:autocad-dark"></iconify-icon><br><span class="s-name">AutoCAD</span></div></div>
+                                <div class="swiper-slide" data-category="Mechatronics Engineering"><div class="skill-card portrait"><iconify-icon icon="devicon:fusion"></iconify-icon><br><span class="s-name">Fusion360</span></div></div>
+                                <div class="swiper-slide" data-category="Mechatronics Engineering"><div class="skill-card portrait"><iconify-icon icon="skill-icons:arduino"></iconify-icon><br><span class="s-name">Arduino</span></div></div>
+                                <div class="swiper-slide" data-category="Mechatronics Engineering"><div class="skill-card portrait"><iconify-icon icon="thesvg-color:espressif"></iconify-icon><br><span class="s-name">ESP32</span></div></div>
+                                <div class="swiper-slide" data-category="Mechatronics Engineering"><div class="skill-card portrait"><iconify-icon icon="thesvg-color:stmicroelectronics"></iconify-icon><br><span class="s-name">STM32</span></div></div>
+                                
+                                <!-- Prototyping & IoT -->
+                                <div class="swiper-slide" data-category="Prototyping & IoT"><div class="skill-card portrait"><iconify-icon icon="thesvg-color:node-red"></iconify-icon><br><span class="s-name">Node-RED</span></div></div>
+                                <div class="swiper-slide" data-category="Prototyping & IoT"><div class="skill-card portrait"><iconify-icon icon="thesvg-color:bambu-lab"></iconify-icon><br><span class="s-name">Bambu Studio</span></div></div>
+                                <div class="swiper-slide" data-category="Industrial Automation"><div class="skill-card portrait"><iconify-icon icon="arcticons:omron-connect" style="color: #0055A5;"></iconify-icon><br><span class="s-name">CX Programmer</span></div></div>
+                                <div class="swiper-slide" data-category="Industrial Automation"><div class="skill-card portrait"><iconify-icon icon="arcticons:omron-connect" style="color: #0055A5;"></iconify-icon><br><span class="s-name">NB Designer</span></div></div>
+                                <div class="swiper-slide" data-category="Industrial Automation"><div class="skill-card portrait"><iconify-icon icon="arcticons:omron-connect" style="color: #0055A5;"></iconify-icon><br><span class="s-name">CX Supervisor</span></div></div>
+                            </div>
+                            <div class="active-category-display">Web Development</div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="projects" class="view-section">
+                <header class="view-header">
+                    <h1>Selected Works</h1>
+                    <p class="subtitle">A showcase of my recent projects.</p>
+                </header>
+                <div class="projects-grid">
+                    <div class="project-card glass-panel" data-tilt data-tilt-max="3" data-tilt-perspective="1000">
+                        <div class="project-image-container" style="background: var(--bg-secondary); padding: 2rem; display: flex; justify-content: center; align-items: center;">
+                             <img src="portfolio/assets/sparki1000_favicon.png" alt="Sparki Project Logo" class="single-image hover-rotate" style="object-fit: contain; width: 120px; height: 120px;" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <div class="tags"><span class="tag">IoT</span><span class="tag">Dasai Mochi</span></div>
+                            <h3>Sparki Project</h3>
+                            <p>An innovative mechatronics project integrating hardware control, embedded systems, and robust software interfaces.</p>
+                            <a href="portfolio/sparki.html" class="project-link">View Details <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card glass-panel" data-tilt data-tilt-max="3" data-tilt-perspective="1000">
+                        <div class="project-image-container" style="background: var(--bg-secondary); padding: 2rem; display: flex; justify-content: center; align-items: center;">
+                             <img src="portfolio/assets/localsend-icon.png" alt="LocalSend Icon" class="single-image hover-rotate" style="object-fit: contain; width: 120px; height: 120px;" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <div class="tags"><span class="tag">Open Source</span><span class="tag">Filipino Translator</span></div>
+                            <h3>LocalSend</h3>
+                            <p>Translator contributor for the LocalSend open-source project. I translated the official website, GitHub repository, and the Mobile/Windows application to fully support the Filipino Language.</p>
+                            <a href="portfolio/localsend.html" class="project-link">View Details <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="experience" class="view-section">
+                <header class="view-header">
+                    <h1>Experience & Journey</h1>
+                    <p class="subtitle">My professional path and education.</p>
+                </header>
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="ph ph-robot"></i></div>
+                        <div class="timeline-content glass-panel">
+                            <span class="timeline-date">2023 - Present</span>
+                            <h3>Bachelor of Engineering Technology</h3>
+                            <h4 class="company">Major in Mechatronics Technology (TUP-Taguig)</h4>
+                            <p>Currently undertaking a rigorous program combining mechanical engineering, electronics, and software development. Focused on mastering end-to-end industrial automation, robotics, and embedded systems design.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="ph ph-users-three"></i></div>
+                        <div class="timeline-content glass-panel">
+                            <span class="timeline-date">2023 - 2027</span>
+                            <h3>Executive & Technical Leader</h3>
+                            <h4 class="company">MRSP-TSC</h4>
+                            <p>Active leader in the Mechatronics and Robotics Society of the Philippines (TUP-Taguig). Serving in the Electoral & Executive Support Committee (2026-2027), previously Vice President for Technical (2025-2026), and initially part of the Creatives & Publication Committee (2023-2025).</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="ph ph-certificate"></i></div>
+                        <div class="timeline-content glass-panel">
+                            <span class="timeline-date">Certified</span>
+                            <h3>Mechatronics NC II & NC III</h3>
+                            <h4 class="company">National Certificate Holder</h4>
+                            <p>Officially recognized as a National Certificate II (NCII) and National Certificate III (NCIII) holder, verifying industry-standard competency in configuring and troubleshooting complex automation and control systems.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><i class="ph ph-presentation-chart"></i></div>
+                        <div class="timeline-content glass-panel">
+                            <span class="timeline-date">Seminars</span>
+                            <h3>Technical & Professional Training</h3>
+                            <h4 class="company">Continuous Learning</h4>
+                            <p>Actively expanding knowledge horizons beyond the classroom through specialized events, notably completing the <strong>Python Ascension</strong> technical training and the <strong>Intellectual Property (IP) Awareness Seminar</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contact" class="view-section">
+                <header class="view-header">
+                    <h1>Let's Connect</h1>
+                    <p class="subtitle">Have a project in mind? Drop a message in the inbox.</p>
+                </header>
+                <div class="contact-wrapper">
+                    <div class="contact-info glass-panel">
+                        <h3>Contact Information</h3>
+                        <p>Fill out the form and I will get back to you within 24 hours.</p>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <i class="ph ph-user"></i>
+                                <span>Linwel Colmo</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="ph ph-envelope-simple"></i>
+                                <a href="mailto:linwel.colmo87@gmail.com" style="color: inherit; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='inherit'">linwel.colmo87@gmail.com</a>
+                            </div>
+                            <div class="info-item">
+                                <i class="ph ph-phone"></i>
+                                <span>+639634646115</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="ph ph-map-pin"></i>
+                                <span>Taguig City, NCR Philippines</span>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://github.com/leanwell" target="_blank" class="social-icon"><i class="ph ph-github-logo"></i></a>
+                            <a href="https://www.instagram.com/leanwell_/" target="_blank" class="social-icon"><i class="ph ph-instagram-logo"></i></a>
+                        </div>
+                    </div>
+                    <form class="contact-form glass-panel" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" placeholder="Project Inquiry" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary-btn submit-btn">Send Message <i class="ph ph-paper-plane-right"></i></button>
+                    </form>
+                </div>
+            </section>
+            
+            <footer class="site-footer">
+                <div class="footer-brand">
+                    <span class="close-gap">L</span>
+                    <span class="close-gap">I</span>
+                    <span>N</span>
+                    <span class="offset-1">W</span>
+                    <span class="offset-2 close-gap">E</span>
+                    <span class="offset-3">L</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="portfolio/app.js"></script>
 </body>
 </html>

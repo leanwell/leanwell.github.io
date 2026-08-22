@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalSend Translation | Linwel Colmo</title>
+    <link rel="icon" type="image/jpeg" href="assets/1x1.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .project-detail-header {
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+        .project-detail-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+        .project-content {
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+            padding: 3rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .project-content h2 {
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        .project-content ul {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+        .project-content li {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        .project-content strong {
+            color: var(--text-primary);
+        }
+        .project-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+        .back-link {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+        .hero-banner {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container" style="position: relative;">
+        <a href="../index.html#projects" class="back-link"><i class="ph ph-arrow-left"></i> Back to Portfolio</a>
+        
+        <header class="project-detail-header">
+            <h1>LocalSend</h1>
+            <div class="project-meta">
+                <span><i class="ph ph-translate"></i> Filipino Translator</span>
+                <span><i class="ph ph-globe"></i> Open Source Contribution</span>
+            </div>
+        </header>
+
+        <div class="project-content glass-panel">
+            <div style="background: var(--bg-secondary); border-radius: var(--border-radius-lg); margin-bottom: 3rem; padding: 4rem; text-align: center; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.05);">
+                <img src="assets/localsend-long.png" alt="LocalSend Logo" style="height: 150px; width: auto; max-width: 100%; object-fit: contain;">
+            </div>
+            
+            <h2>About The Project</h2>
+            <p><strong>LocalSend</strong> is a free, open-source application that allows users to securely share files and messages with nearby devices over a local network without needing an internet connection. It serves as a privacy-first, cross-platform alternative to proprietary ecosystems like AirDrop.</p>
+            
+            <h2>My Contribution</h2>
+            <p style="color: var(--text-secondary);">As an active contributor to the open-source community, I led the comprehensive Filipino (Tagalog) localization for the entire LocalSend ecosystem. Ensuring technology is accessible to native speakers in the Philippines is crucial for global adoption.</p>
+            
+            <p style="color: var(--text-secondary);">My translation work spans across multiple facets of the project:</p>
+            <ul>
+                <li><strong>Mobile & Desktop Application:</strong> Translated the core UI/UX strings for iOS, Android, Windows, macOS, and Linux clients, ensuring the terminology feels natural and intuitive to Filipino users.</li>
+                <li><strong>Official Website:</strong> Localized the main <a href="https://localsend.org/" target="_blank" style="color: var(--text-primary);">localsend.org</a> website, allowing Filipino users to understand the app's privacy features and documentation in their mother tongue.</li>
+                <li><strong>GitHub Repository:</strong> Contributed directly via Pull Requests, helping maintain the translation matrices and documentation guidelines.</li>
+            </ul>
+
+            <div class="project-links">
+                <a href="https://github.com/localsend/localsend" target="_blank" class="btn primary-btn"><i class="ph ph-github-logo"></i> View Repository</a>
+                <a href="https://localsend.org/" target="_blank" class="btn secondary-btn"><i class="ph ph-globe"></i> Visit Website</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparki Project | Linwel Colmo</title>
+    <link rel="icon" type="image/jpeg" href="assets/1x1.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .project-detail-header { padding: 6rem 0 3rem; text-align: center; }
+        .project-detail-header h1 { font-size: 3rem; margin-bottom: 0.5rem; letter-spacing: 2px; }
+        .project-meta { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; color: var(--text-secondary); }
+        .back-link { position: absolute; top: 2rem; left: 2rem; display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s; z-index: 10; }
+        .back-link:hover { color: var(--text-primary); }
+        
+        /* Family Product Tabs */
+        .sparki-tabs { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .sparki-tab { 
+            background: var(--bg-secondary); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            padding: 1.5rem 2rem; 
+            border-radius: var(--border-radius); 
+            cursor: pointer; 
+            text-align: center;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+        .sparki-tab:hover { background: rgba(255,255,255,0.1); transform: translateY(-5px); }
+        .sparki-tab.active { background: rgba(255,255,255,0.1); border-color: var(--text-primary); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .sparki-tab i { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .sparki-tab h3 { font-size: 1.2rem; margin: 0; color: var(--text-primary); }
+        
+        .tab-content { display: none; animation: fadeIn 0.4s ease; max-width: 900px; margin: 0 auto 4rem auto; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Sparki1000 Details */
+        .sparki1000-banner {
+            background: var(--bg-secondary); 
+            border-radius: var(--border-radius-lg); 
+            margin-bottom: 3rem; 
+            padding: 4rem; 
+            text-align: center; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .feature-card { background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: flex-start; gap: 1rem; transition: transform 0.3s ease; }
+        .feature-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.05); }
+        .feature-card i { font-size: 2.5rem; color: var(--text-primary); opacity: 0.8; }
+        .feature-card h4 { margin: 0 0 0.5rem 0; font-size: 1.1rem; }
+        .feature-card p { margin: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; }
+        
+        /* Planning Phase Styling */
+        .planning-state { text-align: center; padding: 5rem 2rem; }
+        .planning-state i { font-size: 4rem; color: var(--text-secondary); margin-bottom: 1rem; opacity: 0.5; }
+        .planning-state h2 { margin-bottom: 1rem; }
+        .planning-state p { color: var(--text-secondary); max-width: 500px; margin: 0 auto; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container" style="position: relative;">
+        <a href="../index.html#projects" class="back-link"><i class="ph ph-arrow-left"></i> Back to Portfolio</a>
+        
+        <header class="project-detail-header">
+            <h1>WELCOME TO SPARKI PROJECT</h1>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6; font-size: 1.1rem;">A family of ESP32-powered IoT devices designed to bring smart automation and intuitive controls right to your desk. Explore the ecosystem below.</p>
+        </header>
+
+        <div class="sparki-tabs">
+            <div class="sparki-tab active" data-target="sparki1000">
+                <i class="ph ph-robot"></i>
+                <h3>SPARKI1000</h3>
+            </div>
+            <div class="sparki-tab" data-target="sparkitouch">
+                <i class="ph ph-hand-pointing"></i>
+                <h3>SPARKITOUCH</h3>
+            </div>
+            <div class="sparki-tab" data-target="sparkiboard">
+                <i class="ph ph-keyboard"></i>
+                <h3>SPARKIBOARD</h3>
+            </div>
+        </div>
+
+        <div id="sparki1000" class="tab-content active glass-panel" style="padding: 3rem;">
+            <div class="sparki1000-banner">
+                <img src="assets/sparki1000_longlogo.png" alt="Sparki1000 Logo" style="height: 90px; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">
+            </div>
+            
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">The Interactive Desk Companion</h2>
+            <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem; margin-bottom: 1.5rem;">SPARKI1000 is an interactive "dasai mochi" style smart device. Designed to live on your desk, it combines essential environmental dashboards and multimedia controls with a playful robot personality.</p>
+            
+            <a href="https://github.com/leanwell/SPARKI1000" target="_blank" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; background: var(--text-primary); border: 1px solid var(--text-primary); color: var(--bg-main); padding: 0.75rem 1.5rem; border-radius: 30px; margin-bottom: 3rem; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,0,0,0.1);" onmouseover="this.style.transform='rotate(-3deg) scale(1.05)';" onmouseout="this.style.transform='none';">
+                <i class="ph ph-github-logo" style="font-size: 1.25rem;"></i> View Source Code
+            </a>
+            
+            <!-- 3D STL Viewer -->
+            <h3 style="margin-bottom: 1rem;">Interactive 3D Model</h3>
+            <div id="stl-container" style="width: 100%; height: 400px; background: rgba(0,0,0,0.2); border-radius: var(--border-radius-lg); margin-bottom: 3rem; cursor: grab; border: 1px solid rgba(255,255,255,0.05); position: relative;"></div>
+
+            <!-- Image Gallery -->
+            <h3 style="margin-bottom: 1rem;">Physical Design</h3>
+            <div class="sparki-gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 3rem;">
+                <img src="assets/sparki1000/body-front.jpg" alt="Sparki Front" style="width: 100%; height: 180px; object-fit: cover; border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.05);">
+                <img src="assets/sparki1000/body-side.jpg" alt="Sparki Side" style="width: 100%; height: 180px; object-fit: cover; border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.05);">
+                <img src="assets/sparki1000/body-back.jpg" alt="Sparki Back" style="width: 100%; height: 180px; object-fit: cover; border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.05);">
+                <img src="assets/sparki1000/screen-ui.jpg" alt="Sparki Screen UI" style="width: 100%; height: 180px; object-fit: cover; border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.05);">
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="ph ph-eyes"></i>
+                    <div>
+                        <h4>Reactive Robot Eyes</h4>
+                        <p>Playful on-screen animated eyes that react dynamically to touch and motion sensors.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="ph ph-thermometer"></i>
+                    <div>
+                        <h4>Desk Dashboard</h4>
+                        <p>Real-time heads-up display of your room temperature, humidity, time, and date.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="ph ph-spotify-logo"></i>
+                    <div>
+                        <h4>Spotify Integration</h4>
+                        <p>Displays live playback information and synced lyrics right on your desk.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="ph ph-wifi-high"></i>
+                    <div>
+                        <h4>WiFi Connectivity</h4>
+                        <p>Always online for real-time data sync, fully customizable via a dedicated web dashboard.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="ph ph-hand-tap"></i>
+                    <div>
+                        <h4>Touch Buttons</h4>
+                        <p>Intuitive physical touch controls for quick navigation and fast interactions.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <i class="ph ph-battery-charging"></i>
+                    <div>
+                        <h4>Rechargeable</h4>
+                        <p>Built-in battery allows for a clean, wire-free desk aesthetic when unplugged.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sparkitouch" class="tab-content glass-panel">
+            <div class="planning-state">
+                <i class="ph ph-compass-tool"></i>
+                <h2>SPARKITOUCH</h2>
+                <p>This product is currently in the planning phase. Check back later for exciting updates, hardware specs, and design mockups as the Sparki ecosystem expands.</p>
+            </div>
+        </div>
+
+        <div id="sparkiboard" class="tab-content glass-panel">
+            <div class="planning-state">
+                <i class="ph ph-keyboard"></i>
+                <h2>SPARKIBOARD</h2>
+                <p>This product is currently in the planning phase. We are actively researching and designing the next evolution of modular electronics for the Sparki ecosystem.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Three.js for STL Viewer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // STL Viewer Initialization
+        function initStlViewer() {
+            const container = document.getElementById('stl-container');
+            if(!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, -100, 100);
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 2.0;
+
+            // Lighting
+            scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1.0));
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(1, 1, 1).normalize();
+            scene.add(dirLight);
+
+            // Load STL
+            const loader = new THREE.STLLoader();
+            loader.load('assets/sparki1000/sparki1000-model.stl', function (geometry) {
+                geometry.center();
+                const material = new THREE.MeshPhongMaterial({ color: 0xcccccc, specular: 0x111111, shininess: 200 });
+                const mesh = new THREE.Mesh(geometry, material);
+                
+                // Auto scale to fit
+                geometry.computeBoundingBox();
+                const maxDim = Math.max(
+                    geometry.boundingBox.max.x - geometry.boundingBox.min.x,
+                    geometry.boundingBox.max.y - geometry.boundingBox.min.y,
+                    geometry.boundingBox.max.z - geometry.boundingBox.min.z
+                );
+                const scale = 50 / maxDim;
+                mesh.scale.set(scale, scale, scale);
+
+                // Rotate it upright assuming Z is up in STL export
+                mesh.rotation.x = -Math.PI / 2;
+                scene.add(mesh);
+            }, undefined, function (error) {
+                // Fallback message if STL is not yet uploaded
+                container.innerHTML = '<div style="display:flex; height:100%; align-items:center; justify-content:center; color: var(--text-secondary); text-align: center; padding: 2rem;"><div><i class="ph ph-cube" style="font-size: 3rem; margin-bottom: 1rem;"></i><br>Awaiting 3D Model.<br>Upload <strong>assets/sparki1000/sparki1000-model.stl</strong> to view it here in 3D.</div></div>';
+                if(renderer.domElement) renderer.domElement.style.display = 'none';
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                if(!container.clientWidth) return;
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', initStlViewer);
+
+        // Tab Logic
+        document.querySelectorAll('.sparki-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active classes
+                document.querySelectorAll('.sparki-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active classes to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
