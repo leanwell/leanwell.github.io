@@ -69,7 +69,7 @@
         <a href="../index.html#projects" class="back-link"><i class="ph ph-arrow-left"></i> Back to Portfolio</a>
         
         <header class="project-detail-header">
-            <h1>WELCOME TO SPARKI PROJECT</h1>
+            <h1>WELCOME TO THE SPARKI PROJECT</h1>
             <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6; font-size: 1.1rem;">A family of ESP32-powered IoT devices designed to bring smart automation and intuitive controls right to your desk. Explore the ecosystem below.</p>
         </header>
 
@@ -96,9 +96,14 @@
             <h2 style="font-size: 2rem; margin-bottom: 1rem;">The Interactive Desk Companion</h2>
             <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem; margin-bottom: 1.5rem;">SPARKI1000 is an interactive "dasai mochi" style smart device. Designed to live on your desk, it combines essential environmental dashboards and multimedia controls with a playful robot personality.</p>
             
-            <a href="https://github.com/leanwell/SPARKI1000" target="_blank" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; background: var(--text-primary); border: 1px solid var(--text-primary); color: var(--bg-main); padding: 0.75rem 1.5rem; border-radius: 30px; margin-bottom: 3rem; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,0,0,0.1);" onmouseover="this.style.transform='rotate(-3deg) scale(1.05)';" onmouseout="this.style.transform='none';">
-                <i class="ph ph-github-logo" style="font-size: 1.25rem;"></i> View Source Code
-            </a>
+            <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 3rem; flex-wrap: wrap;">
+                <a href="https://github.com/leanwell/SPARKI1000" target="_blank" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; background: var(--text-primary); border: 1px solid var(--text-primary); color: var(--bg-main); padding: 0.75rem 1.5rem; border-radius: 30px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 8px 20px rgba(0,0,0,0.1);" onmouseover="this.style.transform='rotate(-3deg) scale(1.05)';" onmouseout="this.style.transform='none';">
+                    <i class="ph ph-github-logo" style="font-size: 1.25rem;"></i> View Repository
+                </a>
+                <a href="#privacy-policy" class="btn" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); padding: 0.75rem 1.5rem; border-radius: 30px; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);" onmouseover="this.style.transform='rotate(3deg) scale(1.05)';" onmouseout="this.style.transform='none';">
+                    <i class="ph ph-shield-check" style="font-size: 1.25rem;"></i> Privacy Policy
+                </a>
+            </div>
             
             <!-- 3D STL Viewer -->
             <h3 style="margin-bottom: 1rem;">Interactive 3D Model</h3>
@@ -157,6 +162,12 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Privacy Policy -->
+            <div id="privacy-policy" style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="margin-bottom: 1rem;"><i class="ph ph-shield-check"></i> Privacy Policy</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6;">This device does not collect, fetch, or store any personal information and operates independently of any cloud servers. It only requires internet access to retrieve real-time data, specifically the time and date via NTP, and playback status from the Spotify Web API. All data is processed and securely stored locally on the device itself, ensuring that the user retains full control and ownership over their information.</p>
+            </div>
         </div>
 
         <div id="sparkitouch" class="tab-content glass-panel">
@@ -211,7 +222,7 @@
 
             // Load STL
             const loader = new THREE.STLLoader();
-            loader.load('assets/sparki1000/sparki1000-model.stl', function (geometry) {
+            loader.load('./assets/sparki1000/sparki1000-model.stl', function (geometry) {
                 geometry.center();
                 const material = new THREE.MeshPhongMaterial({ color: 0xcccccc, specular: 0x111111, shininess: 200 });
                 const mesh = new THREE.Mesh(geometry, material);

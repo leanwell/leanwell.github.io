@@ -329,4 +329,84 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('resize', initCanvas);
     }
+
+    // --- Projects Filter, Search, and Pagination ---
+    const projectSearch = document.getElementById('projectSearch');
+    const projectFilter = document.getElementById('projectFilter');
+    const projectsGrid = document.getElementById('projectsGrid');
+    const showMoreBtn = document.getElementById('showMoreBtn');
+    const collapseAllBtn = document.getElementById('collapseAllBtn');
+    
+    if (projectSearch && projectFilter && projectsGrid) {
+        const allProjects = Array.from(projectsGrid.querySelectorAll('.project-card'));
+        let filteredProjects = [...allProjects];
+        let visibleCount = 6;
+        const maxPerLoad = 6;
+        
+        function updateProjectsDisplay() {
+            const searchTerm = projectSearch.value.toLowerCase();
+            const filterValue = projectFilter.value;
+            
+            filteredProjects = allProjects.filter(project => {
+                const title = project.querySelector('h3').textContent.toLowerCase();
+                const desc = project.querySelector('p').textContent.toLowerCase();
+                const tags = Array.from(project.querySelectorAll('.tag')).map(t => t.textContent.toLowerCase());
+                const category = project.getAttribute('data-category') || '';
+                
+                const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm) || tags.some(t => t.includes(searchTerm));
+                const matchesFilter = filterValue === 'all' || category === filterValue;
+                
+                return matchesSearch && matchesFilter;
+            });
+            
+            allProjects.forEach(p => p.style.display = 'none');
+            
+            for (let i = 0; i < Math.min(visibleCount, filteredProjects.length); i++) {
+                filteredProjects[i].style.display = ''; 
+            }
+            
+            if (filteredProjects.length > visibleCount) {
+                if(showMoreBtn) showMoreBtn.style.display = 'flex';
+            } else {
+                if(showMoreBtn) showMoreBtn.style.display = 'none';
+            }
+            
+            if (visibleCount > maxPerLoad && filteredProjects.length > maxPerLoad) {
+                if(collapseAllBtn) collapseAllBtn.style.display = 'flex';
+            } else {
+                if(collapseAllBtn) collapseAllBtn.style.display = 'none';
+            }
+        }
+        
+        if (projectSearch) {
+            projectSearch.addEventListener('input', () => {
+                visibleCount = maxPerLoad;
+                updateProjectsDisplay();
+            });
+        }
+        
+        if (projectFilter) {
+            projectFilter.addEventListener('change', () => {
+                visibleCount = maxPerLoad;
+                updateProjectsDisplay();
+            });
+        }
+        
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', () => {
+                visibleCount += maxPerLoad;
+                updateProjectsDisplay();
+            });
+        }
+        
+        if (collapseAllBtn) {
+            collapseAllBtn.addEventListener('click', () => {
+                visibleCount = maxPerLoad;
+                updateProjectsDisplay();
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+        
+        updateProjectsDisplay();
+    }
 });
