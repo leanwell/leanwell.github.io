@@ -39,7 +39,7 @@
                                 <a href="https://github.com/leanwell" target="_blank" class="social-icon" style="text-decoration: none; transition: all 0.3s ease;">
                                     <i class="ph ph-github-logo"></i>
                                 </a>
-                                <a href="https://instagram.com/leanwell_/" target="_blank" class="social-icon" style="text-decoration: none; transition: all 0.3s ease;">
+                                <a href="https://instagram.com" target="_blank" class="social-icon" style="text-decoration: none; transition: all 0.3s ease;">
                                     <i class="ph ph-instagram-logo"></i>
                                 </a>
                             </div>
@@ -192,23 +192,43 @@
             </section>
             <section id="projects" class="view-section">
                 <header class="view-header">
-                    <h1>Selected Works</h1>
-                    <p class="subtitle">A showcase of my recent projects.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; width: 100%;">
+                        <div>
+                            <h1>Selected Works</h1>
+                            <p class="subtitle">A showcase of my recent projects.</p>
+                        </div>
+                        <div class="projects-controls" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                            <div class="search-box" style="position: relative;">
+                                <i class="ph ph-magnifying-glass" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);"></i>
+                                <input type="text" id="projectSearch" placeholder="Search..." style="padding: 0.75rem 1rem 0.75rem 2.5rem; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); outline: none; width: 150px; transition: width 0.3s; font-family: inherit;">
+                            </div>
+                            <div class="filter-dropdown" style="position: relative;">
+                                <select id="projectFilter" style="padding: 0.75rem 2.5rem 0.75rem 1rem; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); outline: none; appearance: none; cursor: pointer; font-family: inherit;">
+                                    <option value="all" style="background: #222; color: #fff;">All Categories</option>
+                                    <option value="web-mobile" style="background: #222; color: #fff;">Web & Mobile</option>
+                                    <option value="systems" style="background: #222; color: #fff;">Systems Programming</option>
+                                    <option value="iot" style="background: #222; color: #fff;">IoT & Embedded</option>
+                                    <option value="industrial" style="background: #222; color: #fff;">Industrial Automation</option>
+                                </select>
+                                <i class="ph ph-funnel" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-secondary);"></i>
+                            </div>
+                        </div>
+                    </div>
                 </header>
-                <div class="projects-grid">
-                    <div class="project-card glass-panel" data-tilt data-tilt-max="3" data-tilt-perspective="1000">
+                <div class="projects-grid" id="projectsGrid">
+                    <div class="project-card glass-panel" data-category="iot" data-tilt data-tilt-max="3" data-tilt-perspective="1000">
                         <div class="project-image-container" style="background: var(--bg-secondary); padding: 2rem; display: flex; justify-content: center; align-items: center;">
                              <img src="portfolio/assets/sparki1000_favicon.png" alt="Sparki Project Logo" class="single-image hover-rotate" style="object-fit: contain; width: 120px; height: 120px;" loading="lazy">
                         </div>
                         <div class="project-info">
                             <div class="tags"><span class="tag">IoT</span><span class="tag">Dasai Mochi</span></div>
-                            <h3>Sparki Project</h3>
-                            <p>An innovative mechatronics project integrating hardware control, embedded systems, and robust software interfaces.</p>
+                            <h3>The Sparki Project</h3>
+                            <p>An interactive, IoT-enabled desk dashboard that serves as a smart helper, providing real-time telemetry and intuitive controls.</p>
                             <a href="portfolio/sparki.html" class="project-link">View Details <i class="ph ph-arrow-right"></i></a>
                         </div>
                     </div>
                     
-                    <div class="project-card glass-panel" data-tilt data-tilt-max="3" data-tilt-perspective="1000">
+                    <div class="project-card glass-panel" data-category="web-mobile" data-tilt data-tilt-max="3" data-tilt-perspective="1000">
                         <div class="project-image-container" style="background: var(--bg-secondary); padding: 2rem; display: flex; justify-content: center; align-items: center;">
                              <img src="portfolio/assets/localsend-icon.png" alt="LocalSend Icon" class="single-image hover-rotate" style="object-fit: contain; width: 120px; height: 120px;" loading="lazy">
                         </div>
@@ -219,6 +239,10 @@
                             <a href="portfolio/localsend.html" class="project-link">View Details <i class="ph ph-arrow-right"></i></a>
                         </div>
                     </div>
+                </div>
+                <div id="projectsPagination" style="display: flex; justify-content: center; margin-top: 3rem; gap: 1rem;">
+                    <button id="showMoreBtn" class="btn" style="background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); display: none; align-items: center; gap: 0.5rem;">Show More <i class="ph ph-caret-down"></i></button>
+                    <button id="collapseAllBtn" class="btn" style="background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary); display: none; align-items: center; gap: 0.5rem;">Collapse All <i class="ph ph-caret-up"></i></button>
                 </div>
             </section>
             <section id="experience" class="view-section">
