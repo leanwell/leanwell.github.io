@@ -21,6 +21,7 @@
             <li><a href="#projects"><i class="ph ph-folder-notch-open"></i> <span class="nav-text">Projects</span></a></li>
             <li><a href="#experience"><i class="ph ph-briefcase"></i> <span class="nav-text">Experience</span></a></li>
             <li><a href="#contact"><i class="ph ph-envelope-simple"></i> <span class="nav-text">Contact</span></a></li>
+            <li><a href="apps/"><i class="ph ph-squares-four"></i> <span class="nav-text">Apps</span></a></li>
         </ul>
     </nav>
         <main class="main-content">
@@ -198,6 +199,7 @@
                             <p class="subtitle">A showcase of my recent projects.</p>
                         </div>
                         <div class="projects-controls" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                            <a href="apps/" class="btn" style="padding: 0.65rem 1.25rem; border-radius: 30px; border: 1px solid var(--border-color); background: var(--bg-panel-solid); color: var(--text-primary); font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04);"><i class="ph ph-squares-four"></i> Apps Hub</a>
                             <div class="search-box" style="position: relative;">
                                 <i class="ph ph-magnifying-glass" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);"></i>
                                 <input type="text" id="projectSearch" placeholder="Search..." style="padding: 0.75rem 1rem 0.75rem 2.5rem; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text-primary); outline: none; width: 150px; transition: width 0.3s; font-family: inherit;">
@@ -216,6 +218,18 @@
                     </div>
                 </header>
                 <div class="projects-grid" id="projectsGrid">
+                    <div class="project-card glass-panel" data-category="web-mobile" data-tilt data-tilt-max="3" data-tilt-perspective="1000">
+                        <div class="project-image-container" style="background: var(--bg-secondary); padding: 2rem; display: flex; justify-content: center; align-items: center;">
+                             <img src="portfolio/assets/daily-logo.png" alt="Daily App Logo" class="single-image hover-rotate" style="object-fit: contain; width: 120px; height: 120px;" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <div class="tags"><span class="tag">Android App</span><span class="tag">Retro Camera</span><span class="tag">v1.0 Beta</span></div>
+                            <h3>Daily</h3>
+                            <p>An authentic daily photo-sharing app designed with the intentional feel of a retro disposable camera. Capture uncurated moments, share in a card stack, and preserve memories in a private calendar vault.</p>
+                            <a href="apps/daily.html" class="project-link">View Details <i class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
                     <div class="project-card glass-panel" data-category="iot" data-tilt data-tilt-max="3" data-tilt-perspective="1000">
                         <div class="project-image-container" style="background: var(--bg-secondary); padding: 2rem; display: flex; justify-content: center; align-items: center;">
                              <img src="portfolio/assets/sparki1000_favicon.png" alt="Sparki Project Logo" class="single-image hover-rotate" style="object-fit: contain; width: 120px; height: 120px;" loading="lazy">

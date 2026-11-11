@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily — Moments & Memories | Android App</title>
+    <link rel="icon" type="image/png" href="daily-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../portfolio/style.css">
+    <link rel="stylesheet" href="apps.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        /* Daily Page Specific Enhancements */
+        .daily-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.1rem;
+            background: rgba(245, 158, 11, 0.12);
+            color: #D97706;
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .daily-title-wrap {
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .daily-title-wrap h1 {
+            font-size: clamp(2.5rem, 6vw, 3.8rem);
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 1.25rem;
+        }
+
+        .daily-tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* Large Download Action Card */
+        .download-action-hero {
+            background: var(--bg-panel-solid);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin: 2rem 0 4rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-action-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #F59E0B, #EA580C, #18181B);
+        }
+
+        .download-meta-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .download-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .download-meta-item span.label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .download-meta-item span.val {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        /* Philosophy Callout */
+        .philosophy-banner {
+            background: #18181B;
+            color: #FAFAFA;
+            border-radius: var(--border-radius);
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-banner h2 {
+            color: #FFFFFF;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .philosophy-banner p {
+            color: #A1A1AA;
+            font-size: 1.15rem;
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .philosophy-banner .highlight {
+            color: #F59E0B;
+            font-weight: 600;
+        }
+
+        /* Permissions Grid */
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .perm-card {
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .perm-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-panel-solid);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            flex-shrink: 0;
+        }
+
+        .perm-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .perm-tag {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .perm-tag.required {
+            background: #FEF2F2;
+            color: #B91C1C;
+        }
+
+        .perm-tag.optional {
+            background: #F3F4F6;
+            color: #4B5563;
+        }
+
+        .perm-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Shutter feedback trigger */
+        .shutter-btn {
+            background: transparent;
+            border: 1px dashed #F59E0B;
+            color: #D97706;
+            border-radius: 30px;
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+            font-family: inherit;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s ease;
+        }
+
+        .shutter-btn:hover {
+            background: rgba(245, 158, 11, 0.1);
+            transform: scale(1.03);
+        }
+
+        /* Floating Emoji Rain Particle Container */
+        #emoji-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .falling-emoji {
+            position: absolute;
+            font-size: 2rem;
+            user-select: none;
+            animation: fallDown linear forwards;
+        }
+
+        @keyframes fallDown {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="emoji-container"></div>
+
+    <div class="dashboard-container">
+        <!-- Floating Navigation -->
+        <nav class="floating-nav">
+            <ul class="nav-links">
+                <div class="nav-slider"></div>
+                <li><a href="../index.html#overview"><i class="ph ph-user"></i> <span class="nav-text">About</span></a></li>
+                <li><a href="../index.html#projects"><i class="ph ph-folder-notch-open"></i> <span class="nav-text">Projects</span></a></li>
+                <li><a href="index.html"><i class="ph ph-squares-four"></i> <span class="nav-text">Apps</span></a></li>
+                <li><a href="daily.html" class="active"><i class="ph ph-camera"></i> <span class="nav-text">Daily</span></a></li>
+                <li><a href="../index.html#contact"><i class="ph ph-envelope-simple"></i> <span class="nav-text">Contact</span></a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Breadcrumbs -->
+            <header class="apps-nav-header">
+                <div class="apps-breadcrumb">
+                    <a href="../index.html">Linwel Colmo</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Apps</a>
+                    <span class="separator">/</span>
+                    <span class="current">Daily</span>
+                </div>
+                <div class="nav-actions">
+                    <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="chip-btn" style="background: var(--text-primary); color: var(--bg-main); border: none;">
+                        <i class="ph ph-download-simple"></i> Get APK
+                    </a>
+                </div>
+            </header>
+
+            <!-- App Header & Hero -->
+            <section class="daily-title-wrap">
+                <div class="daily-hero-badge">
+                    <i class="ph ph-camera"></i> Retro Disposable Camera for Android
+                </div>
+                
+                <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                    <div class="app-icon-wrap" style="width: 130px; height: 130px;">
+                        <img src="daily-logo.png" alt="Daily Camera App Icon">
+                    </div>
+                </div>
+
+                <h1>Daily — Moments & Memories</h1>
+                <p class="daily-tagline">Capture authentic moments on a retro camera roll shared with close friends.</p>
+                <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto; line-height: 1.8; font-size: 1.05rem;">
+                    Daily is an authentic daily photo-sharing app designed with the intentional feel of a retro disposable camera. Capture uncurated moments of your day, share them with close friends in a tactile card stack, and preserve your life chronicle in a private monthly calendar vault.
+                </p>
+
+                <div style="display: flex; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <button id="triggerEmojiRain" class="shutter-btn">
+                        <i class="ph ph-sparkle"></i> Test Interactive Emoji Rain
+                    </button>
+                    <a href="#requirements" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
+                        <i class="ph ph-device-mobile"></i> System Requirements
+                    </a>
+                </div>
+            </section>
+
+            <!-- Primary Download Banner Box -->
+            <section id="download" class="download-action-hero">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                        <h3 style="font-size: 1.5rem; margin: 0;">Official Beta Release</h3>
+                        <span class="badge-pill beta" style="margin-bottom: 0;">v1.0-Beta</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;">
+                        Signed release APK ready for direct sideloading on all compatible Android devices.
+                    </p>
+                    <div class="download-meta-info">
+                        <div class="download-meta-item">
+                            <span class="label">Package</span>
+                            <span class="val">daily-v1.0-beta.apk</span>
+                        </div>
+                        <div class="download-meta-item">
+                            <span class="label">File Size</span>
+                            <span class="val">~7.1 MB (7,432 KB)</span>
+                        </div>
+                        <div class="download-meta-item">
+                            <span class="label">Requirement</span>
+                            <span class="val">Android 8.0 (Oreo)+</span>
+                        </div>
+                        <div class="download-meta-item">
+                            <span class="label">Architecture</span>
+                            <span class="val">Universal (ARM64 / ARMv7 / x86)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;">
+                    <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="download-btn-primary" style="font-size: 1.05rem; padding: 1rem 2.2rem;">
+                        <i class="ph ph-download-simple"></i> Download APK Now
+                    </a>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem;">
+                        <i class="ph ph-shield-check" style="color: #10B981;"></i> Cryptographically Signed APK
+                    </span>
+                </div>
+            </section>
+
+            <!-- Photo Exposures Stack Preview (Using Bundled Sample Shots) -->
+            <section style="margin: 4rem 0;">
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <span class="badge-pill"><i class="ph ph-cards"></i> Authentic Analog Exposures</span>
+                    <h2 style="font-size: 2rem;">The Tactile Card Stack</h2>
+                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto 0 auto;">
+                        No infinite doom-scrolling. Browse friends' daily exposures like a physical stack of photo prints that expire after 24 hours.
+                    </p>
+                </div>
+
+                <div class="photo-stack-container">
+                    <!-- Photo 1 -->
+                    <div class="retro-print tilt-left" data-tilt data-tilt-max="6">
+                        <img src="preview-1.jpg" alt="Daily Sample Exposure - Warm Dusk Portrait" class="print-photo">
+                        <div class="print-caption">
+                            <span>ROLL #04 • SHUTTER 1/125</span>
+                            <span class="date-stamp">18:42 PM</span>
+                        </div>
+                    </div>
+
+                    <!-- Photo 2 -->
+                    <div class="retro-print tilt-right" data-tilt data-tilt-max="6">
+                        <img src="preview-2.jpg" alt="Daily Sample Exposure - Coffee Morning Warm Tone" class="print-photo">
+                        <div class="print-caption">
+                            <span>ROLL #04 • SHUTTER 1/60</span>
+                            <span class="date-stamp">08:15 AM</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--text-secondary); font-style: italic;">
+                    *Exposures taken with Daily's vintage color toning and analog warm grade.
+                </p>
+            </section>
+
+            <!-- Core Philosophy Callout -->
+            <section class="philosophy-banner">
+                <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #F59E0B; font-weight: 700; display: block; margin-bottom: 0.5rem;">
+                    Our Philosophy
+                </span>
+                <h2>NO FILTERS. NO FOLLOWER COUNTS. JUST REAL LIFE.</h2>
+                <p>
+                    Most social apps demand curated perfection, endless public feeds, and vanity metrics. Daily is designed for authentic, in-the-moment sharing with the people who matter to you. Snap candid glimpses of your day, share them in a tactile card stack, and preserve your personal life chronicle.
+                </p>
+            </section>
+
+            <!-- Key Features Grid -->
+            <section style="margin: 4rem 0;">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <span class="badge-pill"><i class="ph ph-lightning"></i> Crafted Features</span>
+                    <h2 style="font-size: 2.2rem;">Engineered for Authenticity</h2>
+                    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto;">
+                        Every feature is intentionally built around the experience of a disposable camera combined with modern cloud reliability.
+                    </p>
+                </div>
+
+                <div class="features-spotlight-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon">
+                            <i class="ph ph-aperture"></i>
+                        </div>
+                        <h3>Analog Shutter & Instant Queue</h3>
+                        <p>Shoot photos with vintage color grading, authentic mechanical shutter feedback, a 5-second undo safeguard, and non-blocking background uploads.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon">
+                            <i class="ph ph-cards"></i>
+                        </div>
+                        <h3>Physical Card Stack Feed</h3>
+                        <p>Browse your friends' daily exposures like a physical stack of photo prints. Swipe cards naturally across your screen and catch up before exposures expire in 24 hours.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon">
+                            <i class="ph ph-sparkle"></i>
+                        </div>
+                        <h3>Interactive Emoji Rain</h3>
+                        <p>React to friends' photos with vibrant emoji bursts that cascade down the screen in real-time, delivering playful and expressive feedback.</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon">
+                            <i class="ph ph-calendar"></i>
+                        </div>
+                        <h3>Monthly Calendar Vault</h3>
+                        <p>Your daily shots don't disappear into thin air. At midnight, every exposure you take safely archives into your private, searchable calendar vault.</p>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon">
+                            <i class="ph ph-app-window"></i>
+                        </div>
+                        <h3>Interactive 1:1 Homescreen Widget</h3>
+                        <p>Glance at your friends' latest moments directly from your home screen. Select from automated slideshows, pinned favorites, or friend takeover modes.</p>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon">
+                            <i class="ph ph-qr-code"></i>
+                        </div>
+                        <h3>Fast QR Discovery & Story Cards</h3>
+                        <p>Add friends in seconds using the live QR scanner or import a screenshot directly from photos. Customize your personal QR poster with color themes and emojis.</p>
+                    </div>
+
+                    <!-- Feature 7 -->
+                    <div class="feature-spotlight-item" style="grid-column: 1 / -1;">
+                        <div class="feature-spotlight-icon">
+                            <i class="ph ph-shield-check"></i>
+                        </div>
+                        <h3>Privacy & Complete Data Ownership</h3>
+                        <p>No algorithms, no third-party data tracking, and zero public follower feeds. Your memories live in an encrypted cloud vault. Export all your photos and data into a single ZIP archive, or permanently delete your account at any time with one tap.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Android System Requirements -->
+            <section id="requirements" class="glass-panel" style="padding: 3rem; margin: 4rem 0; border-radius: var(--border-radius);">
+                <div style="margin-bottom: 2rem;">
+                    <span class="badge-pill"><i class="ph ph-device-mobile"></i> Hardware & Compatibility</span>
+                    <h2 style="font-size: 2rem; margin-top: 0.5rem;">Android System Requirements</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                        Daily is built natively for Android to deliver low-latency camera performance and smooth 60fps card transitions.
+                    </p>
+                </div>
+
+                <div class="reqs-grid">
+                    <div class="req-item">
+                        <i class="ph ph-android-logo"></i>
+                        <div>
+                            <h4>Operating System</h4>
+                            <p>Android 8.0 (Oreo / API Level 26) or higher</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-cpu"></i>
+                        <div>
+                            <h4>RAM & Performance</h4>
+                            <p>Minimum 2 GB RAM (3 GB+ recommended for background queue)</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-hard-drive"></i>
+                        <div>
+                            <h4>Internal Storage</h4>
+                            <p>100 MB free internal storage for cache & archives</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-camera"></i>
+                        <div>
+                            <h4>Hardware Optics</h4>
+                            <p>Standard rear and front camera supported</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Permissions Breakdown -->
+                <h3 style="font-size: 1.25rem; margin: 2.5rem 0 1rem 0;">Device Permissions Explained</h3>
+                <div class="permissions-grid">
+                    <div class="perm-card">
+                        <div class="perm-badge"><i class="ph ph-camera"></i></div>
+                        <div class="perm-info">
+                            <h4>Camera <span class="perm-tag required">Required</span></h4>
+                            <p>Required to capture daily photo exposures with authentic mechanical shutter feedback.</p>
+                        </div>
+                    </div>
+
+                    <div class="perm-card">
+                        <div class="perm-badge"><i class="ph ph-image"></i></div>
+                        <div class="perm-info">
+                            <h4>Photos / Media <span class="perm-tag required">Required</span></h4>
+                            <p>Required to crop profile avatars and import friend QR codes directly from your gallery.</p>
+                        </div>
+                    </div>
+
+                    <div class="perm-card">
+                        <div class="perm-badge"><i class="ph ph-wifi-high"></i></div>
+                        <div class="perm-info">
+                            <h4>Network / Internet <span class="perm-tag required">Required</span></h4>
+                            <p>Required to sync daily rolls, receive friends' updates, and archive exposures to cloud vault.</p>
+                        </div>
+                    </div>
+
+                    <div class="perm-card">
+                        <div class="perm-badge"><i class="ph ph-bell"></i></div>
+                        <div class="perm-info">
+                            <h4>Notifications <span class="perm-tag optional">Android 13+ Optional</span></h4>
+                            <p>Optional, used exclusively for friend requests and daily capture reminders.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Play Services / Auth Note -->
+                <div style="background: rgba(0, 0, 0, 0.03); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 1.25rem 1.5rem; margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                    <i class="ph ph-google-logo" style="font-size: 1.5rem; color: var(--text-primary);"></i>
+                    <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                        <strong style="color: var(--text-primary);">Authentication Flexibility:</strong> Google Play Services is required only if signing in with your Google Account. Direct Email and Password authentication works out-of-the-box on all Android devices, including de-Googled ROMs.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Installation Guide Steps -->
+            <section style="margin: 4rem 0;">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <span class="badge-pill"><i class="ph ph-download-simple"></i> Easy Sideload</span>
+                    <h2 style="font-size: 2rem;">How to Install on Android</h2>
+                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                        Installing signed APKs directly gives you immediate access to beta builds without app store delays.
+                    </p>
+                </div>
+
+                <div class="install-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4>Download APK</h4>
+                        <p>Click the download button to grab <code>daily-v1.0-beta.apk</code> (~7.1 MB) directly onto your phone.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4>Open the File</h4>
+                        <p>Tap the download completed notification in your notification tray or open your phone's "Downloads" folder.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4>Enable Permission</h4>
+                        <p>If prompted with <em>"For security, your phone is not allowed to install unknown apps"</em>, tap <strong>Settings</strong> and toggle <strong>"Allow from this source"</strong>.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h4>Ready to Snap</h4>
+                        <p>Tap <strong>Install</strong>. Once completed, launch Daily, set your profile, and start taking authentic daily exposures!</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="background: rgba(245, 158, 11, 0.05); border-color: rgba(245, 158, 11, 0.3); padding: 1.25rem 1.75rem; border-radius: var(--border-radius-sm); margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                    <i class="ph ph-info" style="font-size: 1.5rem; color: #D97706; flex-shrink: 0;"></i>
+                    <p style="margin: 0; font-size: 0.9rem; color: #92400E; line-height: 1.5;">
+                        <strong>Android Installation Note:</strong> <em>"Allow from this source"</em> is standard Android security for sideloaded applications. Daily's APK is officially signed and clean from trackers or telemetry bloatware.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Bottom Download Call to Action -->
+            <section class="glass-panel" style="padding: 3.5rem 2.5rem; text-align: center; border-radius: var(--border-radius); margin: 5rem 0 2rem 0; background: var(--bg-panel-solid);">
+                <div style="width: 72px; height: 72px; border-radius: 20px; background: #18181B; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+                    <img src="daily-logo.png" alt="Daily App Logo" style="width: 54px; height: 54px; object-fit: contain;">
+                </div>
+                <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Start Your Daily Chronicle</h2>
+                <p style="color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem auto; font-size: 1.05rem;">
+                    Step away from curated social pressure. Experience real photo sharing with friends and a private monthly vault.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="download-btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+                        <i class="ph ph-download-simple"></i> Download daily-v1.0-beta.apk
+                    </a>
+                    <a href="index.html" class="btn-secondary-link">
+                        <i class="ph ph-arrow-left"></i> Back to Apps Catalog
+                    </a>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="site-footer">
+                <div class="footer-brand">
+                    <span class="close-gap">L</span>
+                    <span class="close-gap">I</span>
+                    <span>N</span>
+                    <span class="offset-1">W</span>
+                    <span class="offset-2 close-gap">E</span>
+                    <span class="offset-3">L</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Scripts: Shutter Click & Interactive Emoji Rain -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Floating Nav Slider positioning for active page pill
+            const navSlider = document.querySelector('.nav-slider');
+            function updateNavSlider() {
+                if (!navSlider) return;
+                const activeLink = document.querySelector('.nav-links li a.active');
+                if (activeLink) {
+                    const linkRect = activeLink.getBoundingClientRect();
+                    const navRect = document.querySelector('.nav-links').getBoundingClientRect();
+                    navSlider.style.width = `${linkRect.width}px`;
+                    navSlider.style.transform = `translateX(${linkRect.left - navRect.left}px)`;
+                }
+            }
+
+            updateNavSlider();
+            setTimeout(updateNavSlider, 50);
+            setTimeout(updateNavSlider, 150);
+            window.addEventListener('resize', updateNavSlider);
+            window.addEventListener('load', updateNavSlider);
+            if (document.fonts) {
+                document.fonts.ready.then(updateNavSlider);
+            }
+
+            // VanillaTilt for photo prints
+            if (typeof VanillaTilt !== 'undefined') {
+                VanillaTilt.init(document.querySelectorAll(".retro-print"), {
+                    max: 8,
+                    speed: 400,
+                    glare: true,
+                    "max-glare": 0.15,
+                    scale: 1.03
+                });
+            }
+
+            // Interactive Emoji Rain feature simulation
+            const emojiBtn = document.getElementById('triggerEmojiRain');
+            const container = document.getElementById('emoji-container');
+            const emojis = ['📸', '✨', '💛', '☕', '🎞️', '🌻', '👀', '🎉', '🔥'];
+
+            function triggerEmojiShower() {
+                const count = 35;
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const el = document.createElement('div');
+                        el.className = 'falling-emoji';
+                        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                        el.style.left = Math.random() * 95 + 'vw';
+                        
+                        const duration = 2 + Math.random() * 2.5; // 2s - 4.5s
+                        el.style.animationDuration = duration + 's';
+                        
+                        const size = 1.4 + Math.random() * 1.5; // rem
+                        el.style.fontSize = size + 'rem';
+
+                        container.appendChild(el);
+
+                        setTimeout(() => {
+                            if (el && el.parentNode) {
+                                el.parentNode.removeChild(el);
+                            }
+                        }, duration * 1000);
+                    }, i * 60);
+                }
+            }
+
+            if (emojiBtn) {
+                emojiBtn.addEventListener('click', triggerEmojiShower);
+            }
+        });
+    </script>
+</body>
+</html>

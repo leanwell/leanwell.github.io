@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications & Software | Linwel Colmo</title>
+    <link rel="icon" type="image/jpeg" href="../portfolio/assets/1x1.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../portfolio/style.css">
+    <link rel="stylesheet" href="apps.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Floating Navigation -->
+        <nav class="floating-nav">
+            <ul class="nav-links">
+                <div class="nav-slider"></div>
+                <li><a href="../index.html#overview"><i class="ph ph-user"></i> <span class="nav-text">About</span></a></li>
+                <li><a href="../index.html#projects"><i class="ph ph-folder-notch-open"></i> <span class="nav-text">Projects</span></a></li>
+                <li><a href="index.html" class="active"><i class="ph ph-squares-four"></i> <span class="nav-text">Apps</span></a></li>
+                <li><a href="daily.html"><i class="ph ph-camera"></i> <span class="nav-text">Daily</span></a></li>
+                <li><a href="../index.html#contact"><i class="ph ph-envelope-simple"></i> <span class="nav-text">Contact</span></a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Top Breadcrumb & Actions -->
+            <header class="apps-nav-header">
+                <div class="apps-breadcrumb">
+                    <a href="../index.html"><i class="ph ph-arrow-left"></i> Linwel Colmo</a>
+                    <span class="separator">/</span>
+                    <span class="current">Apps Hub</span>
+                </div>
+                <div class="nav-actions">
+                    <a href="https://github.com/leanwell" target="_blank" class="chip-btn"><i class="ph ph-github-logo"></i> GitHub</a>
+                    <a href="../index.html#contact" class="chip-btn"><i class="ph ph-chat-circle-dots"></i> Inquire</a>
+                </div>
+            </header>
+
+            <!-- Apps Hub Hero -->
+            <section class="apps-hero">
+                <span class="badge-pill featured"><i class="ph ph-sparkle"></i> Software & Mobile Ecosystem</span>
+                <h1>Crafted Applications</h1>
+                <p>A curated directory of native mobile applications, IoT companion software, and developer tools built by Linwel Colmo. Focused on tactile interfaces, privacy-first architecture, and genuine user experiences.</p>
+            </section>
+
+            <!-- Featured Showcase Banner: Daily -->
+            <section class="featured-app-card glass-panel" id="featured-daily">
+                <div class="app-icon-wrap">
+                    <img src="daily-logo.png" alt="Daily App Logo">
+                </div>
+                <div class="featured-app-details">
+                    <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <span class="badge-pill featured" style="margin-bottom: 0;"><i class="ph ph-crown"></i> Featured Release</span>
+                        <span class="badge-pill beta" style="margin-bottom: 0;"><i class="ph ph-android-logo"></i> Android APK v1.0 Beta</span>
+                    </div>
+                    <h2>Daily — Moments & Memories</h2>
+                    <p class="tagline-sub">Capture authentic moments on a retro camera roll shared with close friends.</p>
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.98rem; max-width: 820px;">
+                        Daily brings back the intentional feel of vintage disposable cameras. Snap uncurated glimpses of your day with mechanical shutter feedback, share them in a tactile card stack, and watch your memories automatically archive at midnight into a private monthly calendar vault. Zero vanity metrics, no public feeds.
+                    </p>
+
+                    <div class="app-feature-tags">
+                        <span class="app-tag"><i class="ph ph-camera"></i> Retro Analog Shutter</span>
+                        <span class="app-tag"><i class="ph ph-cards"></i> Card Stack Feed</span>
+                        <span class="app-tag"><i class="ph ph-calendar"></i> Monthly Calendar Vault</span>
+                        <span class="app-tag"><i class="ph ph-app-window"></i> 1:1 Homescreen Widget</span>
+                        <span class="app-tag"><i class="ph ph-shield-check"></i> Private Encrypted Vault</span>
+                    </div>
+
+                    <div class="app-card-actions">
+                        <a href="daily.html" class="btn primary-btn" style="text-decoration: none;">
+                            <i class="ph ph-info"></i> View App Details & Specs
+                        </a>
+                        <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="download-btn-primary">
+                            <i class="ph ph-download-simple"></i> Download APK <span style="font-size: 0.8rem; opacity: 0.8; font-weight: 400;">(~7.1 MB)</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Apps Catalog Section -->
+            <section style="margin-top: 4rem;">
+                <div class="apps-toolbar">
+                    <div class="filter-pills">
+                        <button class="filter-pill active" data-filter="all">All Software (3)</button>
+                        <button class="filter-pill" data-filter="android">Android Native</button>
+                        <button class="filter-pill" data-filter="iot">IoT & Companion</button>
+                        <button class="filter-pill" data-filter="opensource">Open Source</button>
+                    </div>
+                    <div class="search-box" style="position: relative;">
+                        <i class="ph ph-magnifying-glass" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);"></i>
+                        <input type="text" id="appsSearch" placeholder="Search apps..." style="padding: 0.65rem 1rem 0.65rem 2.5rem; border-radius: 30px; border: 1px solid var(--border-color); background: var(--bg-panel-solid); color: var(--text-primary); outline: none; width: 180px; font-family: inherit; font-size: 0.9rem;">
+                    </div>
+                </div>
+
+                <div class="apps-grid" id="appsGrid">
+                    <!-- App 1: Daily -->
+                    <div class="app-card glass-panel" data-category="android">
+                        <div>
+                            <div class="app-card-top">
+                                <div class="mini-app-icon" style="background: #18181B;">
+                                    <img src="daily-logo.png" alt="Daily Icon">
+                                </div>
+                                <div class="app-card-header">
+                                    <span class="app-tag" style="margin-bottom: 0.35rem; display: inline-flex;"><i class="ph ph-android-logo"></i> Android 8.0+</span>
+                                    <h3>Daily — Memories</h3>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Authentic photo sharing designed like a retro disposable camera with a 24-hour card stack, emoji showers, and private calendar archives.</p>
+                            <div class="tags" style="margin-bottom: 1.5rem;">
+                                <span class="tag">Android Native</span>
+                                <span class="tag">Retro Camera</span>
+                                <span class="tag">v1.0 Beta</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            <a href="daily.html" class="btn primary-btn" style="flex: 1; justify-content: center; text-decoration: none; font-size: 0.88rem;">Details</a>
+                            <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="btn" style="border: 1px solid var(--border-color); background: var(--bg-panel-solid); color: var(--text-primary); text-decoration: none; font-size: 0.88rem;" title="Download Signed APK"><i class="ph ph-download-simple"></i> APK</a>
+                        </div>
+                    </div>
+
+                    <!-- App 2: Sparki Companion -->
+                    <div class="app-card glass-panel" data-category="iot">
+                        <div>
+                            <div class="app-card-top">
+                                <div class="mini-app-icon">
+                                    <img src="../portfolio/assets/sparki1000_favicon.png" alt="Sparki Icon">
+                                </div>
+                                <div class="app-card-header">
+                                    <span class="app-tag" style="margin-bottom: 0.35rem; display: inline-flex;"><i class="ph ph-cpu"></i> IoT Companion</span>
+                                    <h3>Sparki Companion</h3>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Smart companion software for the SPARKI1000 and SPARKITOUCH ecosystem. Controls telemetry sync, robotic animations, and desk widget dashboards.</p>
+                            <div class="tags" style="margin-bottom: 1.5rem;">
+                                <span class="tag">ESP32 IoT</span>
+                                <span class="tag">Desktop & Mobile</span>
+                                <span class="tag">Hardware Sync</span>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="../portfolio/sparki.html" class="btn-secondary-link" style="width: 100%; justify-content: center; box-sizing: border-box;">
+                                View Hardware Ecosystem <i class="ph ph-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- App 3: LocalSend Localization -->
+                    <div class="app-card glass-panel" data-category="opensource">
+                        <div>
+                            <div class="app-card-top">
+                                <div class="mini-app-icon">
+                                    <img src="../portfolio/assets/localsend-icon.png" alt="LocalSend Icon">
+                                </div>
+                                <div class="app-card-header">
+                                    <span class="app-tag" style="margin-bottom: 0.35rem; display: inline-flex;"><i class="ph ph-globe"></i> Open Source</span>
+                                    <h3>LocalSend Filipino</h3>
+                                </div>
+                            </div>
+                            <p class="app-card-desc">Localization contribution for the popular cross-platform peer-to-peer file sharing application, bringing native Tagalog support to all devices.</p>
+                            <div class="tags" style="margin-bottom: 1.5rem;">
+                                <span class="tag">Open Source</span>
+                                <span class="tag">Filipino</span>
+                                <span class="tag">Cross-Platform</span>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="../portfolio/localsend.html" class="btn-secondary-link" style="width: 100%; justify-content: center; box-sizing: border-box;">
+                                View Contribution Story <i class="ph ph-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Android Installation Help -->
+            <section class="glass-panel" style="padding: 2.5rem; margin-bottom: 4rem; border-radius: var(--border-radius);">
+                <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                    <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+                        <i class="ph ph-shield-check"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.3rem;">Installing Beta APKs on Android</h3>
+                        <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">Clean, direct installation without third-party app stores.</p>
+                    </div>
+                </div>
+
+                <div class="install-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4>Download APK</h4>
+                        <p>Click the download button to save the official signed <code>daily-v1.0-beta.apk</code> file to your device.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4>Open Installer</h4>
+                        <p>Tap the download notification or locate the APK in your Android "Files" or "Downloads" directory.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4>Allow Source</h4>
+                        <p>If prompted by Android security, toggle <strong>"Allow from this source"</strong> for your browser or file manager.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h4>Launch Daily</h4>
+                        <p>Tap "Install" and open Daily. Snap authentic moments with zero pressure and share with your inner circle.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="site-footer">
+                <div class="footer-brand">
+                    <span class="close-gap">L</span>
+                    <span class="close-gap">I</span>
+                    <span>N</span>
+                    <span class="offset-1">W</span>
+                    <span class="offset-2 close-gap">E</span>
+                    <span class="offset-3">L</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Interactive Filtering Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Floating Nav Slider positioning for active page pill
+            const navSlider = document.querySelector('.nav-slider');
+            function updateNavSlider() {
+                if (!navSlider) return;
+                const activeLink = document.querySelector('.nav-links li a.active');
+                if (activeLink) {
+                    const linkRect = activeLink.getBoundingClientRect();
+                    const navRect = document.querySelector('.nav-links').getBoundingClientRect();
+                    navSlider.style.width = `${linkRect.width}px`;
+                    navSlider.style.transform = `translateX(${linkRect.left - navRect.left}px)`;
+                }
+            }
+
+            updateNavSlider();
+            setTimeout(updateNavSlider, 50);
+            setTimeout(updateNavSlider, 150);
+            window.addEventListener('resize', updateNavSlider);
+            window.addEventListener('load', updateNavSlider);
+            if (document.fonts) {
+                document.fonts.ready.then(updateNavSlider);
+            }
+
+            const searchInput = document.getElementById('appsSearch');
+            const filterPills = document.querySelectorAll('.filter-pill');
+            const appCards = document.querySelectorAll('#appsGrid .app-card');
+
+            let currentFilter = 'all';
+
+            function filterApps() {
+                const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+                appCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const desc = card.querySelector('.app-card-desc').textContent.toLowerCase();
+                    const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent.toLowerCase()).join(' ');
+
+                    const matchesFilter = (currentFilter === 'all') || (category === currentFilter);
+                    const matchesQuery = !query || title.includes(query) || desc.includes(query) || tags.includes(query);
+
+                    if (matchesFilter && matchesQuery) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    currentFilter = pill.getAttribute('data-filter');
+                    filterApps();
+                });
+            });
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterApps);
+            }
+        });
+    </script>
+</body>
+</html>

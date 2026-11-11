@@ -26,8 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let changed = false;
         navLinks.forEach(a => {
+            const href = a.getAttribute('href');
+            if (!href || !href.startsWith('#')) return;
             const isActive = a.classList.contains('active');
-            const shouldBeActive = (a.getAttribute('href').substring(1) === current);
+            const shouldBeActive = (href.substring(1) === current);
             
             if (shouldBeActive && !isActive) {
                 a.classList.add('active');
