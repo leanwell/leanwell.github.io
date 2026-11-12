@@ -280,7 +280,7 @@
                     <span class="current">Daily</span>
                 </div>
                 <div class="nav-actions">
-                    <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="chip-btn" style="background: var(--text-primary); color: var(--bg-main); border: none;">
+                    <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" id="topNavDownloadBtn" class="chip-btn" style="background: var(--text-primary); color: var(--bg-main); border: none;">
                         <i class="ph ph-download-simple"></i> Get APK
                     </a>
                 </div>
@@ -311,15 +311,18 @@
                     <a href="#requirements" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
                         <i class="ph ph-device-mobile"></i> System Requirements
                     </a>
+                    <a href="#releases" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
+                        <i class="ph ph-clock-counter-clockwise"></i> Version History (2)
+                    </a>
                 </div>
             </section>
 
             <!-- Primary Download Banner Box -->
             <section id="download" class="download-action-hero">
                 <div>
-                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
                         <h3 style="font-size: 1.5rem; margin: 0;">Official Beta Release</h3>
-                        <span class="badge-pill beta" style="margin-bottom: 0;">v1.0-Beta</span>
+                        <span class="badge-pill beta" id="specVersionBadge" style="margin-bottom: 0;">v1.1-Beta</span>
                     </div>
                     <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;">
                         Signed release APK ready for direct sideloading on all compatible Android devices.
@@ -327,11 +330,11 @@
                     <div class="download-meta-info">
                         <div class="download-meta-item">
                             <span class="label">Package</span>
-                            <span class="val">daily-v1.0-beta.apk</span>
+                            <span class="val" id="specPackage">daily-v1.1-beta.apk</span>
                         </div>
                         <div class="download-meta-item">
                             <span class="label">File Size</span>
-                            <span class="val">~7.1 MB (7,432 KB)</span>
+                            <span class="val" id="specSize">~7.3 MB (7,672 KB)</span>
                         </div>
                         <div class="download-meta-item">
                             <span class="label">Requirement</span>
@@ -345,7 +348,7 @@
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;">
-                    <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="download-btn-primary" style="font-size: 1.05rem; padding: 1rem 2.2rem;">
+                    <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" id="primaryDownloadBtn" class="download-btn-primary" style="font-size: 1.05rem; padding: 1rem 2.2rem;">
                         <i class="ph ph-download-simple"></i> Download APK Now
                     </a>
                     <span style="font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem;">
@@ -564,6 +567,68 @@
                 </div>
             </section>
 
+            <!-- Version History & APK Archives -->
+            <section id="releases" class="archive-section">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <span class="badge-pill"><i class="ph ph-clock-counter-clockwise"></i> APK Archives</span>
+                    <h2 style="font-size: 2.2rem;">Version History & Releases</h2>
+                    <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto;">
+                        Download the current release or explore older builds from our public APK archive.
+                    </p>
+                </div>
+
+                <div class="archive-list" id="archiveList">
+                    <!-- Populated dynamically via JS from daily/releases.json, with clean pre-rendered HTML fallback -->
+                    <div class="archive-card is-latest">
+                        <div class="archive-card-left">
+                            <div class="archive-header">
+                                <h3>Daily v1.1-beta</h3>
+                                <span class="archive-badge latest"><i class="ph ph-check-circle"></i> Latest Release</span>
+                                <span class="archive-date"><i class="ph ph-calendar"></i> November 12, 2026</span>
+                            </div>
+                            <p class="archive-notes">
+                                Resolved session persistence issues to maintain user authentication across app restarts, optimized asynchronous image loading stability, and fixed background push notification delivery.
+                            </p>
+                            <div class="archive-meta-row">
+                                <span class="archive-meta-chip"><i class="ph ph-file-arrow-down"></i> daily-v1.1-beta.apk</span>
+                                <span class="archive-meta-chip"><i class="ph ph-hard-drive"></i> 7.3 MB</span>
+                                <span class="archive-meta-chip"><i class="ph ph-android-logo"></i> Android 8.0+</span>
+                                <span class="archive-meta-chip"><i class="ph ph-cpu"></i> Universal APK</span>
+                            </div>
+                        </div>
+                        <div class="archive-card-right">
+                            <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" class="download-btn-primary" style="padding: 0.65rem 1.4rem; font-size: 0.88rem;">
+                                <i class="ph ph-download-simple"></i> Download APK
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="archive-card">
+                        <div class="archive-card-left">
+                            <div class="archive-header">
+                                <h3>Daily v1.0-beta</h3>
+                                <span class="archive-badge archive"><i class="ph ph-archive"></i> Archive Build</span>
+                                <span class="archive-date"><i class="ph ph-calendar"></i> November 11, 2026</span>
+                            </div>
+                            <p class="archive-notes">
+                                Initial public beta release featuring the retro analog shutter, tactile 24-hour card stack feed, interactive emoji showers, and private monthly calendar vault.
+                            </p>
+                            <div class="archive-meta-row">
+                                <span class="archive-meta-chip"><i class="ph ph-file-arrow-down"></i> daily-v1.0-beta.apk</span>
+                                <span class="archive-meta-chip"><i class="ph ph-hard-drive"></i> 7.1 MB</span>
+                                <span class="archive-meta-chip"><i class="ph ph-android-logo"></i> Android 8.0+</span>
+                                <span class="archive-meta-chip"><i class="ph ph-cpu"></i> Universal APK</span>
+                            </div>
+                        </div>
+                        <div class="archive-card-right">
+                            <a href="daily/daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="btn-secondary-link" style="padding: 0.65rem 1.4rem; font-size: 0.88rem;">
+                                <i class="ph ph-download-simple"></i> Download APK
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Installation Guide Steps -->
             <section style="margin: 4rem 0;">
                 <div style="text-align: center; margin-bottom: 2.5rem;">
@@ -578,7 +643,7 @@
                     <div class="step-card">
                         <div class="step-number">1</div>
                         <h4>Download APK</h4>
-                        <p>Click the download button to grab <code>daily-v1.0-beta.apk</code> (~7.1 MB) directly onto your phone.</p>
+                        <p>Click the download button to grab <code id="installStepPackage">daily-v1.1-beta.apk</code> (<span id="installStepSize">~7.3 MB</span>) directly onto your phone.</p>
                     </div>
 
                     <div class="step-card">
@@ -618,8 +683,8 @@
                     Step away from curated social pressure. Experience real photo sharing with friends and a private monthly vault.
                 </p>
                 <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                    <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="download-btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                        <i class="ph ph-download-simple"></i> Download daily-v1.0-beta.apk
+                    <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" id="bottomDownloadBtn" class="download-btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+                        <i class="ph ph-download-simple"></i> <span id="bottomDownloadText">Download daily-v1.1-beta.apk</span>
                     </a>
                     <a href="index.html" class="btn-secondary-link">
                         <i class="ph ph-arrow-left"></i> Back to Apps Catalog
@@ -712,6 +777,157 @@
             if (emojiBtn) {
                 emojiBtn.addEventListener('click', triggerEmojiShower);
             }
+
+            // Dynamic APK Releases Loader
+            async function loadReleases() {
+                let releases = null;
+
+                try {
+                    const res = await fetch('daily/releases.json', { cache: 'no-cache' });
+                    if (res.ok) {
+                        releases = await res.json();
+                    }
+                } catch (e) {
+                    console.warn('Static manifest fetch failed, attempting GitHub API fallback...', e);
+                }
+
+                // GitHub API Fallback if releases.json fails
+                if (!releases || !Array.isArray(releases) || releases.length === 0) {
+                    try {
+                        const ghRes = await fetch('https://api.github.com/repos/leanwell/leanwell.github.io/contents/apps/daily');
+                        if (ghRes.ok) {
+                            const files = await ghRes.json();
+                            const apks = files.filter(f => f.name.toLowerCase().endsWith('.apk'));
+                            if (apks.length > 0) {
+                                releases = apks.map((f, i) => {
+                                    const vMatch = f.name.match(/v?(\d+\.\d+(?:\.\d+)?(?:-[a-zA-Z0-9.]+)?)/i);
+                                    const vStr = vMatch ? `v${vMatch[1]}` : f.name;
+                                    const sizeMb = (f.size / (1024 * 1024)).toFixed(1);
+                                    return {
+                                        version: vStr,
+                                        fileName: f.name,
+                                        downloadUrl: `daily/${f.name}`,
+                                        releaseDate: 'Available',
+                                        sizeFormatted: `${sizeMb} MB`,
+                                        sizeBytes: f.size,
+                                        minAndroid: 'Android 8.0 (Oreo)+',
+                                        architecture: 'Universal (ARM64 / ARMv7 / x86)',
+                                        isLatest: (i === 0),
+                                        notes: i === 0 ? 'Latest build from repository release archives.' : 'Archive release build.'
+                                    };
+                                });
+                            }
+                        }
+                    } catch (err) {
+                        console.warn('GitHub API fallback also unavailable', err);
+                    }
+                }
+
+                if (!releases || releases.length === 0) return;
+
+                // Sort descending by semantic version numbers
+                function parseVer(v) {
+                    const m = v.match(/(\d+)\.(\d+)(?:\.(\d+))?/);
+                    return m ? [parseInt(m[1]), parseInt(m[2]), parseInt(m[3] || 0)] : [0, 0, 0];
+                }
+
+                releases.sort((a, b) => {
+                    const pa = parseVer(a.version);
+                    const pb = parseVer(b.version);
+                    for (let i = 0; i < 3; i++) {
+                        if (pb[i] !== pa[i]) return pb[i] - pa[i];
+                    }
+                    return 0;
+                });
+
+                const latest = releases[0];
+
+                // 1. Update Top Nav Download Button
+                const topNavBtn = document.getElementById('topNavDownloadBtn');
+                if (topNavBtn) {
+                    topNavBtn.href = latest.downloadUrl;
+                    topNavBtn.setAttribute('download', latest.fileName);
+                }
+
+                // 2. Update Primary Hero Download Card
+                const primaryBtn = document.getElementById('primaryDownloadBtn');
+                if (primaryBtn) {
+                    primaryBtn.href = latest.downloadUrl;
+                    primaryBtn.setAttribute('download', latest.fileName);
+                }
+
+                const specPackage = document.getElementById('specPackage');
+                if (specPackage) specPackage.textContent = latest.fileName;
+
+                const specSize = document.getElementById('specSize');
+                if (specSize) {
+                    const kb = Math.round(latest.sizeBytes / 1024).toLocaleString();
+                    specSize.textContent = `~${latest.sizeFormatted} (${kb} KB)`;
+                }
+
+                const specVersionBadge = document.getElementById('specVersionBadge');
+                if (specVersionBadge) specVersionBadge.textContent = latest.version;
+
+                // 3. Update Bottom CTA
+                const bottomBtn = document.getElementById('bottomDownloadBtn');
+                const bottomText = document.getElementById('bottomDownloadText');
+                if (bottomBtn) {
+                    bottomBtn.href = latest.downloadUrl;
+                    bottomBtn.setAttribute('download', latest.fileName);
+                }
+                if (bottomText) {
+                    bottomText.textContent = `Download ${latest.fileName}`;
+                }
+
+                // 4. Update Installation Step Guide text
+                const installStepPackage = document.getElementById('installStepPackage');
+                if (installStepPackage) installStepPackage.textContent = latest.fileName;
+
+                const installStepSize = document.getElementById('installStepSize');
+                if (installStepSize) installStepSize.textContent = `~${latest.sizeFormatted}`;
+
+                // 5. Render Archive List
+                const archiveContainer = document.getElementById('archiveList');
+                if (archiveContainer) {
+                    archiveContainer.innerHTML = '';
+                    releases.forEach((rel, idx) => {
+                        const isLatest = (idx === 0);
+                        const card = document.createElement('div');
+                        card.className = `archive-card ${isLatest ? 'is-latest' : ''}`;
+                        
+                        const badgeHtml = isLatest
+                            ? `<span class="archive-badge latest"><i class="ph ph-check-circle"></i> Latest Release</span>`
+                            : `<span class="archive-badge archive"><i class="ph ph-archive"></i> Archive Build</span>`;
+                        
+                        const btnClass = isLatest ? 'download-btn-primary' : 'btn-secondary-link';
+
+                        card.innerHTML = `
+                            <div class="archive-card-left">
+                                <div class="archive-header">
+                                    <h3>Daily ${rel.version}</h3>
+                                    ${badgeHtml}
+                                    <span class="archive-date"><i class="ph ph-calendar"></i> ${rel.releaseDate}</span>
+                                </div>
+                                <p class="archive-notes">${rel.notes}</p>
+                                <div class="archive-meta-row">
+                                    <span class="archive-meta-chip"><i class="ph ph-file-arrow-down"></i> ${rel.fileName}</span>
+                                    <span class="archive-meta-chip"><i class="ph ph-hard-drive"></i> ${rel.sizeFormatted}</span>
+                                    <span class="archive-meta-chip"><i class="ph ph-android-logo"></i> ${rel.minAndroid}</span>
+                                    <span class="archive-meta-chip"><i class="ph ph-cpu"></i> ${rel.architecture}</span>
+                                </div>
+                            </div>
+                            <div class="archive-card-right">
+                                <a href="${rel.downloadUrl}" download="${rel.fileName}" class="${btnClass}" style="padding: 0.65rem 1.4rem; font-size: 0.88rem;">
+                                    <i class="ph ph-download-simple"></i> Download APK
+                                </a>
+                            </div>
+                        `;
+                        archiveContainer.appendChild(card);
+                    });
+                }
+            }
+
+            loadReleases();
         });
     </script>
 </body>

@@ -1,0 +1,28 @@
+[
+  {
+    "version": "v1.1-beta",
+    "versionCode": 2,
+    "fileName": "daily-v1.1-beta.apk",
+    "downloadUrl": "daily/daily-v1.1-beta.apk",
+    "releaseDate": "2026-11-12",
+    "sizeBytes": 7672282,
+    "sizeFormatted": "7.3 MB",
+    "minAndroid": "Android 8.0 (Oreo)+",
+    "architecture": "Universal (ARM64 / ARMv7 / x86)",
+    "isLatest": true,
+    "notes": "Resolved session persistence issues to maintain user authentication across app restarts, optimized asynchronous image loading stability, and fixed background push notification delivery."
+  },
+  {
+    "version": "v1.0-beta",
+    "versionCode": 1,
+    "fileName": "daily-v1.0-beta.apk",
+    "downloadUrl": "daily/daily-v1.0-beta.apk",
+    "releaseDate": "2026-11-11",
+    "sizeBytes": 7432250,
+    "sizeFormatted": "7.1 MB",
+    "minAndroid": "Android 8.0 (Oreo)+",
+    "architecture": "Universal (ARM64 / ARMv7 / x86)",
+    "isLatest": false,
+    "notes": "Initial public beta release featuring the retro analog shutter, tactile 24-hour card stack feed, interactive emoji showers, and private monthly calendar vault."
+  }
+]

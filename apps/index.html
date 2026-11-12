@@ -55,7 +55,7 @@
                 <div class="featured-app-details">
                     <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
                         <span class="badge-pill featured" style="margin-bottom: 0;"><i class="ph ph-crown"></i> Featured Release</span>
-                        <span class="badge-pill beta" style="margin-bottom: 0;"><i class="ph ph-android-logo"></i> Android APK v1.0 Beta</span>
+                        <span class="badge-pill beta" id="dailyHeroBadge" style="margin-bottom: 0;"><i class="ph ph-android-logo"></i> Android APK v1.1 Beta</span>
                     </div>
                     <h2>Daily — Moments & Memories</h2>
                     <p class="tagline-sub">Capture authentic moments on a retro camera roll shared with close friends.</p>
@@ -75,8 +75,8 @@
                         <a href="daily.html" class="btn primary-btn" style="text-decoration: none;">
                             <i class="ph ph-info"></i> View App Details & Specs
                         </a>
-                        <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="download-btn-primary">
-                            <i class="ph ph-download-simple"></i> Download APK <span style="font-size: 0.8rem; opacity: 0.8; font-weight: 400;">(~7.1 MB)</span>
+                        <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" id="dailyHeroDownloadBtn" class="download-btn-primary">
+                            <i class="ph ph-download-simple"></i> Download APK <span id="dailyHeroDownloadSize" style="font-size: 0.8rem; opacity: 0.8; font-weight: 400;">(~7.3 MB)</span>
                         </a>
                     </div>
                 </div>
@@ -114,12 +114,12 @@
                             <div class="tags" style="margin-bottom: 1.5rem;">
                                 <span class="tag">Android Native</span>
                                 <span class="tag">Retro Camera</span>
-                                <span class="tag">v1.0 Beta</span>
+                                <span class="tag" id="dailyCardBadge">v1.1 Beta</span>
                             </div>
                         </div>
                         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
                             <a href="daily.html" class="btn primary-btn" style="flex: 1; justify-content: center; text-decoration: none; font-size: 0.88rem;">Details</a>
-                            <a href="daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="btn" style="border: 1px solid var(--border-color); background: var(--bg-panel-solid); color: var(--text-primary); text-decoration: none; font-size: 0.88rem;" title="Download Signed APK"><i class="ph ph-download-simple"></i> APK</a>
+                            <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" id="dailyCardDownloadBtn" class="btn" style="border: 1px solid var(--border-color); background: var(--bg-panel-solid); color: var(--text-primary); text-decoration: none; font-size: 0.88rem;" title="Download Signed APK"><i class="ph ph-download-simple"></i> APK</a>
                         </div>
                     </div>
 
@@ -193,7 +193,7 @@
                     <div class="step-card">
                         <div class="step-number">1</div>
                         <h4>Download APK</h4>
-                        <p>Click the download button to save the official signed <code>daily-v1.0-beta.apk</code> file to your device.</p>
+                        <p>Click the download button to save the official signed <code id="installStepFilename">daily-v1.1-beta.apk</code> file to your device.</p>
                     </div>
                     <div class="step-card">
                         <div class="step-number">2</div>
@@ -290,6 +290,51 @@
             if (searchInput) {
                 searchInput.addEventListener('input', filterApps);
             }
+
+            // Dynamically sync Daily latest release on Apps Hub
+            async function syncDailyRelease() {
+                try {
+                    const res = await fetch('daily/releases.json', { cache: 'no-cache' });
+                    if (!res.ok) return;
+                    const releases = await res.json();
+                    if (!Array.isArray(releases) || releases.length === 0) return;
+                    
+                    const latest = releases.find(r => r.isLatest) || releases[0];
+                    if (!latest) return;
+
+                    const heroBtn = document.getElementById('dailyHeroDownloadBtn');
+                    const heroSize = document.getElementById('dailyHeroDownloadSize');
+                    const heroBadge = document.getElementById('dailyHeroBadge');
+                    const cardBtn = document.getElementById('dailyCardDownloadBtn');
+                    const cardBadge = document.getElementById('dailyCardBadge');
+                    const stepFilename = document.getElementById('installStepFilename');
+
+                    if (heroBtn) {
+                        heroBtn.href = latest.downloadUrl;
+                        heroBtn.setAttribute('download', latest.fileName);
+                    }
+                    if (heroSize) {
+                        heroSize.textContent = `(~${latest.sizeFormatted})`;
+                    }
+                    if (heroBadge) {
+                        heroBadge.innerHTML = `<i class="ph ph-android-logo"></i> Android APK ${latest.version}`;
+                    }
+                    if (cardBtn) {
+                        cardBtn.href = latest.downloadUrl;
+                        cardBtn.setAttribute('download', latest.fileName);
+                    }
+                    if (cardBadge) {
+                        cardBadge.textContent = latest.version;
+                    }
+                    if (stepFilename) {
+                        stepFilename.textContent = latest.fileName;
+                    }
+                } catch (e) {
+                    // Pre-rendered HTML is already configured with latest release
+                }
+            }
+
+            syncDailyRelease();
         });
     </script>
 </body>
