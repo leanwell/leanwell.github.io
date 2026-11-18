@@ -11,6 +11,16 @@
     <link rel="stylesheet" href="../portfolio/style.css">
     <link rel="stylesheet" href="apps.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        /* Downloader Page Specific Overrides */
+        .download-action-hero::before {
+            background: linear-gradient(90deg, #2563EB, #06B6D4, #18181B);
+        }
+        
+        .philosophy-banner .highlight {
+            color: #3B82F6;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
@@ -39,17 +49,16 @@
                     <a href="https://github.com/leanwell/Downloader" target="_blank" class="chip-btn">
                         <i class="ph ph-github-logo"></i> GitHub
                     </a>
-                    <a href="https://github.com/leanwell/Downloader/releases" target="_blank" class="chip-btn">
-                        <i class="ph ph-tag"></i> Releases
+                    <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="topNavDownloadBtn" class="chip-btn" style="background: var(--text-primary); color: var(--bg-main); border: none;">
+                        <i class="ph ph-download-simple"></i> Get APK
                     </a>
                 </div>
             </header>
 
             <!-- App Header & Hero -->
-            <section class="apps-hero" style="padding-top: 1rem;">
-                <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
-                    <span class="badge-pill featured" style="margin-bottom: 0;"><i class="ph ph-lightning"></i> High-Speed Media Engine</span>
-                    <span class="badge-pill beta" style="margin-bottom: 0;"><i class="ph ph-code"></i> Open Source (GPLv3)</span>
+            <section class="daily-title-wrap">
+                <div class="app-hero-badge blue">
+                    <i class="ph ph-lightning"></i> High-Speed Media Engine for Android
                 </div>
                 
                 <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
@@ -58,74 +67,72 @@
                     </div>
                 </div>
 
-                <h1 style="font-size: clamp(2.4rem, 6vw, 3.6rem);">Downloader</h1>
-                <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 780px; margin: 0 auto 1.5rem auto; font-weight: 300;">
-                    Universal media downloader and local playback manager for Android.
-                </p>
+                <h1>Downloader — Universal Media Downloader</h1>
+                <p class="daily-tagline">Universal media downloader and local playback manager for Android.</p>
                 <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto; line-height: 1.8; font-size: 1.05rem;">
                     Effortlessly grab and convert audio & video in seconds from YouTube, Spotify, TikTok, Instagram, Facebook, and 1,000+ sites. Powered by <code>yt-dlp</code> with multi-threaded <code>aria2c</code> turbo acceleration and hardware-backed keystore encryption.
                 </p>
 
                 <div style="display: flex; justify-content: center; gap: 0.75rem; margin-top: 2rem; flex-wrap: wrap;">
-                    <a href="#download" class="shutter-btn" style="border-color: var(--text-primary); color: var(--text-primary); font-weight: 600;">
+                    <a href="#download" class="shutter-btn accent-blue" style="font-weight: 600;">
                         <i class="ph ph-download-simple"></i> Download APK
                     </a>
-                    <a href="#architectures" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
-                        <i class="ph ph-cpu"></i> Architecture Guide
-                    </a>
-                    <a href="#screenshots" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
+                    <a href="#screenshots" class="shutter-btn">
                         <i class="ph ph-device-mobile"></i> Screenshots
                     </a>
-                    <a href="#changelog" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
-                        <i class="ph ph-clock-counter-clockwise"></i> Live Changelog
+                    <a href="#architectures" class="shutter-btn">
+                        <i class="ph ph-cpu"></i> Architecture Guide
+                    </a>
+                    <a href="#requirements" class="shutter-btn">
+                        <i class="ph ph-shield-check"></i> System Requirements
+                    </a>
+                    <a href="#releases" class="shutter-btn">
+                        <i class="ph ph-clock-counter-clockwise"></i> Version History (v1.0.0)
                     </a>
                 </div>
             </section>
 
-            <!-- Primary Download Section with Device Architecture Detection -->
-            <section id="download" class="download-action-hero" style="margin-top: 2rem;">
+            <!-- Primary Download Banner Box (Matching daily.html UI) -->
+            <section id="download" class="download-action-hero">
                 <div>
-                    <!-- Dynamic Detection Callout -->
-                    <div id="deviceDetectionBadge" class="device-detection-badge">
-                        <span class="pulse-dot"></span>
-                        <span id="detectionText">Detecting device architecture...</span>
-                    </div>
-
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
-                        <h3 style="font-size: 1.5rem; margin: 0;">Latest Release <span id="latestVersionText" style="color: #2563EB;">v1.0.0</span></h3>
-                        <span class="badge-pill beta" style="margin-bottom: 0;"><i class="ph ph-check-circle"></i> Official GitHub Build</span>
+                        <h3 style="font-size: 1.5rem; margin: 0;">Official Release</h3>
+                        <span class="badge-pill beta" id="specVersionBadge" style="margin-bottom: 0;">v1.0.0</span>
+                        <div id="deviceDetectionBadge" class="device-detection-badge" style="margin-bottom: 0; padding: 0.25rem 0.75rem; font-size: 0.8rem;">
+                            <span class="pulse-dot"></span>
+                            <span id="detectionText">Detecting architecture...</span>
+                        </div>
                     </div>
                     <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;" id="recommendationSubtitle">
-                        Recommended build automatically selected for your device based on CPU architecture scan.
+                        Signed release APK automatically matched to your device architecture.
                     </p>
-                    
                     <div class="download-meta-info">
                         <div class="download-meta-item">
-                            <span class="label">Target Architecture</span>
-                            <span class="val" id="recommendedArchName">ARM64-v8a (64-bit ARM)</span>
-                        </div>
-                        <div class="download-meta-item">
-                            <span class="label">Package Asset</span>
-                            <span class="val" id="recommendedFilename">Downloader-arm64-v8a.apk</span>
+                            <span class="label">Package</span>
+                            <span class="val" id="specPackage">Downloader-arm64-v8a.apk</span>
                         </div>
                         <div class="download-meta-item">
                             <span class="label">File Size</span>
-                            <span class="val" id="recommendedSize">~63.4 MB</span>
+                            <span class="val" id="specSize">~60.5 MB</span>
                         </div>
                         <div class="download-meta-item">
-                            <span class="label">Compatibility</span>
-                            <span class="val">Android 8.0+ (API 26-37)</span>
+                            <span class="label">Requirement</span>
+                            <span class="val">Android 8.0 (Oreo)+</span>
+                        </div>
+                        <div class="download-meta-item">
+                            <span class="label">Architecture</span>
+                            <span class="val" id="specArch">ARM64-v8a (64-bit ARM)</span>
                         </div>
                     </div>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;">
-                    <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="heroDownloadBtn" class="download-btn-primary" style="font-size: 1.05rem; padding: 1rem 2.2rem;">
-                        <i class="ph ph-download-simple"></i> Download Recommended APK
+                    <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="primaryDownloadBtn" class="download-btn-primary" style="font-size: 1.05rem; padding: 1rem 2.2rem;">
+                        <i class="ph ph-download-simple"></i> Download APK Now
                     </a>
                     <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
                         <span style="font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem;">
-                            <i class="ph ph-shield-check" style="color: #10B981;"></i> Signed Release
+                            <i class="ph ph-shield-check" style="color: #10B981;"></i> Cryptographically Signed APK
                         </span>
                         <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/SHA256SUMS.txt" target="_blank" style="font-size: 0.8rem; color: var(--text-secondary); text-decoration: underline;">
                             SHA-256 Checksums
@@ -134,101 +141,12 @@
                 </div>
             </section>
 
-            <!-- Architecture Matrix Section -->
-            <section id="architectures" style="margin: 4.5rem 0;">
-                <div style="text-align: center; margin-bottom: 2.5rem;">
-                    <span class="badge-pill"><i class="ph ph-cpu"></i> APK Architecture Guide</span>
-                    <h2 style="font-size: 2.2rem;">Select Specific Architecture</h2>
-                    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto; line-height: 1.6;">
-                        Android phones use different processor architectures. Downloading the exact binary matched to your phone's processor delivers the smallest app size and peak execution speed.
-                    </p>
-                </div>
-
-                <div class="arch-grid" id="archMatrix">
-                    <!-- Card 1: ARM64-v8a -->
-                    <div class="arch-card recommended" id="card-arm64-v8a">
-                        <div>
-                            <div class="arch-card-header">
-                                <h4><i class="ph ph-device-mobile"></i> ARM64-v8a</h4>
-                                <span class="arch-rec-tag" id="tag-arm64-v8a"><i class="ph ph-star"></i> Recommended</span>
-                            </div>
-                            <p class="arch-desc">
-                                Optimal for 95%+ of modern smartphones released after 2017. Delivers fastest video processing and lowest storage footprint.
-                            </p>
-                        </div>
-                        <div class="arch-footer">
-                            <span class="arch-size" id="size-arm64-v8a">63.4 MB</span>
-                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="link-arm64-v8a" class="arch-dl-btn primary">
-                                <i class="ph ph-download-simple"></i> Download
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Universal -->
-                    <div class="arch-card" id="card-universal">
-                        <div>
-                            <div class="arch-card-header">
-                                <h4><i class="ph ph-globe"></i> Universal Build</h4>
-                                <span class="arch-rec-tag" id="tag-universal" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
-                            </div>
-                            <p class="arch-desc">
-                                Bundles all processor libraries (ARM64, ARMv7, x86_64). Guaranteed to install on any Android device if you are unsure of your processor.
-                            </p>
-                        </div>
-                        <div class="arch-footer">
-                            <span class="arch-size" id="size-universal">169.9 MB</span>
-                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-universal.apk" id="link-universal" class="arch-dl-btn secondary">
-                                <i class="ph ph-download-simple"></i> Download
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: ARMv7 -->
-                    <div class="arch-card" id="card-armeabi-v7a">
-                        <div>
-                            <div class="arch-card-header">
-                                <h4><i class="ph ph-device-mobile-camera"></i> ARMv7 (32-bit)</h4>
-                                <span class="arch-rec-tag" id="tag-armeabi-v7a" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
-                            </div>
-                            <p class="arch-desc">
-                                Designed for legacy Android hardware, older budget devices, and 32-bit ARM microcontrollers running Android OS.
-                            </p>
-                        </div>
-                        <div class="arch-footer">
-                            <span class="arch-size" id="size-armeabi-v7a">56.2 MB</span>
-                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-armeabi-v7a.apk" id="link-armeabi-v7a" class="arch-dl-btn secondary">
-                                <i class="ph ph-download-simple"></i> Download
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Card 4: x86_64 -->
-                    <div class="arch-card" id="card-x86_64">
-                        <div>
-                            <div class="arch-card-header">
-                                <h4><i class="ph ph-desktop"></i> x86_64</h4>
-                                <span class="arch-rec-tag" id="tag-x86_64" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
-                            </div>
-                            <p class="arch-desc">
-                                Engineered for Android emulators (Android Studio, BlueStacks, LDPlayer), Intel/AMD tablets, and Chromebooks with ChromeOS.
-                            </p>
-                        </div>
-                        <div class="arch-footer">
-                            <span class="arch-size" id="size-x86_64">66.4 MB</span>
-                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-x86_64.apk" id="link-x86_64" class="arch-dl-btn secondary">
-                                <i class="ph ph-download-simple"></i> Download
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Screenshots Showcase -->
-            <section id="screenshots" style="margin: 4.5rem 0;">
+            <!-- Screenshots Showcase (Horizontal Carousel preserved as requested) -->
+            <section id="screenshots" style="margin: 4rem 0;">
                 <div style="text-align: center; margin-bottom: 1.5rem;">
                     <span class="badge-pill"><i class="ph ph-image"></i> Visual Interface</span>
-                    <h2 style="font-size: 2.2rem;">Crafted For Android</h2>
-                    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto;">
+                    <h2 style="font-size: 2rem;">Crafted For Android</h2>
+                    <p style="color: var(--text-secondary); max-width: 620px; margin: 0.5rem auto 0 auto;">
                         Built with Jetpack Compose for fluid animations, edge-to-edge Material 3 theming, and intuitive gesture controls.
                     </p>
                 </div>
@@ -265,15 +183,29 @@
                         </div>
                     </div>
                 </div>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--text-secondary); font-style: italic;">
+                    *Scroll horizontally to explore onboarding, format pickers, download queue, and playback screens.
+                </p>
             </section>
 
-            <!-- Features Spotlight Grid -->
-            <section id="features" style="margin: 4.5rem 0;">
+            <!-- Core Philosophy Callout (Matching daily.html philosophy banner) -->
+            <section class="philosophy-banner">
+                <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #3B82F6; font-weight: 700; display: block; margin-bottom: 0.5rem;">
+                    Core Principles
+                </span>
+                <h2>FAST. UNRESTRICTED. PRIVACY-FIRST.</h2>
+                <p>
+                    Most media downloaders bombard users with intrusive video ads, subscriptions, and invasive tracking SDKs. Downloader is 100% open-source, runs natively on your device with multi-threaded aria2c acceleration, and safeguards your accounts using hardware-backed Android Keystore encryption.
+                </p>
+            </section>
+
+            <!-- Key Features Grid (Matching daily.html features spotlight) -->
+            <section id="features" style="margin: 4rem 0;">
                 <div style="text-align: center; margin-bottom: 3rem;">
-                    <span class="badge-pill"><i class="ph ph-sparkle"></i> Key Architecture</span>
-                    <h2 style="font-size: 2.2rem;">Core Engineering Highlights</h2>
+                    <span class="badge-pill"><i class="ph ph-lightning"></i> Crafted Features</span>
+                    <h2 style="font-size: 2.2rem;">Engineered for High Performance</h2>
                     <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto;">
-                        Designed to deliver reliable, unrestricted media downloading without ads, paywalls, or privacy tracking.
+                        Every feature is intentionally built around speed, quality extraction, and complete device privacy.
                     </p>
                 </div>
 
@@ -303,24 +235,208 @@
                     </div>
 
                     <div class="feature-spotlight-item">
-                        <div class="feature-spotlight-icon"><i class="ph ph-lock-key"></i></div>
-                        <h3>Android Keystore Encryption</h3>
-                        <p>Social session cookies for private accounts are encrypted locally using the hardware-backed <strong>Android Keystore</strong>. Sensitive tokens are never stored in plain text and expire safely after 30 days.</p>
-                    </div>
-
-                    <div class="feature-spotlight-item">
                         <div class="feature-spotlight-icon"><i class="ph ph-play-circle"></i></div>
                         <h3>Built-In Floating Player</h3>
                         <p>Enjoy downloads inside the app with picture-in-picture (PiP), variable speed playback (0.5x to 2x), and one-tap handover to external media players (VLC, MX Player).</p>
                     </div>
+
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon"><i class="ph ph-arrows-clockwise"></i></div>
+                        <h3>In-App Engine Updates</h3>
+                        <p>Receive live, continuous background updates to the underlying extraction rules without needing to wait for a full APK release from the repository.</p>
+                    </div>
+
+                    <div class="feature-spotlight-item" style="grid-column: 1 / -1;">
+                        <div class="feature-spotlight-icon"><i class="ph ph-shield-check"></i></div>
+                        <h3>Hardware Keystore Encryption & Privacy</h3>
+                        <p>Social session cookies for private accounts are encrypted locally using the hardware-backed <strong>Android Keystore</strong>. Sensitive tokens are never stored in plain text and expire safely after 30 days. No analytics, no ads, and zero third-party telemetry.</p>
+                    </div>
                 </div>
             </section>
 
-            <!-- Live Changelog & Releases Section -->
-            <section id="changelog" style="margin: 4.5rem 0;">
+            <!-- Android System Requirements (Matching daily.html glass-panel) -->
+            <section id="requirements" class="glass-panel" style="padding: 3rem; margin: 4rem 0; border-radius: var(--border-radius);">
+                <div style="margin-bottom: 2rem;">
+                    <span class="badge-pill"><i class="ph ph-device-mobile"></i> Hardware & Compatibility</span>
+                    <h2 style="font-size: 2rem; margin-top: 0.5rem;">Android System Requirements</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                        Downloader is built natively for Android to deliver low-latency extraction and high-speed multi-threaded throughput.
+                    </p>
+                </div>
+
+                <div class="reqs-grid">
+                    <div class="req-item">
+                        <i class="ph ph-android-logo"></i>
+                        <div>
+                            <h4>Operating System</h4>
+                            <p>Android 8.0 (API Level 26) through Android 15+ (API 37)</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-cpu"></i>
+                        <div>
+                            <h4>Processor & Architecture</h4>
+                            <p>ARM64-v8a (recommended), Universal, ARMv7, or x86_64</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-hard-drive"></i>
+                        <div>
+                            <h4>Storage & RAM</h4>
+                            <p>Minimum 2 GB RAM, 100 MB free internal space + download storage</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-lock-key"></i>
+                        <div>
+                            <h4>Hardware Keystore</h4>
+                            <p>Hardware-backed TEE / StrongBox for session cookie encryption</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Permissions Breakdown -->
+                <h3 style="font-size: 1.25rem; margin: 2.5rem 0 1rem 0;">Device Permissions Explained</h3>
+                <div class="permissions-grid">
+                    <div class="perm-card">
+                        <div class="perm-badge"><i class="ph ph-hard-drives"></i></div>
+                        <div class="perm-info">
+                            <h4>Storage / Media <span class="perm-tag required">Required</span></h4>
+                            <p>Required to save downloaded audio and video files directly to your device's public Downloads directory.</p>
+                        </div>
+                    </div>
+
+                    <div class="perm-card">
+                        <div class="perm-badge"><i class="ph ph-wifi-high"></i></div>
+                        <div class="perm-info">
+                            <h4>Network / Internet <span class="perm-tag required">Required</span></h4>
+                            <p>Required to query media streaming links, execute multi-threaded chunk downloads, and fetch metadata.</p>
+                        </div>
+                    </div>
+
+                    <div class="perm-card">
+                        <div class="perm-badge"><i class="ph ph-bell"></i></div>
+                        <div class="perm-info">
+                            <h4>Notifications <span class="perm-tag optional">Android 13+ Optional</span></h4>
+                            <p>Displays a persistent background notification with live progress bar and speed during active downloads.</p>
+                        </div>
+                    </div>
+
+                    <div class="perm-card">
+                        <div class="perm-badge"><i class="ph ph-battery-charging"></i></div>
+                        <div class="perm-info">
+                            <h4>Battery Optimization <span class="perm-tag optional">Optional</span></h4>
+                            <p>Allows unattended background queue downloads to continue uninterrupted when your screen turns off.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Open Source Integrity Note -->
+                <div style="background: rgba(0, 0, 0, 0.03); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 1.25rem 1.5rem; margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                    <i class="ph ph-code" style="font-size: 1.5rem; color: var(--text-primary);"></i>
+                    <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                        <strong style="color: var(--text-primary);">Open Source Guarantee:</strong> Downloader is free and open-source software licensed under GPLv3. The application contains zero commercial tracker SDKs, telemetry beacons, or in-app advertising libraries.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Architecture Matrix Section (2x2 Grid) -->
+            <section id="architectures" style="margin: 4rem 0;">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <span class="badge-pill"><i class="ph ph-cpu"></i> Processor Optimization</span>
+                    <h2 style="font-size: 2.2rem;">Select Specific Architecture</h2>
+                    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto; line-height: 1.6;">
+                        Android phones use different processor architectures. Downloading the exact binary matched to your phone delivers the smallest app size and peak execution speed.
+                    </p>
+                </div>
+
+                <div class="arch-grid" id="archMatrix">
+                    <!-- Card 1: ARM64-v8a -->
+                    <div class="arch-card recommended" id="card-arm64-v8a">
+                        <div>
+                            <div class="arch-card-header">
+                                <h4><i class="ph ph-device-mobile"></i> ARM64-v8a</h4>
+                                <span class="arch-rec-tag" id="tag-arm64-v8a"><i class="ph ph-star"></i> Recommended</span>
+                            </div>
+                            <p class="arch-desc">
+                                Optimal for 95%+ of modern smartphones released after 2017. Delivers fastest video processing and lowest storage footprint.
+                            </p>
+                        </div>
+                        <div class="arch-footer">
+                            <span class="arch-size" id="size-arm64-v8a">60.5 MB</span>
+                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="link-arm64-v8a" class="arch-dl-btn primary">
+                                <i class="ph ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Universal -->
+                    <div class="arch-card" id="card-universal">
+                        <div>
+                            <div class="arch-card-header">
+                                <h4><i class="ph ph-globe"></i> Universal Build</h4>
+                                <span class="arch-rec-tag" id="tag-universal" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
+                            </div>
+                            <p class="arch-desc">
+                                Bundles all processor libraries (ARM64, ARMv7, x86_64). Guaranteed to install on any Android device if you are unsure of your processor.
+                            </p>
+                        </div>
+                        <div class="arch-footer">
+                            <span class="arch-size" id="size-universal">162.0 MB</span>
+                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-universal.apk" id="link-universal" class="arch-dl-btn secondary">
+                                <i class="ph ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: ARMv7 -->
+                    <div class="arch-card" id="card-armeabi-v7a">
+                        <div>
+                            <div class="arch-card-header">
+                                <h4><i class="ph ph-device-mobile-camera"></i> ARMv7 (32-bit)</h4>
+                                <span class="arch-rec-tag" id="tag-armeabi-v7a" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
+                            </div>
+                            <p class="arch-desc">
+                                Designed for legacy Android hardware, older budget devices, and 32-bit ARM microcontrollers running Android OS.
+                            </p>
+                        </div>
+                        <div class="arch-footer">
+                            <span class="arch-size" id="size-armeabi-v7a">53.6 MB</span>
+                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-armeabi-v7a.apk" id="link-armeabi-v7a" class="arch-dl-btn secondary">
+                                <i class="ph ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: x86_64 -->
+                    <div class="arch-card" id="card-x86_64">
+                        <div>
+                            <div class="arch-card-header">
+                                <h4><i class="ph ph-desktop"></i> x86_64</h4>
+                                <span class="arch-rec-tag" id="tag-x86_64" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
+                            </div>
+                            <p class="arch-desc">
+                                Engineered for Android emulators (Android Studio, BlueStacks, LDPlayer), Intel/AMD tablets, and Chromebooks with ChromeOS.
+                            </p>
+                        </div>
+                        <div class="arch-footer">
+                            <span class="arch-size" id="size-x86_64">63.3 MB</span>
+                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-x86_64.apk" id="link-x86_64" class="arch-dl-btn secondary">
+                                <i class="ph ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Version History & Releases Section (Matching daily.html archive-section) -->
+            <section id="releases" class="archive-section">
                 <div style="text-align: center; margin-bottom: 2.5rem;">
                     <span class="badge-pill"><i class="ph ph-clock-counter-clockwise"></i> Live GitHub Feed</span>
-                    <h2 style="font-size: 2.2rem;">Releases & Changelogs</h2>
+                    <h2 style="font-size: 2.2rem;">Version History & Releases</h2>
                     <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto;">
                         Real-time release history synchronized directly from the official <code>leanwell/Downloader</code> repository.
                     </p>
@@ -328,12 +444,13 @@
 
                 <!-- Skeleton Loader while fetching -->
                 <div id="changelogSkeleton">
-                    <div class="changelog-card">
-                        <div class="skeleton-box" style="height: 32px; width: 40%; margin-bottom: 1rem;"></div>
-                        <div class="skeleton-box" style="height: 18px; width: 90%; margin-bottom: 0.5rem;"></div>
-                        <div class="skeleton-box" style="height: 18px; width: 75%; margin-bottom: 0.5rem;"></div>
-                        <div class="skeleton-box" style="height: 18px; width: 60%; margin-bottom: 1rem;"></div>
-                        <div class="skeleton-box" style="height: 40px; width: 30%;"></div>
+                    <div class="archive-card is-latest">
+                        <div class="archive-card-left" style="width: 100%;">
+                            <div class="skeleton-box" style="height: 28px; width: 35%; margin-bottom: 1rem;"></div>
+                            <div class="skeleton-box" style="height: 16px; width: 90%; margin-bottom: 0.5rem;"></div>
+                            <div class="skeleton-box" style="height: 16px; width: 75%; margin-bottom: 0.5rem;"></div>
+                            <div class="skeleton-box" style="height: 16px; width: 60%;"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -352,55 +469,41 @@
                 </div>
 
                 <!-- Dynamic Container -->
-                <div id="changelogContainer"></div>
+                <div class="archive-list" id="changelogContainer"></div>
             </section>
 
-            <!-- Android System Requirements -->
-            <section class="glass-panel" style="padding: 3rem; margin: 4rem 0; border-radius: var(--border-radius);">
-                <div style="margin-bottom: 2rem;">
-                    <span class="badge-pill"><i class="ph ph-device-mobile"></i> Requirements</span>
-                    <h2 style="font-size: 2rem; margin-top: 0.5rem;">System Requirements</h2>
-                    <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                        Downloader is engineered natively using Kotlin and Jetpack Compose for Android 8.0+.
+            <!-- Installation Guide Steps (Matching daily.html install-steps) -->
+            <section style="margin: 4rem 0;">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <span class="badge-pill"><i class="ph ph-download-simple"></i> Easy Sideload</span>
+                    <h2 style="font-size: 2rem;">How to Install on Android</h2>
+                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                        Installing signed APKs directly gives you immediate access to releases without app store delays.
                     </p>
                 </div>
 
-                <div class="reqs-grid">
-                    <div class="req-item">
-                        <i class="ph ph-android-logo"></i>
-                        <div>
-                            <h4>Operating System</h4>
-                            <p>Android 8.0 (API Level 26) through Android 15+ (API 37)</p>
-                        </div>
+                <div class="install-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4>Download APK</h4>
+                        <p>Click the download button to grab <code id="installStepPackage">Downloader-arm64-v8a.apk</code> (<span id="installStepSize">~60.5 MB</span>) directly onto your phone.</p>
                     </div>
 
-                    <div class="req-item">
-                        <i class="ph ph-cpu"></i>
-                        <div>
-                            <h4>Processor</h4>
-                            <p>ARM64-v8a (recommended), ARMv7, or x86_64</p>
-                        </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4>Open the File</h4>
+                        <p>Tap the download notification. If prompted, allow <em>"Install unknown apps"</em> for your browser in system settings.</p>
                     </div>
 
-                    <div class="req-item">
-                        <i class="ph ph-hard-drive"></i>
-                        <div>
-                            <h4>Storage & RAM</h4>
-                            <p>Minimum 2 GB RAM, 100 MB free space + media download storage</p>
-                        </div>
-                    </div>
-
-                    <div class="req-item">
-                        <i class="ph ph-shield-check"></i>
-                        <div>
-                            <h4>Hardware Keystore</h4>
-                            <p>Hardware-backed TEE / StrongBox for session cookie encryption</p>
-                        </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4>Complete Installation</h4>
+                        <p>Tap <strong>Install</strong> on the Android package installer prompt. Once complete, launch Downloader and start grabbing media.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Bottom CTA -->
+            <!-- Bottom CTA (Matching daily.html bottom CTA) -->
             <section class="glass-panel" style="padding: 3.5rem 2.5rem; text-align: center; border-radius: var(--border-radius); margin: 5rem 0 2rem 0; background: var(--bg-panel-solid);">
                 <div style="width: 72px; height: 72px; border-radius: 20px; background: #FAFAFA; border: 1px solid var(--border-color); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,0.06);">
                     <img src="downloader-logo.png" alt="Downloader App Logo" style="width: 48px; height: 48px; object-fit: contain;">
@@ -495,7 +598,7 @@
                         // fallback to UA parsing
                     }
                 } else {
-                    // Fallback heuristics via User-Agent & WebAssembly 64-bit check
+                    // Fallback heuristics via User-Agent
                     if (/aarch64|arm64|armv8/i.test(ua)) {
                         detectedArch = 'arm64-v8a';
                         detectedLabel = '64-bit ARM (ARM64-v8a)';
@@ -564,23 +667,41 @@
                     'x86_64': 'Downloader-x86_64.apk'
                 };
 
-                const recArchName = document.getElementById('recommendedArchName');
-                if (recArchName) recArchName.textContent = archNames[archKey] || archKey;
+                const specArch = document.getElementById('specArch');
+                if (specArch) specArch.textContent = archNames[archKey] || archKey;
 
-                const recFilename = document.getElementById('recommendedFilename');
-                if (recFilename) recFilename.textContent = filenames[archKey] || '';
+                const specPackage = document.getElementById('specPackage');
+                if (specPackage) specPackage.textContent = filenames[archKey] || '';
+
+                const specSize = document.getElementById('specSize');
+                const matchedSize = document.getElementById(`size-${archKey}`)?.textContent;
+                if (specSize && matchedSize) specSize.textContent = `~${matchedSize}`;
+
+                const installStepPackage = document.getElementById('installStepPackage');
+                if (installStepPackage) installStepPackage.textContent = filenames[archKey] || '';
+
+                const installStepSize = document.getElementById('installStepSize');
+                if (installStepSize && matchedSize) installStepSize.textContent = `~${matchedSize}`;
 
                 // Hero download button URL
                 if (activeLink) {
-                    const heroBtn = document.getElementById('heroDownloadBtn');
+                    const primaryBtn = document.getElementById('primaryDownloadBtn');
                     const bottomBtn = document.getElementById('bottomDownloadBtn');
-                    if (heroBtn) {
-                        heroBtn.href = activeLink.href;
-                        heroBtn.innerHTML = `<i class="ph ph-download-simple"></i> Download for ${archKey.toUpperCase()} <span style="font-size:0.8rem; opacity:0.8; font-weight:400;">(${document.getElementById(`size-${archKey}`)?.textContent || ''})</span>`;
+                    const topNavBtn = document.getElementById('topNavDownloadBtn');
+
+                    if (primaryBtn) {
+                        primaryBtn.href = activeLink.href;
+                        primaryBtn.setAttribute('download', filenames[archKey] || 'Downloader.apk');
+                        primaryBtn.innerHTML = `<i class="ph ph-download-simple"></i> Download APK Now`;
                     }
                     if (bottomBtn) {
                         bottomBtn.href = activeLink.href;
-                        bottomBtn.innerHTML = `<i class="ph ph-download-simple"></i> Download for ${archKey.toUpperCase()}`;
+                        bottomBtn.setAttribute('download', filenames[archKey] || 'Downloader.apk');
+                        bottomBtn.innerHTML = `<i class="ph ph-download-simple"></i> Download Downloader APK`;
+                    }
+                    if (topNavBtn) {
+                        topNavBtn.href = activeLink.href;
+                        topNavBtn.setAttribute('download', filenames[archKey] || 'Downloader.apk');
                     }
                 }
             }
@@ -614,9 +735,9 @@
                     const latest = releases[0];
 
                     // Update version tag in hero
-                    const latestVersionText = document.getElementById('latestVersionText');
-                    if (latestVersionText && latest.tag_name) {
-                        latestVersionText.textContent = latest.tag_name;
+                    const specVersionBadge = document.getElementById('specVersionBadge');
+                    if (specVersionBadge && latest.tag_name) {
+                        specVersionBadge.textContent = latest.tag_name;
                     }
 
                     // Update asset links and sizes in the Architecture Matrix
@@ -652,9 +773,9 @@
                             .replace(/>/g, '&gt;');
                         
                         // Headings
-                        html = html.replace(/^### (.*$)/gim, '<h4>$1</h4>');
-                        html = html.replace(/^## (.*$)/gim, '<h3>$1</h3>');
-                        html = html.replace(/^# (.*$)/gim, '<h2>$1</h2>');
+                        html = html.replace(/^### (.*$)/gim, '<h5 style="margin: 0.75rem 0 0.35rem 0; font-size: 1rem; color: var(--text-primary);">$1</h5>');
+                        html = html.replace(/^## (.*$)/gim, '<h4 style="margin: 1rem 0 0.5rem 0; font-size: 1.15rem; color: var(--text-primary);">$1</h4>');
+                        html = html.replace(/^# (.*$)/gim, '<h3 style="margin: 1.25rem 0 0.5rem 0; font-size: 1.3rem; color: var(--text-primary);">$1</h3>');
 
                         // Bold & Italics
                         html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
@@ -665,15 +786,15 @@
 
                         // Unordered lists
                         html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
-                        html = html.replace(/(<li>.*<\/li>)/gms, '<ul>$1</ul>');
+                        html = html.replace(/(<li>.*<\/li>)/gms, '<ul style="margin: 0.5rem 0 1rem 1.25rem; line-height: 1.6;">$1</ul>');
 
                         // Line breaks
-                        html = html.replace(/\n\n+/g, '<br><br>');
+                        html = html.replace(/\n\n+/g, '<br>');
 
                         return html;
                     }
 
-                    // Render all releases in container
+                    // Render all releases in archive format matching daily.html
                     container.innerHTML = '';
                     releases.forEach((rel, index) => {
                         const isLatest = index === 0;
@@ -684,35 +805,42 @@
                         });
 
                         const card = document.createElement('div');
-                        card.className = 'changelog-card';
+                        card.className = `archive-card ${isLatest ? 'is-latest' : ''}`;
 
                         const assetsList = (rel.assets || []).map(a => `
-                            <a href="${a.browser_download_url}" class="chip-btn" style="font-size:0.8rem; margin:0.25rem 0.25rem 0 0;">
+                            <a href="${a.browser_download_url}" class="archive-meta-chip" style="text-decoration:none; color:inherit; transition: all 0.2s ease;">
                                 <i class="ph ph-file-arrow-down"></i> ${a.name} (${(a.size / (1024*1024)).toFixed(1)} MB)
                             </a>
                         `).join('');
 
+                        // Find primary asset for direct card download button
+                        const primaryAsset = (rel.assets || []).find(a => a.name.includes('arm64-v8a')) || (rel.assets || [])[0];
+                        const downloadUrl = primaryAsset ? primaryAsset.browser_download_url : rel.html_url;
+
                         card.innerHTML = `
-                            <div class="changelog-card-header">
-                                <div>
-                                    <h3>
-                                        ${rel.name || rel.tag_name}
-                                        ${isLatest ? '<span class="archive-badge latest"><i class="ph ph-check-circle"></i> Latest</span>' : '<span class="archive-badge archive">Release</span>'}
-                                    </h3>
-                                    <span style="font-size: 0.85rem; color: var(--text-secondary);"><i class="ph ph-calendar"></i> Published on ${dateFormatted}</span>
+                            <div class="archive-card-left">
+                                <div class="archive-header">
+                                    <h3>${rel.name || rel.tag_name}</h3>
+                                    ${isLatest ? '<span class="archive-badge latest"><i class="ph ph-check-circle"></i> Latest Release</span>' : '<span class="archive-badge archive"><i class="ph ph-archive"></i> Archive Build</span>'}
+                                    <span class="archive-date"><i class="ph ph-calendar"></i> ${dateFormatted}</span>
                                 </div>
-                                <a href="${rel.html_url}" target="_blank" class="chip-btn">
+                                <div class="archive-notes">
+                                    ${parseMarkdown(rel.body)}
+                                </div>
+                                <div style="margin-top: 0.75rem;">
+                                    <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-secondary); display:block; margin-bottom:0.4rem; font-weight:700;">Release Binaries:</span>
+                                    <div class="archive-meta-row">
+                                        ${assetsList}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="archive-card-right">
+                                <a href="${downloadUrl}" class="download-btn-primary" style="padding: 0.65rem 1.4rem; font-size: 0.88rem;">
+                                    <i class="ph ph-download-simple"></i> Download APK
+                                </a>
+                                <a href="${rel.html_url}" target="_blank" class="chip-btn" style="padding: 0.35rem 0.8rem; font-size: 0.8rem;">
                                     <i class="ph ph-github-logo"></i> GitHub View
                                 </a>
-                            </div>
-                            <div class="changelog-body">
-                                ${parseMarkdown(rel.body)}
-                            </div>
-                            <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
-                                <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-secondary); display:block; margin-bottom:0.5rem; font-weight:700;">Release Binaries:</span>
-                                <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-                                    ${assetsList}
-                                </div>
                             </div>
                         `;
                         container.appendChild(card);

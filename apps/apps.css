@@ -679,6 +679,245 @@
 }
 
 /* ==========================================================================
+   Hero Badges, Large Action Cards & Philosophy Callouts
+   ========================================================================== */
+.app-hero-badge, .daily-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.daily-hero-badge {
+    background: rgba(245, 158, 11, 0.12);
+    color: #D97706;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.app-hero-badge.blue {
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563EB;
+    border: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+.daily-title-wrap, .app-title-wrap {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 3rem auto;
+}
+
+.daily-title-wrap h1, .app-title-wrap h1 {
+    font-size: clamp(2.5rem, 6vw, 3.8rem);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 1.25rem;
+}
+
+.daily-tagline, .app-tagline {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+/* Large Download Action Card */
+.download-action-hero {
+    background: var(--bg-panel-solid);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    margin: 2rem 0 4rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.download-action-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #F59E0B, #EA580C, #18181B);
+}
+
+.download-action-hero.blue-accent::before {
+    background: linear-gradient(90deg, #2563EB, #06B6D4, #18181B);
+}
+
+.download-meta-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.download-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.download-meta-item span.label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+}
+
+.download-meta-item span.val {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+/* Philosophy Callout */
+.philosophy-banner {
+    background: #18181B;
+    color: #FAFAFA;
+    border-radius: var(--border-radius);
+    padding: 3.5rem 2.5rem;
+    text-align: center;
+    margin: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.philosophy-banner h2 {
+    color: #FFFFFF;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.philosophy-banner p {
+    color: #A1A1AA;
+    font-size: 1.15rem;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.philosophy-banner .highlight {
+    color: #3B82F6;
+    font-weight: 600;
+}
+
+.philosophy-banner .highlight-amber {
+    color: #F59E0B;
+    font-weight: 600;
+}
+
+/* Permissions Grid */
+.permissions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+}
+
+.perm-card {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.perm-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--bg-panel-solid);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    flex-shrink: 0;
+}
+
+.perm-info h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.perm-tag {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.perm-tag.required {
+    background: #FEF2F2;
+    color: #B91C1C;
+}
+
+.perm-tag.optional {
+    background: #F3F4F6;
+    color: #4B5563;
+}
+
+.perm-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Shutter feedback trigger / pill action button */
+.shutter-btn {
+    background: transparent;
+    border: 1px dashed var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 30px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.shutter-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+    transform: scale(1.03);
+}
+
+.shutter-btn.accent-amber {
+    border-color: #F59E0B;
+    color: #D97706;
+}
+
+.shutter-btn.accent-blue {
+    border-color: #3B82F6;
+    color: #2563EB;
+}
+
+/* ==========================================================================
    Release History & APK Archives
    ========================================================================== */
 .archive-section {
