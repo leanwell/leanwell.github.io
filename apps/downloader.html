@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloader — Universal Media Downloader | Android App</title>
+    <link rel="icon" type="image/png" href="downloader-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../portfolio/style.css">
+    <link rel="stylesheet" href="apps.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Floating Navigation -->
+        <nav class="floating-nav">
+            <ul class="nav-links">
+                <div class="nav-slider"></div>
+                <li><a href="../index.html#overview"><i class="ph ph-user"></i> <span class="nav-text">About</span></a></li>
+                <li><a href="../index.html#projects"><i class="ph ph-folder-notch-open"></i> <span class="nav-text">Projects</span></a></li>
+                <li><a href="index.html" class="active"><i class="ph ph-squares-four"></i> <span class="nav-text">Apps</span></a></li>
+                <li><a href="../index.html#contact"><i class="ph ph-envelope-simple"></i> <span class="nav-text">Contact</span></a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Breadcrumbs -->
+            <header class="apps-nav-header">
+                <div class="apps-breadcrumb">
+                    <a href="../index.html">Linwel Colmo</a>
+                    <span class="separator">/</span>
+                    <a href="index.html">Apps</a>
+                    <span class="separator">/</span>
+                    <span class="current">Downloader</span>
+                </div>
+                <div class="nav-actions">
+                    <a href="https://github.com/leanwell/Downloader" target="_blank" class="chip-btn">
+                        <i class="ph ph-github-logo"></i> GitHub
+                    </a>
+                    <a href="https://github.com/leanwell/Downloader/releases" target="_blank" class="chip-btn">
+                        <i class="ph ph-tag"></i> Releases
+                    </a>
+                </div>
+            </header>
+
+            <!-- App Header & Hero -->
+            <section class="apps-hero" style="padding-top: 1rem;">
+                <div style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <span class="badge-pill featured" style="margin-bottom: 0;"><i class="ph ph-lightning"></i> High-Speed Media Engine</span>
+                    <span class="badge-pill beta" style="margin-bottom: 0;"><i class="ph ph-code"></i> Open Source (GPLv3)</span>
+                </div>
+                
+                <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                    <div class="app-icon-wrap" style="width: 130px; height: 130px; background: #FAFAFA; border: 1px solid var(--border-color);">
+                        <img src="downloader-logo.png" alt="Downloader App Icon" style="object-fit: contain; padding: 10px;">
+                    </div>
+                </div>
+
+                <h1 style="font-size: clamp(2.4rem, 6vw, 3.6rem);">Downloader</h1>
+                <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 780px; margin: 0 auto 1.5rem auto; font-weight: 300;">
+                    Universal media downloader and local playback manager for Android.
+                </p>
+                <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto; line-height: 1.8; font-size: 1.05rem;">
+                    Effortlessly grab and convert audio & video in seconds from YouTube, Spotify, TikTok, Instagram, Facebook, and 1,000+ sites. Powered by <code>yt-dlp</code> with multi-threaded <code>aria2c</code> turbo acceleration and hardware-backed keystore encryption.
+                </p>
+
+                <div style="display: flex; justify-content: center; gap: 0.75rem; margin-top: 2rem; flex-wrap: wrap;">
+                    <a href="#download" class="shutter-btn" style="border-color: var(--text-primary); color: var(--text-primary); font-weight: 600;">
+                        <i class="ph ph-download-simple"></i> Download APK
+                    </a>
+                    <a href="#architectures" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
+                        <i class="ph ph-cpu"></i> Architecture Guide
+                    </a>
+                    <a href="#screenshots" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
+                        <i class="ph ph-device-mobile"></i> Screenshots
+                    </a>
+                    <a href="#changelog" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
+                        <i class="ph ph-clock-counter-clockwise"></i> Live Changelog
+                    </a>
+                </div>
+            </section>
+
+            <!-- Primary Download Section with Device Architecture Detection -->
+            <section id="download" class="download-action-hero" style="margin-top: 2rem;">
+                <div>
+                    <!-- Dynamic Detection Callout -->
+                    <div id="deviceDetectionBadge" class="device-detection-badge">
+                        <span class="pulse-dot"></span>
+                        <span id="detectionText">Detecting device architecture...</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                        <h3 style="font-size: 1.5rem; margin: 0;">Latest Release <span id="latestVersionText" style="color: #2563EB;">v1.0.0</span></h3>
+                        <span class="badge-pill beta" style="margin-bottom: 0;"><i class="ph ph-check-circle"></i> Official GitHub Build</span>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;" id="recommendationSubtitle">
+                        Recommended build automatically selected for your device based on CPU architecture scan.
+                    </p>
+                    
+                    <div class="download-meta-info">
+                        <div class="download-meta-item">
+                            <span class="label">Target Architecture</span>
+                            <span class="val" id="recommendedArchName">ARM64-v8a (64-bit ARM)</span>
+                        </div>
+                        <div class="download-meta-item">
+                            <span class="label">Package Asset</span>
+                            <span class="val" id="recommendedFilename">Downloader-arm64-v8a.apk</span>
+                        </div>
+                        <div class="download-meta-item">
+                            <span class="label">File Size</span>
+                            <span class="val" id="recommendedSize">~63.4 MB</span>
+                        </div>
+                        <div class="download-meta-item">
+                            <span class="label">Compatibility</span>
+                            <span class="val">Android 8.0+ (API 26-37)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;">
+                    <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="heroDownloadBtn" class="download-btn-primary" style="font-size: 1.05rem; padding: 1rem 2.2rem;">
+                        <i class="ph ph-download-simple"></i> Download Recommended APK
+                    </a>
+                    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem;">
+                            <i class="ph ph-shield-check" style="color: #10B981;"></i> Signed Release
+                        </span>
+                        <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/SHA256SUMS.txt" target="_blank" style="font-size: 0.8rem; color: var(--text-secondary); text-decoration: underline;">
+                            SHA-256 Checksums
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture Matrix Section -->
+            <section id="architectures" style="margin: 4.5rem 0;">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <span class="badge-pill"><i class="ph ph-cpu"></i> APK Architecture Guide</span>
+                    <h2 style="font-size: 2.2rem;">Select Specific Architecture</h2>
+                    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto; line-height: 1.6;">
+                        Android phones use different processor architectures. Downloading the exact binary matched to your phone's processor delivers the smallest app size and peak execution speed.
+                    </p>
+                </div>
+
+                <div class="arch-grid" id="archMatrix">
+                    <!-- Card 1: ARM64-v8a -->
+                    <div class="arch-card recommended" id="card-arm64-v8a">
+                        <div>
+                            <div class="arch-card-header">
+                                <h4><i class="ph ph-device-mobile"></i> ARM64-v8a</h4>
+                                <span class="arch-rec-tag" id="tag-arm64-v8a"><i class="ph ph-star"></i> Recommended</span>
+                            </div>
+                            <p class="arch-desc">
+                                Optimal for 95%+ of modern smartphones released after 2017. Delivers fastest video processing and lowest storage footprint.
+                            </p>
+                        </div>
+                        <div class="arch-footer">
+                            <span class="arch-size" id="size-arm64-v8a">63.4 MB</span>
+                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="link-arm64-v8a" class="arch-dl-btn primary">
+                                <i class="ph ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Universal -->
+                    <div class="arch-card" id="card-universal">
+                        <div>
+                            <div class="arch-card-header">
+                                <h4><i class="ph ph-globe"></i> Universal Build</h4>
+                                <span class="arch-rec-tag" id="tag-universal" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
+                            </div>
+                            <p class="arch-desc">
+                                Bundles all processor libraries (ARM64, ARMv7, x86_64). Guaranteed to install on any Android device if you are unsure of your processor.
+                            </p>
+                        </div>
+                        <div class="arch-footer">
+                            <span class="arch-size" id="size-universal">169.9 MB</span>
+                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-universal.apk" id="link-universal" class="arch-dl-btn secondary">
+                                <i class="ph ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: ARMv7 -->
+                    <div class="arch-card" id="card-armeabi-v7a">
+                        <div>
+                            <div class="arch-card-header">
+                                <h4><i class="ph ph-device-mobile-camera"></i> ARMv7 (32-bit)</h4>
+                                <span class="arch-rec-tag" id="tag-armeabi-v7a" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
+                            </div>
+                            <p class="arch-desc">
+                                Designed for legacy Android hardware, older budget devices, and 32-bit ARM microcontrollers running Android OS.
+                            </p>
+                        </div>
+                        <div class="arch-footer">
+                            <span class="arch-size" id="size-armeabi-v7a">56.2 MB</span>
+                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-armeabi-v7a.apk" id="link-armeabi-v7a" class="arch-dl-btn secondary">
+                                <i class="ph ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: x86_64 -->
+                    <div class="arch-card" id="card-x86_64">
+                        <div>
+                            <div class="arch-card-header">
+                                <h4><i class="ph ph-desktop"></i> x86_64</h4>
+                                <span class="arch-rec-tag" id="tag-x86_64" style="display: none;"><i class="ph ph-star"></i> Recommended</span>
+                            </div>
+                            <p class="arch-desc">
+                                Engineered for Android emulators (Android Studio, BlueStacks, LDPlayer), Intel/AMD tablets, and Chromebooks with ChromeOS.
+                            </p>
+                        </div>
+                        <div class="arch-footer">
+                            <span class="arch-size" id="size-x86_64">66.4 MB</span>
+                            <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-x86_64.apk" id="link-x86_64" class="arch-dl-btn secondary">
+                                <i class="ph ph-download-simple"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screenshots Showcase -->
+            <section id="screenshots" style="margin: 4.5rem 0;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <span class="badge-pill"><i class="ph ph-image"></i> Visual Interface</span>
+                    <h2 style="font-size: 2.2rem;">Crafted For Android</h2>
+                    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto;">
+                        Built with Jetpack Compose for fluid animations, edge-to-edge Material 3 theming, and intuitive gesture controls.
+                    </p>
+                </div>
+
+                <div class="screenshots-scroller-wrap">
+                    <div class="screenshots-scroller">
+                        <div class="screenshot-item">
+                            <img src="https://raw.githubusercontent.com/leanwell/Downloader/main/docs/screenshots/01_onboarding.png" alt="Onboarding Screen" loading="lazy">
+                            <div class="screenshot-label">Clean Onboarding</div>
+                        </div>
+                        <div class="screenshot-item">
+                            <img src="https://raw.githubusercontent.com/leanwell/Downloader/main/docs/screenshots/02_home_clipboard.png" alt="Smart Home Clipboard" loading="lazy">
+                            <div class="screenshot-label">Clipboard Detection</div>
+                        </div>
+                        <div class="screenshot-item">
+                            <img src="https://raw.githubusercontent.com/leanwell/Downloader/main/docs/screenshots/03_download_options_video.png" alt="Video Resolutions" loading="lazy">
+                            <div class="screenshot-label">Up to 8K Resolutions</div>
+                        </div>
+                        <div class="screenshot-item">
+                            <img src="https://raw.githubusercontent.com/leanwell/Downloader/main/docs/screenshots/04_download_options_audio.png" alt="Audio Formats & ID3" loading="lazy">
+                            <div class="screenshot-label">320kbps MP3 & ID3 Tags</div>
+                        </div>
+                        <div class="screenshot-item">
+                            <img src="https://raw.githubusercontent.com/leanwell/Downloader/main/docs/screenshots/05_download_queue.png" alt="Download Queue" loading="lazy">
+                            <div class="screenshot-label">Multi-Thread Queue</div>
+                        </div>
+                        <div class="screenshot-item">
+                            <img src="https://raw.githubusercontent.com/leanwell/Downloader/main/docs/screenshots/06_media_library_player.png" alt="Built-in Player" loading="lazy">
+                            <div class="screenshot-label">In-App Media Player</div>
+                        </div>
+                        <div class="screenshot-item">
+                            <img src="https://raw.githubusercontent.com/leanwell/Downloader/main/docs/screenshots/07_settings_engine.png" alt="Settings & Keystore" loading="lazy">
+                            <div class="screenshot-label">Engine & Security</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Spotlight Grid -->
+            <section id="features" style="margin: 4.5rem 0;">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <span class="badge-pill"><i class="ph ph-sparkle"></i> Key Architecture</span>
+                    <h2 style="font-size: 2.2rem;">Core Engineering Highlights</h2>
+                    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto;">
+                        Designed to deliver reliable, unrestricted media downloading without ads, paywalls, or privacy tracking.
+                    </p>
+                </div>
+
+                <div class="features-spotlight-grid">
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon"><i class="ph ph-globe"></i></div>
+                        <h3>1,000+ Platforms Supported</h3>
+                        <p>Powered by the industry-standard <code>yt-dlp</code> extraction engine. Download video and audio from YouTube, TikTok, Instagram, Facebook, Twitter/X, SoundCloud, Reddit, Vimeo, and more.</p>
+                    </div>
+
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon"><i class="ph ph-lightning"></i></div>
+                        <h3>Aria2c Turbo Acceleration</h3>
+                        <p>Built-in multi-connection download pipeline with <code>aria2c</code>. Splits files into simultaneous parallel chunks for maximum network throughput and automatic connection recovery.</p>
+                    </div>
+
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon"><i class="ph ph-video-camera"></i></div>
+                        <h3>Resolutions Up to 8K</h3>
+                        <p>Pick the exact video quality you need: 360p, 480p, 720p HD, 1080p Full HD, or run an on-demand deep scan for 2K, 4K, and 8K ultra-high-definition streams.</p>
+                    </div>
+
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon"><i class="ph ph-music-notes"></i></div>
+                        <h3>Studio-Grade Audio & ID3 Tags</h3>
+                        <p>Convert videos into crystal-clear 320 kbps MP3 or lossless original AAC/M4A tracks. Automatically extracts artist info, titles, and embeds high-resolution cover art.</p>
+                    </div>
+
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon"><i class="ph ph-lock-key"></i></div>
+                        <h3>Android Keystore Encryption</h3>
+                        <p>Social session cookies for private accounts are encrypted locally using the hardware-backed <strong>Android Keystore</strong>. Sensitive tokens are never stored in plain text and expire safely after 30 days.</p>
+                    </div>
+
+                    <div class="feature-spotlight-item">
+                        <div class="feature-spotlight-icon"><i class="ph ph-play-circle"></i></div>
+                        <h3>Built-In Floating Player</h3>
+                        <p>Enjoy downloads inside the app with picture-in-picture (PiP), variable speed playback (0.5x to 2x), and one-tap handover to external media players (VLC, MX Player).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Changelog & Releases Section -->
+            <section id="changelog" style="margin: 4.5rem 0;">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <span class="badge-pill"><i class="ph ph-clock-counter-clockwise"></i> Live GitHub Feed</span>
+                    <h2 style="font-size: 2.2rem;">Releases & Changelogs</h2>
+                    <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto;">
+                        Real-time release history synchronized directly from the official <code>leanwell/Downloader</code> repository.
+                    </p>
+                </div>
+
+                <!-- Skeleton Loader while fetching -->
+                <div id="changelogSkeleton">
+                    <div class="changelog-card">
+                        <div class="skeleton-box" style="height: 32px; width: 40%; margin-bottom: 1rem;"></div>
+                        <div class="skeleton-box" style="height: 18px; width: 90%; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton-box" style="height: 18px; width: 75%; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton-box" style="height: 18px; width: 60%; margin-bottom: 1rem;"></div>
+                        <div class="skeleton-box" style="height: 40px; width: 30%;"></div>
+                    </div>
+                </div>
+
+                <!-- Rate Limit Fallback Alert -->
+                <div id="rateLimitBanner" class="rate-limit-banner" style="display: none;">
+                    <i class="ph ph-info"></i>
+                    <div>
+                        <h4 style="margin: 0 0 0.25rem 0; font-size: 1.05rem;">GitHub API Rate Limit Reached</h4>
+                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                            Unauthenticated GitHub API queries are temporarily rate-limited for your network. You can view all release notes, tags, and assets directly on the official GitHub Releases page.
+                        </p>
+                        <a href="https://github.com/leanwell/Downloader/releases" target="_blank" class="btn primary-btn" style="margin-top: 0.75rem; padding: 0.5rem 1.25rem; font-size: 0.85rem;">
+                            <i class="ph ph-arrow-square-out"></i> Open GitHub Releases
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dynamic Container -->
+                <div id="changelogContainer"></div>
+            </section>
+
+            <!-- Android System Requirements -->
+            <section class="glass-panel" style="padding: 3rem; margin: 4rem 0; border-radius: var(--border-radius);">
+                <div style="margin-bottom: 2rem;">
+                    <span class="badge-pill"><i class="ph ph-device-mobile"></i> Requirements</span>
+                    <h2 style="font-size: 2rem; margin-top: 0.5rem;">System Requirements</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                        Downloader is engineered natively using Kotlin and Jetpack Compose for Android 8.0+.
+                    </p>
+                </div>
+
+                <div class="reqs-grid">
+                    <div class="req-item">
+                        <i class="ph ph-android-logo"></i>
+                        <div>
+                            <h4>Operating System</h4>
+                            <p>Android 8.0 (API Level 26) through Android 15+ (API 37)</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-cpu"></i>
+                        <div>
+                            <h4>Processor</h4>
+                            <p>ARM64-v8a (recommended), ARMv7, or x86_64</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-hard-drive"></i>
+                        <div>
+                            <h4>Storage & RAM</h4>
+                            <p>Minimum 2 GB RAM, 100 MB free space + media download storage</p>
+                        </div>
+                    </div>
+
+                    <div class="req-item">
+                        <i class="ph ph-shield-check"></i>
+                        <div>
+                            <h4>Hardware Keystore</h4>
+                            <p>Hardware-backed TEE / StrongBox for session cookie encryption</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom CTA -->
+            <section class="glass-panel" style="padding: 3.5rem 2.5rem; text-align: center; border-radius: var(--border-radius); margin: 5rem 0 2rem 0; background: var(--bg-panel-solid);">
+                <div style="width: 72px; height: 72px; border-radius: 20px; background: #FAFAFA; border: 1px solid var(--border-color); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,0.06);">
+                    <img src="downloader-logo.png" alt="Downloader App Logo" style="width: 48px; height: 48px; object-fit: contain;">
+                </div>
+                <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Start Grabbing Media Today</h2>
+                <p style="color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem auto; font-size: 1.05rem;">
+                    Free, open-source, and privacy-respecting. Download the matched APK and take control of your media library.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="bottomDownloadBtn" class="download-btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+                        <i class="ph ph-download-simple"></i> Download Downloader APK
+                    </a>
+                    <a href="index.html" class="btn-secondary-link">
+                        <i class="ph ph-arrow-left"></i> Back to Apps Catalog
+                    </a>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="site-footer">
+                <div class="footer-brand">
+                    <span class="close-gap">L</span>
+                    <span class="close-gap">I</span>
+                    <span>N</span>
+                    <span class="offset-1">W</span>
+                    <span class="offset-2 close-gap">E</span>
+                    <span class="offset-3">L</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Client-Side Architecture Scanner & GitHub Releases Fetcher -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Floating Nav Slider positioning
+            const navSlider = document.querySelector('.nav-slider');
+            function updateNavSlider() {
+                if (!navSlider) return;
+                const activeLink = document.querySelector('.nav-links li a.active');
+                if (activeLink) {
+                    const linkRect = activeLink.getBoundingClientRect();
+                    const navRect = document.querySelector('.nav-links').getBoundingClientRect();
+                    navSlider.style.width = `${linkRect.width}px`;
+                    navSlider.style.transform = `translateX(${linkRect.left - navRect.left}px)`;
+                }
+            }
+
+            updateNavSlider();
+            setTimeout(updateNavSlider, 50);
+            setTimeout(updateNavSlider, 150);
+            window.addEventListener('resize', updateNavSlider);
+            window.addEventListener('load', updateNavSlider);
+            if (document.fonts) {
+                document.fonts.ready.then(updateNavSlider);
+            }
+
+            // 2. Device Architecture Scanner & Auto-Selection
+            async function detectArchitecture() {
+                let detectedArch = 'arm64-v8a'; // default for modern Android
+                let detectedLabel = '64-bit ARM';
+                let isAndroid = false;
+
+                const ua = navigator.userAgent || '';
+                if (/Android/i.test(ua)) {
+                    isAndroid = true;
+                }
+
+                // Check Modern User-Agent Client Hints API
+                if (navigator.userAgentData && typeof navigator.userAgentData.getHighEntropyValues === 'function') {
+                    try {
+                        const hints = await navigator.userAgentData.getHighEntropyValues(['architecture', 'bitness', 'platform']);
+                        if (hints.platform && /Android/i.test(hints.platform)) {
+                            isAndroid = true;
+                        }
+                        const arch = (hints.architecture || '').toLowerCase();
+                        const bitness = hints.bitness || '64';
+
+                        if (arch.includes('arm')) {
+                            if (bitness === '32') {
+                                detectedArch = 'armeabi-v7a';
+                                detectedLabel = '32-bit ARM (ARMv7)';
+                            } else {
+                                detectedArch = 'arm64-v8a';
+                                detectedLabel = '64-bit ARM (ARM64-v8a)';
+                            }
+                        } else if (arch.includes('x86')) {
+                            detectedArch = 'x86_64';
+                            detectedLabel = '64-bit x86 (x86_64)';
+                        }
+                    } catch (e) {
+                        // fallback to UA parsing
+                    }
+                } else {
+                    // Fallback heuristics via User-Agent & WebAssembly 64-bit check
+                    if (/aarch64|arm64|armv8/i.test(ua)) {
+                        detectedArch = 'arm64-v8a';
+                        detectedLabel = '64-bit ARM (ARM64-v8a)';
+                    } else if (/armv7|armeabi/i.test(ua)) {
+                        detectedArch = 'armeabi-v7a';
+                        detectedLabel = '32-bit ARM (ARMv7)';
+                    } else if (/x86_64|x64|amd64/i.test(ua)) {
+                        detectedArch = 'x86_64';
+                        detectedLabel = '64-bit x86 (x86_64)';
+                    } else if (isAndroid) {
+                        detectedArch = 'arm64-v8a';
+                        detectedLabel = 'Modern Android (ARM64)';
+                    } else {
+                        detectedArch = 'universal';
+                        detectedLabel = 'Universal Compatibility';
+                    }
+                }
+
+                // Update Detection Badge
+                const badgeText = document.getElementById('detectionText');
+                if (badgeText) {
+                    badgeText.textContent = `Auto-detected: ${detectedLabel}`;
+                }
+
+                applyRecommendedArch(detectedArch);
+            }
+
+            function applyRecommendedArch(archKey) {
+                // Clear any existing recommended classes
+                ['arm64-v8a', 'universal', 'armeabi-v7a', 'x86_64'].forEach(key => {
+                    const card = document.getElementById(`card-${key}`);
+                    const tag = document.getElementById(`tag-${key}`);
+                    const link = document.getElementById(`link-${key}`);
+
+                    if (card) card.classList.remove('recommended');
+                    if (tag) tag.style.display = 'none';
+                    if (link) {
+                        link.classList.remove('primary');
+                        link.classList.add('secondary');
+                    }
+                });
+
+                const activeCard = document.getElementById(`card-${archKey}`);
+                const activeTag = document.getElementById(`tag-${archKey}`);
+                const activeLink = document.getElementById(`link-${archKey}`);
+
+                if (activeCard) activeCard.classList.add('recommended');
+                if (activeTag) activeTag.style.display = 'inline-flex';
+                if (activeLink) {
+                    activeLink.classList.remove('secondary');
+                    activeLink.classList.add('primary');
+                }
+
+                // Update Hero specs
+                const archNames = {
+                    'arm64-v8a': 'ARM64-v8a (64-bit ARM)',
+                    'universal': 'Universal Build (All Architectures)',
+                    'armeabi-v7a': 'ARMv7 (32-bit ARM)',
+                    'x86_64': 'x86_64 (Emulators & ChromeOS)'
+                };
+
+                const filenames = {
+                    'arm64-v8a': 'Downloader-arm64-v8a.apk',
+                    'universal': 'Downloader-universal.apk',
+                    'armeabi-v7a': 'Downloader-armeabi-v7a.apk',
+                    'x86_64': 'Downloader-x86_64.apk'
+                };
+
+                const recArchName = document.getElementById('recommendedArchName');
+                if (recArchName) recArchName.textContent = archNames[archKey] || archKey;
+
+                const recFilename = document.getElementById('recommendedFilename');
+                if (recFilename) recFilename.textContent = filenames[archKey] || '';
+
+                // Hero download button URL
+                if (activeLink) {
+                    const heroBtn = document.getElementById('heroDownloadBtn');
+                    const bottomBtn = document.getElementById('bottomDownloadBtn');
+                    if (heroBtn) {
+                        heroBtn.href = activeLink.href;
+                        heroBtn.innerHTML = `<i class="ph ph-download-simple"></i> Download for ${archKey.toUpperCase()} <span style="font-size:0.8rem; opacity:0.8; font-weight:400;">(${document.getElementById(`size-${archKey}`)?.textContent || ''})</span>`;
+                    }
+                    if (bottomBtn) {
+                        bottomBtn.href = activeLink.href;
+                        bottomBtn.innerHTML = `<i class="ph ph-download-simple"></i> Download for ${archKey.toUpperCase()}`;
+                    }
+                }
+            }
+
+            detectArchitecture();
+
+            // 3. Live GitHub Releases API Fetcher & Markdown Changelog Parser
+            async function fetchLiveReleases() {
+                const skeleton = document.getElementById('changelogSkeleton');
+                const rateLimitBanner = document.getElementById('rateLimitBanner');
+                const container = document.getElementById('changelogContainer');
+
+                try {
+                    const res = await fetch('https://api.github.com/repos/leanwell/Downloader/releases');
+                    
+                    if (res.status === 403 || !res.ok) {
+                        // Rate-limited or error
+                        if (skeleton) skeleton.style.display = 'none';
+                        if (rateLimitBanner) rateLimitBanner.style.display = 'flex';
+                        return;
+                    }
+
+                    const releases = await res.json();
+                    if (skeleton) skeleton.style.display = 'none';
+
+                    if (!Array.isArray(releases) || releases.length === 0) {
+                        container.innerHTML = '<p style="text-align:center; color:var(--text-secondary);">No releases found yet.</p>';
+                        return;
+                    }
+
+                    const latest = releases[0];
+
+                    // Update version tag in hero
+                    const latestVersionText = document.getElementById('latestVersionText');
+                    if (latestVersionText && latest.tag_name) {
+                        latestVersionText.textContent = latest.tag_name;
+                    }
+
+                    // Update asset links and sizes in the Architecture Matrix
+                    if (latest.assets && Array.isArray(latest.assets)) {
+                        latest.assets.forEach(asset => {
+                            const name = asset.name || '';
+                            const sizeMb = (asset.size / (1024 * 1024)).toFixed(1) + ' MB';
+                            
+                            let key = null;
+                            if (name.includes('arm64-v8a')) key = 'arm64-v8a';
+                            else if (name.includes('universal')) key = 'universal';
+                            else if (name.includes('armeabi-v7a')) key = 'armeabi-v7a';
+                            else if (name.includes('x86_64')) key = 'x86_64';
+
+                            if (key) {
+                                const sizeEl = document.getElementById(`size-${key}`);
+                                const linkEl = document.getElementById(`link-${key}`);
+                                if (sizeEl) sizeEl.textContent = sizeMb;
+                                if (linkEl) linkEl.href = asset.browser_download_url;
+                            }
+                        });
+
+                        // Re-sync hero button with live URL & size
+                        detectArchitecture();
+                    }
+
+                    // Simple Markdown-to-HTML formatter
+                    function parseMarkdown(md) {
+                        if (!md) return '';
+                        let html = md
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;');
+                        
+                        // Headings
+                        html = html.replace(/^### (.*$)/gim, '<h4>$1</h4>');
+                        html = html.replace(/^## (.*$)/gim, '<h3>$1</h3>');
+                        html = html.replace(/^# (.*$)/gim, '<h2>$1</h2>');
+
+                        // Bold & Italics
+                        html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+                        html = html.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+                        
+                        // Inline code
+                        html = html.replace(/`(.*?)`/gim, '<code>$1</code>');
+
+                        // Unordered lists
+                        html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+                        html = html.replace(/(<li>.*<\/li>)/gms, '<ul>$1</ul>');
+
+                        // Line breaks
+                        html = html.replace(/\n\n+/g, '<br><br>');
+
+                        return html;
+                    }
+
+                    // Render all releases in container
+                    container.innerHTML = '';
+                    releases.forEach((rel, index) => {
+                        const isLatest = index === 0;
+                        const dateFormatted = new Date(rel.published_at).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+
+                        const card = document.createElement('div');
+                        card.className = 'changelog-card';
+
+                        const assetsList = (rel.assets || []).map(a => `
+                            <a href="${a.browser_download_url}" class="chip-btn" style="font-size:0.8rem; margin:0.25rem 0.25rem 0 0;">
+                                <i class="ph ph-file-arrow-down"></i> ${a.name} (${(a.size / (1024*1024)).toFixed(1)} MB)
+                            </a>
+                        `).join('');
+
+                        card.innerHTML = `
+                            <div class="changelog-card-header">
+                                <div>
+                                    <h3>
+                                        ${rel.name || rel.tag_name}
+                                        ${isLatest ? '<span class="archive-badge latest"><i class="ph ph-check-circle"></i> Latest</span>' : '<span class="archive-badge archive">Release</span>'}
+                                    </h3>
+                                    <span style="font-size: 0.85rem; color: var(--text-secondary);"><i class="ph ph-calendar"></i> Published on ${dateFormatted}</span>
+                                </div>
+                                <a href="${rel.html_url}" target="_blank" class="chip-btn">
+                                    <i class="ph ph-github-logo"></i> GitHub View
+                                </a>
+                            </div>
+                            <div class="changelog-body">
+                                ${parseMarkdown(rel.body)}
+                            </div>
+                            <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+                                <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-secondary); display:block; margin-bottom:0.5rem; font-weight:700;">Release Binaries:</span>
+                                <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+                                    ${assetsList}
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+
+                } catch (err) {
+                    console.error('Failed to load GitHub releases:', err);
+                    if (skeleton) skeleton.style.display = 'none';
+                    if (rateLimitBanner) rateLimitBanner.style.display = 'flex';
+                }
+            }
+
+            fetchLiveReleases();
+        });
+    </script>
+</body>
+</html>
