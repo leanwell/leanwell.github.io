@@ -14,6 +14,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     padding: 2rem 0;
     margin-bottom: 2rem;
     border-bottom: 1px solid var(--border-color);
@@ -852,9 +854,15 @@
 /* Architecture Matrix Grid */
 .arch-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     margin: 2rem 0;
+}
+
+@media (max-width: 640px) {
+    .arch-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .arch-card {
