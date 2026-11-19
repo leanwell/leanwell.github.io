@@ -279,20 +279,20 @@
                     <span class="current">Daily</span>
                 </div>
                 <div class="nav-actions">
-                    <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" id="topNavDownloadBtn" class="chip-btn" style="background: var(--text-primary); color: var(--bg-main); border: none;">
-                        <i class="ph ph-download-simple"></i> Get APK
+                    <a href="#releases" class="chip-btn">
+                        <i class="ph ph-tag"></i> Releases
                     </a>
                 </div>
             </header>
 
             <!-- App Header & Hero -->
             <section class="daily-title-wrap">
-                <div class="daily-hero-badge">
+                <span class="section-eyebrow">
                     <i class="ph ph-camera"></i> Retro Disposable Camera for Android
-                </div>
+                </span>
                 
                 <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
-                    <div class="app-icon-wrap" style="width: 130px; height: 130px;">
+                    <div class="app-icon-wrap" id="dailyAppIcon" style="width: 130px; height: 130px; cursor: pointer;" title="Click for surprise">
                         <img src="daily-logo.png" alt="Daily Camera App Icon">
                     </div>
                 </div>
@@ -302,18 +302,6 @@
                 <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto; line-height: 1.8; font-size: 1.05rem;">
                     Daily is an authentic daily photo-sharing app designed with the intentional feel of a retro disposable camera. Capture uncurated moments of your day, share them with close friends in a tactile card stack, and preserve your life chronicle in a private monthly calendar vault.
                 </p>
-
-                <div style="display: flex; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
-                    <button id="triggerEmojiRain" class="shutter-btn">
-                        <i class="ph ph-sparkle"></i> Test Interactive Emoji Rain
-                    </button>
-                    <a href="#requirements" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
-                        <i class="ph ph-device-mobile"></i> System Requirements
-                    </a>
-                    <a href="#releases" class="shutter-btn" style="border-color: var(--border-color); color: var(--text-secondary);">
-                        <i class="ph ph-clock-counter-clockwise"></i> Version History (2)
-                    </a>
-                </div>
             </section>
 
             <!-- Primary Download Banner Box -->
@@ -321,7 +309,7 @@
                 <div>
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
                         <h3 style="font-size: 1.5rem; margin: 0;">Official Beta Release</h3>
-                        <span class="badge-pill beta" id="specVersionBadge" style="margin-bottom: 0;">v1.1-Beta</span>
+                        <span class="status-tag neutral" id="specVersionBadge" style="margin-bottom: 0;">v1.1-Beta</span>
                     </div>
                     <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;">
                         Signed release APK ready for direct sideloading on all compatible Android devices.
@@ -359,7 +347,7 @@
             <!-- Photo Exposures Stack Preview (Using Bundled Sample Shots) -->
             <section style="margin: 4rem 0;">
                 <div style="text-align: center; margin-bottom: 1rem;">
-                    <span class="badge-pill"><i class="ph ph-cards"></i> Authentic Analog Exposures</span>
+                    <span class="section-eyebrow"><i class="ph ph-cards"></i> Authentic Analog Exposures</span>
                     <h2 style="font-size: 2rem;">The Tactile Card Stack</h2>
                     <p style="color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto 0 auto;">
                         No infinite doom-scrolling. Browse friends' daily exposures like a physical stack of photo prints that expire after 24 hours.
@@ -390,97 +378,10 @@
                 </p>
             </section>
 
-            <!-- Core Philosophy Callout -->
-            <section class="philosophy-banner">
-                <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #F59E0B; font-weight: 700; display: block; margin-bottom: 0.5rem;">
-                    Our Philosophy
-                </span>
-                <h2>NO FILTERS. NO FOLLOWER COUNTS. JUST REAL LIFE.</h2>
-                <p>
-                    Most social apps demand curated perfection, endless public feeds, and vanity metrics. Daily is designed for authentic, in-the-moment sharing with the people who matter to you. Snap candid glimpses of your day, share them in a tactile card stack, and preserve your personal life chronicle.
-                </p>
-            </section>
-
-            <!-- Key Features Grid -->
-            <section style="margin: 4rem 0;">
-                <div style="text-align: center; margin-bottom: 3rem;">
-                    <span class="badge-pill"><i class="ph ph-lightning"></i> Crafted Features</span>
-                    <h2 style="font-size: 2.2rem;">Engineered for Authenticity</h2>
-                    <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto;">
-                        Every feature is intentionally built around the experience of a disposable camera combined with modern cloud reliability.
-                    </p>
-                </div>
-
-                <div class="features-spotlight-grid">
-                    <!-- Feature 1 -->
-                    <div class="feature-spotlight-item">
-                        <div class="feature-spotlight-icon">
-                            <i class="ph ph-aperture"></i>
-                        </div>
-                        <h3>Analog Shutter & Instant Queue</h3>
-                        <p>Shoot photos with vintage color grading, authentic mechanical shutter feedback, a 5-second undo safeguard, and non-blocking background uploads.</p>
-                    </div>
-
-                    <!-- Feature 2 -->
-                    <div class="feature-spotlight-item">
-                        <div class="feature-spotlight-icon">
-                            <i class="ph ph-cards"></i>
-                        </div>
-                        <h3>Physical Card Stack Feed</h3>
-                        <p>Browse your friends' daily exposures like a physical stack of photo prints. Swipe cards naturally across your screen and catch up before exposures expire in 24 hours.</p>
-                    </div>
-
-                    <!-- Feature 3 -->
-                    <div class="feature-spotlight-item">
-                        <div class="feature-spotlight-icon">
-                            <i class="ph ph-sparkle"></i>
-                        </div>
-                        <h3>Interactive Emoji Rain</h3>
-                        <p>React to friends' photos with vibrant emoji bursts that cascade down the screen in real-time, delivering playful and expressive feedback.</p>
-                    </div>
-
-                    <!-- Feature 4 -->
-                    <div class="feature-spotlight-item">
-                        <div class="feature-spotlight-icon">
-                            <i class="ph ph-calendar"></i>
-                        </div>
-                        <h3>Monthly Calendar Vault</h3>
-                        <p>Your daily shots don't disappear into thin air. At midnight, every exposure you take safely archives into your private, searchable calendar vault.</p>
-                    </div>
-
-                    <!-- Feature 5 -->
-                    <div class="feature-spotlight-item">
-                        <div class="feature-spotlight-icon">
-                            <i class="ph ph-app-window"></i>
-                        </div>
-                        <h3>Interactive 1:1 Homescreen Widget</h3>
-                        <p>Glance at your friends' latest moments directly from your home screen. Select from automated slideshows, pinned favorites, or friend takeover modes.</p>
-                    </div>
-
-                    <!-- Feature 6 -->
-                    <div class="feature-spotlight-item">
-                        <div class="feature-spotlight-icon">
-                            <i class="ph ph-qr-code"></i>
-                        </div>
-                        <h3>Fast QR Discovery & Story Cards</h3>
-                        <p>Add friends in seconds using the live QR scanner or import a screenshot directly from photos. Customize your personal QR poster with color themes and emojis.</p>
-                    </div>
-
-                    <!-- Feature 7 -->
-                    <div class="feature-spotlight-item" style="grid-column: 1 / -1;">
-                        <div class="feature-spotlight-icon">
-                            <i class="ph ph-shield-check"></i>
-                        </div>
-                        <h3>Privacy & Complete Data Ownership</h3>
-                        <p>No algorithms, no third-party data tracking, and zero public follower feeds. Your memories live in an encrypted cloud vault. Export all your photos and data into a single ZIP archive, or permanently delete your account at any time with one tap.</p>
-                    </div>
-                </div>
-            </section>
-
             <!-- Android System Requirements -->
             <section id="requirements" class="glass-panel" style="padding: 3rem; margin: 4rem 0; border-radius: var(--border-radius);">
                 <div style="margin-bottom: 2rem;">
-                    <span class="badge-pill"><i class="ph ph-device-mobile"></i> Hardware & Compatibility</span>
+                    <span class="section-eyebrow"><i class="ph ph-device-mobile"></i> Hardware & Compatibility</span>
                     <h2 style="font-size: 2rem; margin-top: 0.5rem;">Android System Requirements</h2>
                     <p style="color: var(--text-secondary); font-size: 0.95rem;">
                         Daily is built natively for Android to deliver low-latency camera performance and smooth 60fps card transitions.
@@ -569,7 +470,7 @@
             <!-- Version History & APK Archives -->
             <section id="releases" class="archive-section">
                 <div style="text-align: center; margin-bottom: 2.5rem;">
-                    <span class="badge-pill"><i class="ph ph-clock-counter-clockwise"></i> APK Archives</span>
+                    <span class="section-eyebrow"><i class="ph ph-clock-counter-clockwise"></i> APK Archives</span>
                     <h2 style="font-size: 2.2rem;">Version History & Releases</h2>
                     <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto;">
                         Download the current release or explore older builds from our public APK archive.
@@ -579,50 +480,48 @@
                 <div class="archive-list" id="archiveList">
                     <!-- Populated dynamically via JS from daily/releases.json, with clean pre-rendered HTML fallback -->
                     <div class="archive-card is-latest">
-                        <div class="archive-card-left">
-                            <div class="archive-header">
-                                <h3>Daily v1.1-beta</h3>
-                                <span class="archive-badge latest"><i class="ph ph-check-circle"></i> Latest Release</span>
-                                <span class="archive-date"><i class="ph ph-calendar"></i> November 12, 2026</span>
+                        <div class="archive-card-left" style="width: 100%;">
+                            <div class="archive-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 0.75rem;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                                    <h3 style="font-size: 1.35rem; margin: 0;">Daily v1.1-beta</h3>
+                                    <span class="status-tag latest"><i class="ph ph-check-circle"></i> Latest Release</span>
+                                    <span class="archive-date"><i class="ph ph-calendar"></i> November 12, 2026</span>
+                                </div>
                             </div>
-                            <p class="archive-notes">
+                            <p class="archive-notes" style="margin-top: 1rem;">
                                 Resolved session persistence issues to maintain user authentication across app restarts, optimized asynchronous image loading stability, and fixed background push notification delivery.
                             </p>
-                            <div class="archive-meta-row">
-                                <span class="archive-meta-chip"><i class="ph ph-file-arrow-down"></i> daily-v1.1-beta.apk</span>
+                            <div class="archive-meta-row" style="margin-top: 1rem;">
+                                <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" class="archive-meta-chip" style="text-decoration: none; color: inherit;">
+                                    <i class="ph ph-file-arrow-down"></i> daily-v1.1-beta.apk
+                                </a>
                                 <span class="archive-meta-chip"><i class="ph ph-hard-drive"></i> 7.3 MB</span>
                                 <span class="archive-meta-chip"><i class="ph ph-android-logo"></i> Android 8.0+</span>
                                 <span class="archive-meta-chip"><i class="ph ph-cpu"></i> Universal APK</span>
                             </div>
                         </div>
-                        <div class="archive-card-right">
-                            <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" class="download-btn-primary" style="padding: 0.65rem 1.4rem; font-size: 0.88rem;">
-                                <i class="ph ph-download-simple"></i> Download APK
-                            </a>
-                        </div>
                     </div>
 
                     <div class="archive-card">
-                        <div class="archive-card-left">
-                            <div class="archive-header">
-                                <h3>Daily v1.0-beta</h3>
-                                <span class="archive-badge archive"><i class="ph ph-archive"></i> Archive Build</span>
-                                <span class="archive-date"><i class="ph ph-calendar"></i> November 11, 2026</span>
+                        <div class="archive-card-left" style="width: 100%;">
+                            <div class="archive-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 0.75rem;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                                    <h3 style="font-size: 1.35rem; margin: 0;">Daily v1.0-beta</h3>
+                                    <span class="status-tag neutral"><i class="ph ph-archive"></i> Archive Build</span>
+                                    <span class="archive-date"><i class="ph ph-calendar"></i> November 11, 2026</span>
+                                </div>
                             </div>
-                            <p class="archive-notes">
+                            <p class="archive-notes" style="margin-top: 1rem;">
                                 Initial public beta release featuring the retro analog shutter, tactile 24-hour card stack feed, interactive emoji showers, and private monthly calendar vault.
                             </p>
-                            <div class="archive-meta-row">
-                                <span class="archive-meta-chip"><i class="ph ph-file-arrow-down"></i> daily-v1.0-beta.apk</span>
+                            <div class="archive-meta-row" style="margin-top: 1rem;">
+                                <a href="daily/daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="archive-meta-chip" style="text-decoration: none; color: inherit;">
+                                    <i class="ph ph-file-arrow-down"></i> daily-v1.0-beta.apk
+                                </a>
                                 <span class="archive-meta-chip"><i class="ph ph-hard-drive"></i> 7.1 MB</span>
                                 <span class="archive-meta-chip"><i class="ph ph-android-logo"></i> Android 8.0+</span>
                                 <span class="archive-meta-chip"><i class="ph ph-cpu"></i> Universal APK</span>
                             </div>
-                        </div>
-                        <div class="archive-card-right">
-                            <a href="daily/daily-v1.0-beta.apk" download="daily-v1.0-beta.apk" class="btn-secondary-link" style="padding: 0.65rem 1.4rem; font-size: 0.88rem;">
-                                <i class="ph ph-download-simple"></i> Download APK
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -631,7 +530,7 @@
             <!-- Installation Guide Steps -->
             <section style="margin: 4rem 0;">
                 <div style="text-align: center; margin-bottom: 2.5rem;">
-                    <span class="badge-pill"><i class="ph ph-download-simple"></i> Easy Sideload</span>
+                    <span class="section-eyebrow"><i class="ph ph-download-simple"></i> Easy Sideload</span>
                     <h2 style="font-size: 2rem;">How to Install on Android</h2>
                     <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
                         Installing signed APKs directly gives you immediate access to beta builds without app store delays.
@@ -669,25 +568,6 @@
                     <p style="margin: 0; font-size: 0.9rem; color: #92400E; line-height: 1.5;">
                         <strong>Android Installation Note:</strong> <em>"Allow from this source"</em> is standard Android security for sideloaded applications. Daily's APK is officially signed and clean from trackers or telemetry bloatware.
                     </p>
-                </div>
-            </section>
-
-            <!-- Bottom Download Call to Action -->
-            <section class="glass-panel" style="padding: 3.5rem 2.5rem; text-align: center; border-radius: var(--border-radius); margin: 5rem 0 2rem 0; background: var(--bg-panel-solid);">
-                <div style="width: 72px; height: 72px; border-radius: 20px; background: #18181B; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
-                    <img src="daily-logo.png" alt="Daily App Logo" style="width: 54px; height: 54px; object-fit: contain;">
-                </div>
-                <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Start Your Daily Chronicle</h2>
-                <p style="color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem auto; font-size: 1.05rem;">
-                    Step away from curated social pressure. Experience real photo sharing with friends and a private monthly vault.
-                </p>
-                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                    <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" id="bottomDownloadBtn" class="download-btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                        <i class="ph ph-download-simple"></i> <span id="bottomDownloadText">Download daily-v1.1-beta.apk</span>
-                    </a>
-                    <a href="index.html" class="btn-secondary-link">
-                        <i class="ph ph-arrow-left"></i> Back to Apps Catalog
-                    </a>
                 </div>
             </section>
 
@@ -742,8 +622,8 @@
                 });
             }
 
-            // Interactive Emoji Rain feature simulation
-            const emojiBtn = document.getElementById('triggerEmojiRain');
+            // Interactive Emoji Rain easter egg on logo tap
+            const emojiTrigger = document.getElementById('dailyAppIcon');
             const container = document.getElementById('emoji-container');
             const emojis = ['📸', '✨', '💛', '☕', '🎞️', '🌻', '👀', '🎉', '🔥'];
 
@@ -773,8 +653,8 @@
                 }
             }
 
-            if (emojiBtn) {
-                emojiBtn.addEventListener('click', triggerEmojiShower);
+            if (emojiTrigger) {
+                emojiTrigger.addEventListener('click', triggerEmojiShower);
             }
 
             // Dynamic APK Releases Loader
@@ -841,14 +721,7 @@
 
                 const latest = releases[0];
 
-                // 1. Update Top Nav Download Button
-                const topNavBtn = document.getElementById('topNavDownloadBtn');
-                if (topNavBtn) {
-                    topNavBtn.href = latest.downloadUrl;
-                    topNavBtn.setAttribute('download', latest.fileName);
-                }
-
-                // 2. Update Primary Hero Download Card
+                // 1. Update Primary Hero Download Card
                 const primaryBtn = document.getElementById('primaryDownloadBtn');
                 if (primaryBtn) {
                     primaryBtn.href = latest.downloadUrl;
@@ -867,18 +740,7 @@
                 const specVersionBadge = document.getElementById('specVersionBadge');
                 if (specVersionBadge) specVersionBadge.textContent = latest.version;
 
-                // 3. Update Bottom CTA
-                const bottomBtn = document.getElementById('bottomDownloadBtn');
-                const bottomText = document.getElementById('bottomDownloadText');
-                if (bottomBtn) {
-                    bottomBtn.href = latest.downloadUrl;
-                    bottomBtn.setAttribute('download', latest.fileName);
-                }
-                if (bottomText) {
-                    bottomText.textContent = `Download ${latest.fileName}`;
-                }
-
-                // 4. Update Installation Step Guide text
+                // 3. Update Installation Step Guide text
                 const installStepPackage = document.getElementById('installStepPackage');
                 if (installStepPackage) installStepPackage.textContent = latest.fileName;
 
@@ -895,30 +757,27 @@
                         card.className = `archive-card ${isLatest ? 'is-latest' : ''}`;
                         
                         const badgeHtml = isLatest
-                            ? `<span class="archive-badge latest"><i class="ph ph-check-circle"></i> Latest Release</span>`
-                            : `<span class="archive-badge archive"><i class="ph ph-archive"></i> Archive Build</span>`;
-                        
-                        const btnClass = isLatest ? 'download-btn-primary' : 'btn-secondary-link';
+                            ? `<span class="status-tag latest"><i class="ph ph-check-circle"></i> Latest Release</span>`
+                            : `<span class="status-tag neutral"><i class="ph ph-archive"></i> Archive Build</span>`;
 
                         card.innerHTML = `
-                            <div class="archive-card-left">
-                                <div class="archive-header">
-                                    <h3>Daily ${rel.version}</h3>
-                                    ${badgeHtml}
-                                    <span class="archive-date"><i class="ph ph-calendar"></i> ${rel.releaseDate}</span>
+                            <div class="archive-card-left" style="width: 100%;">
+                                <div class="archive-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 0.75rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                                        <h3 style="font-size: 1.35rem; margin: 0;">Daily ${rel.version}</h3>
+                                        ${badgeHtml}
+                                        <span class="archive-date"><i class="ph ph-calendar"></i> ${rel.releaseDate}</span>
+                                    </div>
                                 </div>
-                                <p class="archive-notes">${rel.notes}</p>
-                                <div class="archive-meta-row">
-                                    <span class="archive-meta-chip"><i class="ph ph-file-arrow-down"></i> ${rel.fileName}</span>
+                                <p class="archive-notes" style="margin-top: 1rem;">${rel.notes}</p>
+                                <div class="archive-meta-row" style="margin-top: 1rem;">
+                                    <a href="${rel.downloadUrl}" download="${rel.fileName}" class="archive-meta-chip" style="text-decoration: none; color: inherit;">
+                                        <i class="ph ph-file-arrow-down"></i> ${rel.fileName}
+                                    </a>
                                     <span class="archive-meta-chip"><i class="ph ph-hard-drive"></i> ${rel.sizeFormatted}</span>
                                     <span class="archive-meta-chip"><i class="ph ph-android-logo"></i> ${rel.minAndroid}</span>
                                     <span class="archive-meta-chip"><i class="ph ph-cpu"></i> ${rel.architecture}</span>
                                 </div>
-                            </div>
-                            <div class="archive-card-right">
-                                <a href="${rel.downloadUrl}" download="${rel.fileName}" class="${btnClass}" style="padding: 0.65rem 1.4rem; font-size: 0.88rem;">
-                                    <i class="ph ph-download-simple"></i> Download APK
-                                </a>
                             </div>
                         `;
                         archiveContainer.appendChild(card);
