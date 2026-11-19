@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../portfolio/style.css">
-    <link rel="stylesheet" href="apps.css">
+    <link rel="stylesheet" href="apps.css?v=2.0">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         /* Downloader Page Specific Overrides */
@@ -19,6 +19,63 @@
         
         .philosophy-banner .highlight {
             color: #3B82F6;
+        }
+
+        .download-action-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .download-verification-notes {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            align-items: flex-start;
+            padding-left: 0.2rem;
+        }
+
+        .download-verification-notes .verification-item {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .download-verification-notes a.verification-item {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .download-action-hero .download-action-cta {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+            }
+
+            .download-action-hero .download-btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .download-action-hero .download-verification-notes {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+                padding-left: 0 !important;
+            }
+
+            .download-action-hero .download-verification-notes .verification-item {
+                justify-content: center;
+                text-align: center;
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -101,10 +158,10 @@
                         <i class="ph ph-download-simple"></i> Download APK Now
                     </a>
                     <div class="download-verification-notes">
-                        <span>
+                        <div class="verification-item">
                             <i class="ph ph-shield-check" style="color: #10B981;"></i> Cryptographically Signed APK
-                        </span>
-                        <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/SHA256SUMS.txt" target="_blank">
+                        </div>
+                        <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/SHA256SUMS.txt" target="_blank" class="verification-item">
                             <i class="ph ph-hash" style="font-size: 0.85rem;"></i> SHA-256 Checksums
                         </a>
                     </div>
