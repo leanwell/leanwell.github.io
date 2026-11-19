@@ -279,18 +279,14 @@
                     <span class="current">Daily</span>
                 </div>
                 <div class="nav-actions">
-                    <a href="#releases" class="chip-btn">
-                        <i class="ph ph-tag"></i> Releases
+                    <a href="#releases" class="chip-btn" title="View Releases">
+                        <i class="ph ph-tag"></i> <span class="nav-chip-text">Releases</span>
                     </a>
                 </div>
             </header>
 
             <!-- App Header & Hero -->
             <section class="daily-title-wrap">
-                <span class="section-eyebrow">
-                    <i class="ph ph-camera"></i> Retro Disposable Camera for Android
-                </span>
-                
                 <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
                     <div class="app-icon-wrap" id="dailyAppIcon" style="width: 130px; height: 130px; cursor: pointer;" title="Click for surprise">
                         <img src="daily-logo.png" alt="Daily Camera App Icon">
@@ -327,20 +323,18 @@
                             <span class="label">Requirement</span>
                             <span class="val">Android 8.0 (Oreo)+</span>
                         </div>
-                        <div class="download-meta-item">
-                            <span class="label">Architecture</span>
-                            <span class="val">Universal (ARM64 / ARMv7 / x86)</span>
-                        </div>
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;">
+                <div class="download-action-cta" style="display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;">
                     <a href="daily/daily-v1.1-beta.apk" download="daily-v1.1-beta.apk" id="primaryDownloadBtn" class="download-btn-primary" style="font-size: 1.05rem; padding: 1rem 2.2rem;">
                         <i class="ph ph-download-simple"></i> Download APK Now
                     </a>
-                    <span style="font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem;">
-                        <i class="ph ph-shield-check" style="color: #10B981;"></i> Cryptographically Signed APK
-                    </span>
+                    <div class="download-verification-notes" style="display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-start; padding-left: 0.2rem;">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.35rem;">
+                            <i class="ph ph-shield-check" style="color: #10B981;"></i> Cryptographically Signed APK
+                        </span>
+                    </div>
                 </div>
             </section>
 

@@ -46,21 +46,17 @@
                     <span class="current">Downloader</span>
                 </div>
                 <div class="nav-actions">
-                    <a href="https://github.com/leanwell/Downloader" target="_blank" class="chip-btn">
-                        <i class="ph ph-github-logo"></i> GitHub
+                    <a href="https://github.com/leanwell/Downloader" target="_blank" class="chip-btn" title="View Source on GitHub">
+                        <i class="ph ph-github-logo"></i> <span class="nav-chip-text">GitHub</span>
                     </a>
-                    <a href="#releases" class="chip-btn">
-                        <i class="ph ph-tag"></i> Releases
+                    <a href="#releases" class="chip-btn" title="View Releases">
+                        <i class="ph ph-tag"></i> <span class="nav-chip-text">Releases</span>
                     </a>
                 </div>
             </header>
 
             <!-- App Header & Hero -->
             <section class="daily-title-wrap">
-                <span class="section-eyebrow">
-                    <i class="ph ph-lightning"></i> High-Speed Engine for Android
-                </span>
-                
                 <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
                     <div class="app-icon-wrap" style="width: 130px; height: 130px; background: #FAFAFA; border: 1px solid var(--border-color);">
                         <img src="downloader-logo.png" alt="Downloader App Icon" style="object-fit: contain; padding: 10px;">
@@ -80,13 +76,9 @@
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
                         <h3 style="font-size: 1.5rem; margin: 0;">Official Release</h3>
                         <span class="status-tag neutral" id="specVersionBadge" style="margin-bottom: 0;">v1.0.0</span>
-                        <div id="deviceDetectionBadge" class="status-tag latest" style="margin-bottom: 0;">
-                            <span class="pulse-dot"></span>
-                            <span id="detectionText">Detecting architecture...</span>
-                        </div>
                     </div>
                     <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;" id="recommendationSubtitle">
-                        Signed release APK automatically matched to your device architecture.
+                        Verified production build compiled directly from the official GitHub repository.
                     </p>
                     <div class="download-meta-info">
                         <div class="download-meta-item">
@@ -101,18 +93,14 @@
                             <span class="label">Requirement</span>
                             <span class="val">Android 8.0 (Oreo)+</span>
                         </div>
-                        <div class="download-meta-item">
-                            <span class="label">Architecture</span>
-                            <span class="val" id="specArch">ARM64-v8a (64-bit ARM)</span>
-                        </div>
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;">
+                <div class="download-action-cta" style="display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;">
                     <a href="https://github.com/leanwell/Downloader/releases/download/v1.0.0/Downloader-arm64-v8a.apk" id="primaryDownloadBtn" class="download-btn-primary" style="font-size: 1.05rem; padding: 1rem 2.2rem;">
                         <i class="ph ph-download-simple"></i> Download APK Now
                     </a>
-                    <div style="display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-start; padding-left: 0.2rem;">
+                    <div class="download-verification-notes" style="display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-start; padding-left: 0.2rem;">
                         <span style="font-size: 0.8rem; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.35rem;">
                             <i class="ph ph-shield-check" style="color: #10B981;"></i> Cryptographically Signed APK
                         </span>
@@ -515,12 +503,6 @@
                     }
                 }
 
-                // Update Detection Badge
-                const badgeText = document.getElementById('detectionText');
-                if (badgeText) {
-                    badgeText.textContent = `Auto-detected: ${detectedLabel}`;
-                }
-
                 applyRecommendedArch(detectedArch);
             }
 
@@ -550,23 +532,12 @@
                     activeLink.classList.add('primary');
                 }
 
-                // Update Hero specs
-                const archNames = {
-                    'arm64-v8a': 'ARM64-v8a (64-bit ARM)',
-                    'universal': 'Universal Build (All Architectures)',
-                    'armeabi-v7a': 'ARMv7 (32-bit ARM)',
-                    'x86_64': 'x86_64 (Emulators & ChromeOS)'
-                };
-
                 const filenames = {
                     'arm64-v8a': 'Downloader-arm64-v8a.apk',
                     'universal': 'Downloader-universal.apk',
                     'armeabi-v7a': 'Downloader-armeabi-v7a.apk',
                     'x86_64': 'Downloader-x86_64.apk'
                 };
-
-                const specArch = document.getElementById('specArch');
-                if (specArch) specArch.textContent = archNames[archKey] || archKey;
 
                 const specPackage = document.getElementById('specPackage');
                 if (specPackage) specPackage.textContent = filenames[archKey] || '';

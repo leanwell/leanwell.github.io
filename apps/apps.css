@@ -733,6 +733,31 @@
         width: 100%;
         justify-content: center;
     }
+
+    .download-action-hero {
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .download-action-hero .download-action-cta {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .download-action-hero .download-btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .download-action-hero .download-verification-notes {
+        align-items: center;
+        text-align: center;
+        padding-left: 0 !important;
+        width: 100%;
+    }
 }
 
 /* ==========================================================================
@@ -1158,6 +1183,19 @@
 @media (max-width: 640px) {
     .arch-grid {
         grid-template-columns: 1fr;
+    }
+
+    .nav-actions .chip-btn {
+        padding: 0.45rem 0.65rem;
+        gap: 0;
+    }
+
+    .nav-actions .chip-btn .nav-chip-text {
+        display: none;
+    }
+
+    .nav-actions .chip-btn i {
+        font-size: 1.15rem;
     }
 }
 
